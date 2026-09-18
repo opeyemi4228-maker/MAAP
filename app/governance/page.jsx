@@ -65,7 +65,7 @@ const AmaechiPresidentialCampaign = () => {
       title: "Executive Governor of Rivers State",
       period: "2007 to 2015 • 8 Years of Transformation",
       icon: Landmark,
-      color: "bg-ember-500",
+      color: "bg-ember-700",
       achievements: [
         "Built 160 Primary Health Centres and 3 ultra modern hospitals",
         "Constructed 300+ Primary schools meeting international standards",
@@ -108,7 +108,7 @@ const AmaechiPresidentialCampaign = () => {
       title: "Director General, Presidential Campaigns",
       period: "2015 & 2019 • Architect of Change",
       icon: Target,
-      color: "bg-ember-500",
+      color: "bg-ember-700",
       achievements: [
         "Led APC to historic 2015 victory, the first time an opposition defeated a sitting president",
         "United ACN, CPC, ANPP, and nPDP into formidable APC coalition",
@@ -349,10 +349,10 @@ const AmaechiPresidentialCampaign = () => {
               return (
                 <div 
                   key={index}
-                  className="bg-white p-8 hover:shadow-e2 transition-all duration-300 border border-transparent hover:border-brand-600 group"
+                  className="bg-white p-8 transition-all duration-300 border border-ink-200 hover:border-brand-600 group"
                 >
                   <div className="flex items-start gap-6">
-                    <div className="shrink-0 w-20 h-20 bg-brand-600 flex items-center justify-center group-motion-safe:hover:-translate-y-0.5 group-hover:rotate-6 transition-all duration-300 shadow-e2">
+                    <div className="shrink-0 w-20 h-20 bg-brand-600 flex items-center justify-center group-motion-safe:hover:-translate-y-0.5 group-hover:rotate-6 transition-all duration-300">
                       <Icon size={40} className="text-white" strokeWidth={2.5} />
                     </div>
                     <div className="flex-1">
@@ -375,7 +375,7 @@ const AmaechiPresidentialCampaign = () => {
       </section>
 
       {/* Impact Metrics */}
-      <section className="section bg-white">
+      <section className="border-t border-ink-200 section bg-white">
         <div className="shell shell-wide">
           <div className="mb-14 border-t-2 border-ink-950 pt-7">
             <h2 className="text-fluid-4xl mb-6">Results That Speak</h2>
@@ -390,7 +390,7 @@ const AmaechiPresidentialCampaign = () => {
               return (
                 <div
                   key={index}
-                  className="group bg-white p-6 text-center hover:shadow-e2 transition-all duration-300 motion-safe:hover:-translate-y-0.5 border-2 border-ink-100 hover:border-ember-500"
+                  className="group bg-white p-6 text-center transition-all duration-300 motion-safe:hover:-translate-y-0.5 border-2 border-ink-100 hover:border-ember-500"
                 >
                   <Icon
                     size={32}
@@ -415,7 +415,7 @@ const AmaechiPresidentialCampaign = () => {
       </section>
 
       {/* Track Record */}
-      <section className="section bg-white">
+      <section className="border-t border-ink-200 section bg-white">
         <div className="shell shell-wide">
           <div className="mb-14 border-t-2 border-ink-950 pt-7">
             <p className="eyebrow mb-5">PROVEN LEADERSHIP</p>
@@ -433,14 +433,14 @@ const AmaechiPresidentialCampaign = () => {
               return (
                 <div 
                   key={position.id}
-                  className="bg-linear-to-r from-white to-ink-50 shadow-e2 overflow-hidden hover:shadow-e2 transition-all duration-300 border-2 border-ink-100"
+                  className="bg-white overflow-hidden transition-all duration-300 border-2 border-ink-100"
                 >
                   <button
                     onClick={() => toggleRole(position.id)}
                     className="w-full p-8 flex items-center justify-between text-left group"
                   >
                     <div className="flex items-center gap-6 flex-1">
-                      <div className={`shrink-0 w-20 h-20 ${position.color} flex items-center justify-center group-hover:rotate-12 group-motion-safe:hover:-translate-y-0.5 transition-all duration-300 shadow-e2`}>
+                      <div className={`shrink-0 w-20 h-20 ${position.color} flex items-center justify-center group-hover:rotate-12 group-motion-safe:hover:-translate-y-0.5 transition-all duration-300`}>
                         <Icon size={36} className="text-white" strokeWidth={2.5} />
                       </div>
                       <div className="flex-1">
@@ -469,7 +469,7 @@ const AmaechiPresidentialCampaign = () => {
                   {isExpanded && (
                     <div className="px-8 pb-8 border-t-2 border-ink-200">
                       <div className="pt-8">
-                        <div className="bg-linear-to-r from-brand-600 to-brand-700 text-white p-6 mb-8 shadow-e2">
+                        <div className="bg-brand-700 text-white p-6 mb-8">
                           <p className="font-bold text-xl">
                             ✓ {position.impact}
                           </p>
@@ -480,7 +480,7 @@ const AmaechiPresidentialCampaign = () => {
                           {position.achievements.map((achievement, idx) => (
                             <div 
                               key={idx}
-                              className="flex items-start gap-3 bg-white p-5 border-2 border-ink-100 hover:border-brand-600 hover:shadow-e2 transition-all duration-300"
+                              className="flex items-start gap-3 bg-white p-5 border-2 border-ink-100 hover:border-brand-600 transition-all duration-300"
                             >
                               <CheckCircle className="shrink-0 text-brand-600 mt-0.5" size={24} strokeWidth={3} />
                               <p className="text-ink-700 leading-relaxed font-medium">
@@ -500,7 +500,7 @@ const AmaechiPresidentialCampaign = () => {
       </section>
 
       {/* Leadership Principles */}
-      <section className="section bg-white">
+      <section className="border-t border-ink-200 section bg-white">
         <div className="shell shell-wide">
           <div className="mb-14 border-t-2 border-ink-950 pt-7">
             <h2 className="text-fluid-4xl mb-6">Leadership Philosophy</h2>
@@ -515,10 +515,10 @@ const AmaechiPresidentialCampaign = () => {
               return (
                 <div 
                   key={index}
-                  className="bg-white p-8 shadow-e2 hover:shadow-e2 transition-all duration-300 border border-transparent hover:border-brand-600 group"
+                  className="bg-white p-8 transition-all duration-300 border border-ink-200 hover:border-brand-600 group"
                 >
                   <div className="flex items-start gap-6">
-                    <div className="shrink-0 w-20 h-20 bg-linear-to-br from-brand-600 to-brand-700 flex items-center justify-center group-motion-safe:hover:-translate-y-0.5 transition-transform duration-300 shadow-e2">
+                    <div className="shrink-0 w-20 h-20 bg-brand-700 flex items-center justify-center group-motion-safe:hover:-translate-y-0.5 transition-transform duration-300">
                       <Icon size={36} className="text-white" strokeWidth={2.5} />
                     </div>
                     <div className="flex-1">
@@ -528,7 +528,7 @@ const AmaechiPresidentialCampaign = () => {
                       <p className="text-ink-700 leading-relaxed mb-4">
                         {principle.description}
                       </p>
-                      <div className="bg-ember-500 text-white px-4 py-3 font-bold text-sm">
+                      <div className="bg-ember-700 text-white px-4 py-3 font-bold text-sm">
                         ✓ {principle.proof}
                       </div>
                     </div>
@@ -541,7 +541,7 @@ const AmaechiPresidentialCampaign = () => {
       </section>
 
       {/* Educational Excellence */}
-      <section className="section bg-white">
+      <section className="border-t border-ink-200 section bg-white">
         <div className="shell shell-wide">
           <div className="mb-14 border-t-2 border-ink-950 pt-7">
             <p className="eyebrow mb-5">LIFELONG LEARNER</p>
@@ -554,7 +554,7 @@ const AmaechiPresidentialCampaign = () => {
           <div className="max-w-5xl mx-auto">
             <div className="relative">
               {/* Timeline line */}
-              <div className="absolute left-10 top-0 bottom-0 w-1 bg-linear-to-b from-brand-600 via-ember-500 to-brand-600 hidden md:block"></div>
+              <div className="absolute left-10 top-0 bottom-0 w-1 bg-ink-200 hidden md:block"></div>
 
               <div className="space-y-8">
                 {educationalExcellence.map((edu, index) => {
@@ -562,21 +562,21 @@ const AmaechiPresidentialCampaign = () => {
                   return (
                     <div 
                       key={index}
-                      className="relative bg-linear-to-r from-white to-ink-50 shadow-e2 p-8 md:ml-24 hover:shadow-e2 transition-all duration-300 border-2 border-ink-100 hover:border-brand-600"
+                      className="relative bg-white p-8 md:ml-24 transition-all duration-300 border-2 border-ink-100 hover:border-brand-600"
                     >
                       {/* Timeline dot */}
-                      <div className="absolute -left-14 top-10 w-10 h-10 bg-brand-600 border-4 border-white shadow-e2 hidden md:flex items-center justify-center">
+                      <div className="absolute -left-14 top-10 w-10 h-10 bg-brand-600 border-4 border-white hidden md:flex items-center justify-center">
                         <div className="w-4 h-4 bg-white"></div>
                       </div>
 
                       <div className="flex items-start gap-6">
-                        <div className="shrink-0 w-20 h-20 bg-linear-to-br from-brand-600 to-ember-500 flex items-center justify-center shadow-e2">
+                        <div className="shrink-0 w-20 h-20 bg-brand-600 flex items-center justify-center">
                           <Icon size={36} className="text-white" strokeWidth={2.5} />
                         </div>
                         <div className="flex-1">
                           <div className="flex items-start justify-between mb-3">
                             <div>
-                              <div className="bg-ember-500 text-white px-4 py-2 inline-block font-extrabold text-sm mb-3">
+                              <div className="bg-ember-700 text-white px-4 py-2 inline-block font-extrabold text-sm mb-3">
                                 {edu.year}
                               </div>
                               <h3 className="text-fluid-xl text-ink-950 mb-2">
@@ -611,7 +611,7 @@ const AmaechiPresidentialCampaign = () => {
       </section>
 
       {/* Honours & Recognition */}
-      <section className="section bg-white">
+      <section className="border-t border-ink-200 section bg-white">
         <div className="shell shell-wide">
           <div className="mb-14 border-t-2 border-ink-950 pt-7">
             <h2 className="text-fluid-4xl mb-6">Honours & Recognition</h2>
@@ -624,9 +624,9 @@ const AmaechiPresidentialCampaign = () => {
             {honours.map((honour, index) => (
               <div 
                 key={index}
-                className="bg-white p-8 shadow-e2 hover:shadow-e2 transition-all duration-300 border-2 border-ink-100 hover:border-ember-500 text-center group"
+                className="bg-white p-8 transition-all duration-300 border-2 border-ink-100 hover:border-ember-500 text-center group"
               >
-                <div className="w-16 h-16 bg-linear-to-br from-brand-600 to-ember-500 flex items-center justify-center mx-auto mb-6 group-motion-safe:hover:-translate-y-0.5 transition-transform duration-300 shadow-e2">
+                <div className="w-16 h-16 bg-brand-600 flex items-center justify-center mx-auto mb-6 group-motion-safe:hover:-translate-y-0.5 transition-transform duration-300">
                   <Award size={32} className="text-white" strokeWidth={2.5} />
                 </div>
                 <h3 className="text-xl font-extrabold text-ink-950 mb-3">
@@ -650,7 +650,7 @@ const AmaechiPresidentialCampaign = () => {
       </section>
 
       {/* Why Amaechi Section */}
-      <section className="section bg-white">
+      <section className="border-t border-ink-200 section bg-white">
         <div className="shell shell-wide">
           <div className="mb-14 border-t-2 border-ink-950 pt-7">
             <h2 className="text-fluid-4xl mb-6">Why Amaechi for President?</h2>
@@ -663,7 +663,7 @@ const AmaechiPresidentialCampaign = () => {
             {whyAmaechi.map((reason, index) => (
               <div 
                 key={index}
-                className="bg-white p-8 shadow-e2 hover:shadow-e2 transition-all duration-300 border border-transparent hover:border-brand-600"
+                className="bg-white p-8 transition-all duration-300 border border-ink-200 hover:border-brand-600"
               >
                 <h3 className="text-fluid-xl text-brand-600 mb-6">
                   {reason.title}
@@ -688,11 +688,11 @@ const AmaechiPresidentialCampaign = () => {
       </section>
 
       {/* Supreme Court Victory Highlight */}
-      <section className="section bg-linear-to-br from-ink-950 to-ink-800 text-white">
+      <section className="border-t border-ink-200 section bg-ink-950 text-white">
         <div className="shell shell-wide">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div>
-              <div className="inline-block bg-ember-500 px-6 py-3 font-extrabold text-sm tracking-widest mb-6">
+              <div className="inline-block bg-ember-700 px-6 py-3 font-extrabold text-sm tracking-widest mb-6">
                 HISTORIC VICTORY
               </div>
               <h2 className="text-fluid-4xl mb-6">
@@ -711,7 +711,7 @@ const AmaechiPresidentialCampaign = () => {
               </div>
             </div>
 
-            <div className="bg-linear-to-br from-brand-600 to-brand-700 p-8 md:p-12">
+            <div className="bg-brand-700 p-8 md:p-12">
               <h3 className="text-3xl font-extrabold mb-8">
                 Democratic Credentials
               </h3>
@@ -736,7 +736,7 @@ const AmaechiPresidentialCampaign = () => {
       </section>
 
       {/* Final Campaign CTA */}
-      <section id="join" className="bg-linear-to-br from-brand-600 via-brand-700 to-brand-600 text-white py-20 md:py-32 relative overflow-hidden">
+      <section id="join" className="border-t border-ink-200 bg-brand-700 text-white py-20 md:py-32 relative overflow-hidden">
 
         <div className="relative shell md:px-16 text-center">
           <h2 className="text-5xl md:text-7xl font-extrabold mb-8">
@@ -752,14 +752,14 @@ const AmaechiPresidentialCampaign = () => {
           <div className="flex flex-col sm:flex-row gap-6 justify-center">
             <a 
               href="volunteer" 
-              className="inline-flex items-center justify-center gap-3 bg-white text-brand-600 px-12 py-6 hover:bg-white/95 transition-all duration-300 font-extrabold text-xl tracking-wide group shadow-e2 hover:shadow-e2 motion-safe:hover:-translate-y-0.5"
+              className="inline-flex items-center justify-center gap-3 bg-white text-brand-600 px-12 py-6 hover:bg-white/95 transition-all duration-300 font-extrabold text-xl tracking-wide group motion-safe:hover:-translate-y-0.5"
             >
               VOLUNTEER NOW
               <Users size={28} className="group-motion-safe:hover:-translate-y-0.5 transition-transform duration-300" strokeWidth={3} />
             </a>
             <a 
               href="support" 
-              className="inline-flex items-center justify-center gap-3 bg-ember-500 text-white px-12 py-6 hover:bg-ember-600 transition-all duration-300 font-extrabold text-xl tracking-wide group shadow-e2 hover:shadow-e2 motion-safe:hover:-translate-y-0.5"
+              className="inline-flex items-center justify-center gap-3 bg-ember-700 text-white px-12 py-6 hover:bg-ember-800 transition-all duration-300 font-extrabold text-xl tracking-wide group motion-safe:hover:-translate-y-0.5"
             >
               DONATE TO CAMPAIGN
               <Heart size={28} strokeWidth={3} />

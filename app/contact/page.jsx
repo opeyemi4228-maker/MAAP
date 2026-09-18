@@ -60,7 +60,7 @@ export default function Contact() {
       <PageHeader
         breadcrumb="Contact"
         kicker="Reach the Secretariat"
-        title="Contact MAP"
+        title="Contact MAAP"
         lead="Enquiries about membership, positions, media and partnership, routed to the directorate responsible."
       />
 
@@ -230,12 +230,10 @@ export default function Contact() {
                 Beware of impersonation
               </h2>
               <p className="prose-body mt-3 text-[0.875rem]">
-                The accounts listed above are the movement&rsquo;s only official
-                channels. MAP does not ask members for money to register, to be
-                appointed to any office, or to keep a position. Any account,
-                page or individual demanding payment for membership or office is
-                not acting for this movement. Report it through the Complaint
-                category.
+                Those are the movement&rsquo;s only official channels. MAAP never
+                asks for money to register or to hold office. Anyone demanding
+                payment is not acting for this movement. Report it under
+                Complaint.
               </p>
             </div>
 
@@ -253,7 +251,7 @@ export default function Contact() {
       </Section>
 
       {/* -------------------------------------------------- zonal offices */}
-      <Section className="bg-ink-50">
+      <Section className="border-t border-ink-200">
         <SectionHeading
           index={2}
           eyebrow="Zonal offices"

@@ -115,8 +115,8 @@ describe("verifyTotp", () => {
 describe("otpauthUri", () => {
   it("names the issuer in both places apps read it from", () => {
     const uri = otpauthUri({ secret: "ABCDEFGH", account: "+2348031234567" });
-    assert.ok(uri.startsWith("otpauth://totp/MAP%3A%2B2348031234567?"));
-    assert.ok(uri.includes("issuer=MAP"));
+    assert.ok(uri.startsWith("otpauth://totp/MAAP%3A%2B2348031234567?"));
+    assert.ok(uri.includes("issuer=MAAP"));
     assert.ok(uri.includes("digits=6"));
     assert.ok(uri.includes("period=30"));
     assert.ok(uri.includes("algorithm=SHA1"));

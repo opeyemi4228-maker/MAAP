@@ -2,12 +2,12 @@ import Link from "next/link";
 import { ArrowRight, CircleCheck, ShieldAlert, TriangleAlert } from "lucide-react";
 
 import { requireSecretariat } from "@/lib/guard";
-import { agentElections, agentPost, ballot, ownReturn } from "@/lib/results";
+import { agentElections, agentPost, ballotFor, ownReturn } from "@/lib/results";
 import { cn } from "@/lib/utils";
 import { Card, Empty, PageTitle, Tag } from "../ui";
 import ReturnForm from "./ReturnForm";
 
-export const metadata = { title: "Election returns — MAP", robots: { index: false, follow: false } };
+export const metadata = { title: "Election returns — MAAP", robots: { index: false, follow: false } };
 export const dynamic = "force-dynamic";
 
 const TYPE_LABEL = {
@@ -105,10 +105,14 @@ export default async function ElectionPage({ searchParams }) {
     elections.find((election) => !election.filed) ??
     elections[0];
 
-  const [parties, existing] = await Promise.all([
-    ballot(),
+  /* The ballot is resolved from this booth's ward, so a governorship or
+     senatorial form lists the parties actually standing here rather than every
+     party in the country. */
+  const [paper, existing] = await Promise.all([
+    ballotFor(chosen.id, post.wardId),
     ownReturn(post.pollingUnitId, chosen.id),
   ]);
+  const parties = paper.parties;
 
   const outstanding = elections.filter((election) => !election.filed).length;
 

@@ -8,7 +8,7 @@ import { currentMember } from "@/lib/session";
 import { cardData, cardFilename, inlineCardSvg } from "@/lib/idcard";
 
 export const metadata = {
-  title: "Your membership card — MAP",
+  title: "Your membership card — MAAP",
   robots: { index: false, follow: false },
 };
 

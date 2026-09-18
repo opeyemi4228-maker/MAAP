@@ -11,9 +11,9 @@ export const dynamic = "force-dynamic";
  * The masthead is a client component inside the root layout, and the root
  * layout is shared by every page on the site. Reading the session there would
  * mean reading a cookie in the layout, which opts *every* marketing page out
- * of static rendering — the homepage, the newsroom and the gallery would each
- * go to the database before the first byte, to answer a question that changes
- * nothing about what they say.
+ * of static rendering — the homepage, the newsroom and the media page would
+ * each go to the database before the first byte, to answer a question that
+ * changes nothing about what they say.
  *
  * So the chrome asks separately, once, and caches the answer for the tab. The
  * pages stay static; the masthead still knows your name.

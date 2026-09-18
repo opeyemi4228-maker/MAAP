@@ -39,9 +39,9 @@ export default function Sidebar({
   return (
     <div className="flex h-full flex-col bg-white">
       <Link href="/" className="flex items-center gap-3 px-6 pt-7 pb-6">
-        <Image src={assets.mapMark} alt="" sizes="40px" className="h-9 w-auto object-contain" />
+        <Image src={assets.maapMark} alt="" sizes="40px" className="h-9 w-auto object-contain" />
         <span className="font-display text-base font-extrabold tracking-[-0.02em] text-ink-950">
-          MAP
+          MAAP
         </span>
         <span className="ml-auto text-[0.5625rem] font-bold tracking-[0.14em] text-ink-500 uppercase">
           Secretariat

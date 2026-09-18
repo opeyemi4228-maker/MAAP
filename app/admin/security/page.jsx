@@ -3,7 +3,7 @@ import { mfaRequired, mfaState } from "@/lib/mfa";
 import { PageTitle } from "../ui";
 import MfaPanel from "./MfaPanel";
 
-export const metadata = { title: "Security — MAP Secretariat", robots: { index: false, follow: false } };
+export const metadata = { title: "Security — MAAP Secretariat", robots: { index: false, follow: false } };
 export const dynamic = "force-dynamic";
 
 /**

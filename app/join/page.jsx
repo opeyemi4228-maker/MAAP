@@ -171,7 +171,7 @@ export default function Join() {
     return (
       <>
         <PageHeader
-          breadcrumb="Join MAP"
+          breadcrumb="Join MAAP"
           kicker="Welcome to the movement"
           title="You're registered"
           lead="Your membership number is issued and permanent. Keep it, because it identifies you everywhere in the movement."
@@ -232,13 +232,13 @@ export default function Join() {
   return (
     <>
       <PageHeader
-        breadcrumb="Join MAP"
+        breadcrumb="Join MAAP"
         kicker="Membership is free"
         title="Join the movement"
-        lead="Three short steps, under two minutes. MAP never asks for payment to register or to hold office."
+        lead="Three short steps, under two minutes. MAAP never asks for payment to register or to hold office."
       />
 
-      <section className="section bg-white">
+      <section className="border-t border-ink-200 section bg-white">
         {/* Two columns, not one 52rem trench. A three-field step set across the
             full text measure gives an 832px-wide box to type a name into, with
             an empty page around it. The form now sits at a proper form measure
@@ -623,7 +623,7 @@ export default function Join() {
                 aria-hidden="true"
               />
               <span>
-                Membership is free. MAP never asks for payment to register, to be
+                Membership is free. MAAP never asks for payment to register, to be
                 appointed to any office, or to keep one.
               </span>
             </p>
@@ -653,7 +653,7 @@ function useReferrer(input) {
 
   const code = String(input ?? "")
     .toUpperCase()
-    .replace(/^MAP[-\s]*/, "")
+    .replace(/^(?:MAAP|MAP)[-\s]*/, "")
     .replace(/[^A-Z0-9]/g, "");
 
   useEffect(() => {

@@ -37,9 +37,9 @@ export default function Structure() {
     <>
       <PageHeader
         breadcrumb="Structure"
-        kicker="How MAP is organised"
+        kicker="How MAAP is organised"
         title="Five tiers, one register"
-        lead="MAP is not a mailing list. It is a chain of accountable offices running from the National Executive down to every ward in Nigeria, and every seat in it is either filled by a named officer or openly vacant."
+        lead="Not a mailing list. A chain of accountable offices, from the National Executive to every ward in Nigeria. Every seat is filled by a named officer, or openly vacant."
       >
         <div className="flex flex-wrap gap-3">
           <JoinCta label="Register as a member" variant="inverse" size="lg" />
@@ -55,7 +55,7 @@ export default function Structure() {
           index={1}
           eyebrow="The scale of it"
           title="92,190 seats, and every one of them accounted for"
-          lead="Each office at each level exists as a distinct seat in the register from the day the structure is created, whether or not anyone holds it yet. That is what makes a vacancy something you can see, rather than something you have to hear about."
+          lead="Every office is a seat in the register from the day the structure is created, held or not. A vacancy is something you can see, not something you hear about."
         />
 
         <div className="mt-14 overflow-x-auto">
@@ -123,14 +123,14 @@ export default function Structure() {
       </Section>
 
       {/* ------------------------------------------------------------ tiers */}
-      <Section className="bg-ink-50">
+      <Section className="border-t border-ink-200">
         <SectionHeading
           index={2}
           eyebrow="Tier by tier"
           title="From the National Executive to your ward"
         />
 
-        <ol className="mt-14 space-y-px">
+        <ol className="mt-14 space-y-px bg-ink-200">
           {tiers.map((tier) => (
             <Reveal as="li" key={tier.key} delay={tier.rank * 50}>
               <article className="grid gap-6 bg-white p-6 md:grid-cols-[7rem_1fr_auto] md:items-center md:gap-10 md:p-8">
@@ -175,12 +175,12 @@ export default function Structure() {
       </Section>
 
       {/* -------------------------------------------------------- offices */}
-      <Section className="bg-white">
+      <Section className="border-t border-ink-200 bg-white">
         <SectionHeading
           index={3}
           eyebrow="The offices"
           title="Who holds what, at every level"
-          lead="The National Executive carries fifteen offices. Below it, the same executive of five repeats in every zone, every state and every Local Government Area, so a member in Sokoto and a member in Bayelsa are organising inside the identical structure."
+          lead="The National Executive carries fifteen offices. Below it, the same executive of five repeats in every zone, state and LGA. Sokoto and Bayelsa organise inside the identical structure."
         />
 
         <div className="mt-14">
@@ -381,7 +381,7 @@ export default function Structure() {
           index={5}
           eyebrow="How appointments work"
           title="Every seat is filled by exactly one office"
-          lead="Office in MAP is given, not requested. Nobody applies for a seat. Each one is filled by the single named officer the structure puts above it, appointing from the members registered in that territory, and the appointment is recorded permanently against the name of the officer who made it."
+          lead="Office is given, not requested. Each seat is filled by the one named officer above it, choosing from members registered in that territory. Every appointment is recorded against the name of the officer who made it."
         />
 
         <div className="mt-14 overflow-x-auto">

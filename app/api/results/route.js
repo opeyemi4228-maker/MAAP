@@ -1,9 +1,10 @@
-import { NextResponse } from "next/server";
+import { NextResponse, after } from "next/server";
 
 import { currentMember } from "@/lib/session";
-import { agentPost, ballot, fileReturn, validateReturn } from "@/lib/results";
+import { agentPost, ballotFor, fileReturn, validateReturn } from "@/lib/results";
 import { prisma } from "@/lib/db";
 import { callerKey, limitShared, tooMany } from "@/lib/ratelimit";
+import { forwardReturn } from "@/lib/databank";
 
 export const runtime = "nodejs";
 
@@ -80,7 +81,11 @@ export async function POST(request) {
     return raw === "" ? null : Number(raw);
   };
 
-  const parties = await ballot();
+  /* The ballot is resolved from the booth, not from the form. A figure posted
+     against a party that is not on the paper at this polling unit is dropped
+     rather than stored — the same principle as the polling unit itself: what
+     the return is *about* is never taken from the request. */
+  const { parties } = await ballotFor(electionId, post.wardId);
   const votes = {};
   for (const party of parties) votes[party.id] = number(`party_${party.id}`) ?? 0;
 
@@ -148,6 +153,21 @@ export async function POST(request) {
       },
       sheet,
     });
+
+    /*
+     * ── AND A COPY GOES TO THE HUB ───────────────────────────────────────
+     * Data Bank is the record of what arrived and when; this application is
+     * the record of what the number is. Both need the photograph, and the two
+     * are on different databases, so the sheet travels through Data Bank's
+     * intake door over the network. See lib/databank.js.
+     *
+     * `after()` runs it once this response is on its way, so a hub that is
+     * slow, down or not deployed costs the agent nothing — they are standing
+     * outside a polling unit at nine in the evening, and the return in front
+     * of them is already committed. Forwarding is a copy; a copy that fails is
+     * a copy to retry, never a return to reject.
+     */
+    after(() => forwardReturn(result.id));
 
     return NextResponse.json({
       id: String(result.id),

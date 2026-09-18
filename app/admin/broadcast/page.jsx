@@ -12,7 +12,7 @@ import Composer from "./Composer";
 export const dynamic = "force-dynamic";
 
 export const metadata = {
-  title: "Broadcast — MAP Secretariat",
+  title: "Broadcast — MAAP Secretariat",
   robots: { index: false, follow: false },
 };
 

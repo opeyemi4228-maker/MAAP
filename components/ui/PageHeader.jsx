@@ -18,6 +18,10 @@ export default function PageHeader({
   title,
   lead,
   image,
+  /* Where the photograph is anchored. Top suits a portrait, whose face is near
+     the top of the frame; a landscape shot at mid-height needs pulling down or
+     the band shows nothing but headwear. A literal class, so Tailwind sees it. */
+  imagePosition = "object-[center_top]",
   breadcrumb,
   align = "left",
   children,
@@ -41,7 +45,7 @@ export default function PageHeader({
             fill
             priority
             sizes="100vw"
-            className="object-cover object-[center_top] opacity-75"
+            className={cn("object-cover opacity-75", imagePosition)}
           />
           {/* Scrim weighted to the left, where the copy sits, so the subject
               on the right stays legible instead of being crushed to black. */}

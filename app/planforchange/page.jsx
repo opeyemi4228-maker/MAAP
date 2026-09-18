@@ -26,7 +26,7 @@ const AmaechiPlanForChange = () => {
       icon: Rocket,
       title: "Execution Excellence",
       description: "1,763+ KM rail delivered when others only talked. 300+ schools built. 160 health centers constructed. Results, not rhetoric.",
-      color: "bg-ember-500",
+      color: "bg-ember-700",
       proof: "Warri to Itakpe completed after 30 years"
     },
     {
@@ -40,7 +40,7 @@ const AmaechiPlanForChange = () => {
       icon: Target,
       title: "Strategic Vision",
       description: "Led APC to historic 2015 victory. Transformed Rivers State. Revolutionized national transportation. Vision backed by execution.",
-      color: "bg-ember-500",
+      color: "bg-ember-700",
       proof: "First opposition to defeat sitting president"
     },
     {
@@ -54,7 +54,7 @@ const AmaechiPlanForChange = () => {
       icon: Globe,
       title: "Global Standards",
       description: "King's College London LLM. International rail projects. Standard gauge infrastructure. Nigeria competing globally.",
-      color: "bg-ember-500",
+      color: "bg-ember-700",
       proof: "Master of Law, King's College London"
     }
   ];
@@ -92,7 +92,7 @@ const AmaechiPlanForChange = () => {
           timeline: "Years 1 to 4"
         }
       ],
-      color: "from-brand-600 to-brand-700"
+      color: "bg-brand-700"
     },
     {
       icon: GraduationCap,
@@ -126,7 +126,7 @@ const AmaechiPlanForChange = () => {
           timeline: "Year 2-4"
         }
       ],
-      color: "from-ember-500 to-ember-600"
+      color: "bg-ember-700"
     },
     {
       icon: Stethoscope,
@@ -160,7 +160,7 @@ const AmaechiPlanForChange = () => {
           timeline: "Years 1 to 4"
         }
       ],
-      color: "from-brand-600 to-brand-700"
+      color: "bg-brand-700"
     },
     {
       icon: Briefcase,
@@ -194,7 +194,7 @@ const AmaechiPlanForChange = () => {
           timeline: "Years 1 to 4"
         }
       ],
-      color: "from-ember-500 to-ember-600"
+      color: "bg-ember-700"
     },
     {
       icon: Shield,
@@ -228,7 +228,7 @@ const AmaechiPlanForChange = () => {
           timeline: "Years 1 to 4"
         }
       ],
-      color: "from-brand-600 to-brand-700"
+      color: "bg-brand-700"
     },
     {
       icon: Leaf,
@@ -262,7 +262,7 @@ const AmaechiPlanForChange = () => {
           timeline: "Year 2-4"
         }
       ],
-      color: "from-ember-500 to-ember-600"
+      color: "bg-ember-700"
     }
   ];
 
@@ -462,9 +462,9 @@ const AmaechiPlanForChange = () => {
               return (
                 <div 
                   key={index}
-                  className="bg-white p-8 hover:shadow-e2 transition-all duration-300 border border-transparent hover:border-brand-600"
+                  className="bg-white p-8 transition-all duration-300 border border-ink-200 hover:border-brand-600"
                 >
-                  <div className={`w-16 h-16 ${value.color} flex items-center justify-center mb-6 shadow-e2`}>
+                  <div className={`w-16 h-16 ${value.color} flex items-center justify-center mb-6`}>
                     <Icon size={32} className="text-white" strokeWidth={2.5} />
                   </div>
                   <h3 className="text-fluid-xl text-ink-950 mb-3">
@@ -473,7 +473,7 @@ const AmaechiPlanForChange = () => {
                   <p className="text-ink-700 leading-relaxed mb-4">
                     {value.description}
                   </p>
-                  <div className="bg-ember-500 text-white px-4 py-2 text-sm font-bold inline-block">
+                  <div className="bg-ember-700 text-white px-4 py-2 text-sm font-bold inline-block">
                     ✓ {value.proof}
                   </div>
                 </div>
@@ -484,7 +484,7 @@ const AmaechiPlanForChange = () => {
       </section>
 
       {/* National Targets with Current Progress */}
-      <section className="section bg-white">
+      <section className="border-t border-ink-200 section bg-white">
         <div className="shell shell-wide">
           <div className="mb-14 border-t-2 border-ink-950 pt-7">
             <h2 className="text-fluid-4xl mb-6">National Targets, Built on Success</h2>
@@ -499,10 +499,10 @@ const AmaechiPlanForChange = () => {
               return (
                 <div 
                   key={index}
-                  className="bg-white p-8 shadow-e2 hover:shadow-e2 transition-all duration-300 border-l-4 border-brand-600 motion-safe:hover:-translate-y-0.5"
+                  className="bg-white p-8 transition-all duration-300 border-l-4 border-brand-600 motion-safe:hover:-translate-y-0.5"
                 >
                   <div className="flex items-center gap-4 mb-6">
-                    <div className="w-16 h-16 bg-linear-to-br from-brand-600 to-brand-700 flex items-center justify-center shadow-e2">
+                    <div className="w-16 h-16 bg-brand-700 flex items-center justify-center">
                       <Icon size={32} className="text-white" strokeWidth={2.5} />
                     </div>
                     <div>
@@ -519,7 +519,7 @@ const AmaechiPlanForChange = () => {
                       {item.current}
                     </p>
                   </div>
-                  <div className="bg-ember-500 text-white px-4 py-2 text-sm font-bold">
+                  <div className="bg-ember-700 text-white px-4 py-2 text-sm font-bold">
                     ✓ {item.achievement}
                   </div>
                 </div>
@@ -530,7 +530,7 @@ const AmaechiPlanForChange = () => {
       </section>
 
       {/* Six Pillars - Interactive */}
-      <section id="pillars" className="section bg-white">
+      <section id="pillars" className="border-t border-ink-200 section bg-white">
         <div className="shell shell-wide">
           <div className="mb-14 border-t-2 border-ink-950 pt-7">
             <p className="eyebrow mb-5">THE AMAECHI AGENDA</p>
@@ -550,7 +550,7 @@ const AmaechiPlanForChange = () => {
                   onClick={() => setActivePillar(index)}
                   className={`flex items-center gap-3 px-6 py-4 font-bold text-sm md:text-base transition-all duration-300 ${
                     activePillar === index
-                      ? 'bg-linear-to-r from-brand-600 to-brand-700 text-white shadow-e2 '
+                      ? 'bg-brand-700 text-white '
                       : 'bg-ink-100 text-ink-700 hover:bg-ink-200'
                   }`}
                 >
@@ -562,8 +562,8 @@ const AmaechiPlanForChange = () => {
           </div>
 
           {/* Active Pillar Content */}
-          <div className="bg-linear-to-br from-ink-950 to-ink-800 overflow-hidden shadow-e2">
-            <div className={`bg-linear-to-r ${keyPillars[activePillar].color} p-8 md:p-12`}>
+          <div className="bg-ink-950 overflow-hidden">
+            <div className={`${keyPillars[activePillar].color} p-8 md:p-12`}>
               <div className="flex items-start gap-6 mb-6">
                 {React.createElement(keyPillars[activePillar].icon, {
                   size: 56,
@@ -613,7 +613,7 @@ const AmaechiPlanForChange = () => {
                         {initiative.impact}
                       </p>
                     </div>
-                    <div className="bg-ember-500 text-white px-4 py-2 text-sm font-bold inline-block">
+                    <div className="bg-ember-700 text-white px-4 py-2 text-sm font-bold inline-block">
                       Timeline: {initiative.timeline}
                     </div>
                   </div>
@@ -625,7 +625,7 @@ const AmaechiPlanForChange = () => {
       </section>
 
       {/* Implementation Timeline */}
-      <section className="section bg-white">
+      <section className="border-t border-ink-200 section bg-white">
         <div className="shell shell-wide">
           <div className="mb-14 border-t-2 border-ink-950 pt-7">
             <h2 className="text-fluid-4xl mb-6">Four Year Implementation Plan</h2>
@@ -640,10 +640,10 @@ const AmaechiPlanForChange = () => {
               return (
                 <div 
                   key={index}
-                  className="bg-white shadow-e2 p-8 md:p-12 hover:shadow-e2 transition-all duration-300 border-2 border-ink-100"
+                  className="bg-white p-8 md:p-12 transition-all duration-300 border-2 border-ink-100"
                 >
                   <div className="flex items-start gap-6 mb-8">
-                    <div className="shrink-0 w-20 h-20 bg-linear-to-br from-brand-600 to-ember-500 flex items-center justify-center text-white text-3xl font-extrabold shadow-e2">
+                    <div className="shrink-0 w-20 h-20 bg-brand-600 flex items-center justify-center text-white text-3xl font-extrabold">
                       <Icon size={40} strokeWidth={2.5} />
                     </div>
                     <div className="flex-1">
@@ -653,7 +653,7 @@ const AmaechiPlanForChange = () => {
                       <p className="text-brand-600 font-bold text-xl mb-3">
                         {phase.period}
                       </p>
-                      <div className="bg-linear-to-r from-ember-500 to-ember-600 text-white px-6 py-3 inline-block">
+                      <div className="bg-ember-700 text-white px-6 py-3 inline-block">
                         <p className="font-bold">FOCUS: {phase.focus}</p>
                       </div>
                     </div>
@@ -683,7 +683,7 @@ const AmaechiPlanForChange = () => {
       </section>
 
       {/* Proven Leadership Track Record */}
-      <section id="track-record" className="section bg-white">
+      <section id="track-record" className="border-t border-ink-200 section bg-white">
         <div className="shell shell-wide">
           <div className="mb-14 border-t-2 border-ink-950 pt-7">
             <p className="eyebrow mb-5">EXPERIENCE MATTERS</p>
@@ -697,10 +697,10 @@ const AmaechiPlanForChange = () => {
             {provenLeadership.map((record, index) => (
               <div 
                 key={index}
-                className="bg-white p-8 shadow-e2 hover:shadow-e2 transition-all duration-300 border border-transparent hover:border-brand-600"
+                className="bg-white p-8 transition-all duration-300 border border-ink-200 hover:border-brand-600"
               >
                 <div className="text-center mb-6">
-                  <div className="w-20 h-20 bg-linear-to-br from-brand-600 to-ember-500 flex items-center justify-center mx-auto mb-4 shadow-e2">
+                  <div className="w-20 h-20 bg-brand-600 flex items-center justify-center mx-auto mb-4">
                     <Award size={40} className="text-white" strokeWidth={2.5} />
                   </div>
                   <h3 className="text-fluid-xl text-ink-950 mb-2">
@@ -728,9 +728,9 @@ const AmaechiPlanForChange = () => {
       </section>
 
       {/* Accountability Framework */}
-      <section className="section bg-white">
+      <section className="border-t border-ink-200 section bg-white">
         <div className="shell shell-wide">
-          <div className="bg-linear-to-br from-brand-600 to-brand-700 p-8 md:p-12 lg:p-16 text-white shadow-e2">
+          <div className="bg-brand-700 p-8 md:p-12 lg:p-16 text-white">
             <div className="mb-12 border-t-2 border-ink-950 pt-7">
               <h2 className="text-fluid-4xl mb-6">Accountability Framework</h2>
               <p className="text-xl text-white/90 max-w-3xl mx-auto">
@@ -746,7 +746,7 @@ const AmaechiPlanForChange = () => {
                     key={index}
                     className="bg-white/10 backdrop-blur-sm p-8 hover:bg-white/20 transition-all duration-300 border-2 border-white/20"
                   >
-                    <div className="w-16 h-16 bg-ember-500 flex items-center justify-center mb-6 shadow-e2">
+                    <div className="w-16 h-16 bg-ember-700 flex items-center justify-center mb-6">
                       <Icon size={32} className="text-white" strokeWidth={2.5} />
                     </div>
                     <h3 className="text-fluid-xl mb-3">
@@ -769,7 +769,7 @@ const AmaechiPlanForChange = () => {
       </section>
 
       {/* Final CTA */}
-      <section className="bg-linear-to-br from-ink-950 to-ink-800 text-white py-20 md:py-32">
+      <section className="border-t border-ink-200 bg-ink-950 text-white py-20 md:py-32">
         <div className="shell md:px-16 text-center">
           <div className="mb-12">
             <div className="flex justify-center gap-4 mb-8">
@@ -802,14 +802,14 @@ const AmaechiPlanForChange = () => {
           <div className="flex flex-col sm:flex-row gap-6 justify-center">
             <a 
               href="#join" 
-              className="inline-flex items-center justify-center gap-3 bg-brand-600 text-white px-12 py-6 hover:bg-brand-700 transition-all duration-300 font-extrabold text-xl tracking-wide group shadow-e2 hover:shadow-e2 motion-safe:hover:-translate-y-0.5"
+              className="inline-flex items-center justify-center gap-3 bg-brand-600 text-white px-12 py-6 hover:bg-brand-700 transition-all duration-300 font-extrabold text-xl tracking-wide group motion-safe:hover:-translate-y-0.5"
             >
               JOIN THE MOVEMENT
               <Users size={28} strokeWidth={3} />
             </a>
             <a 
               href="#support" 
-              className="inline-flex items-center justify-center gap-3 bg-ember-500 text-white px-12 py-6 hover:bg-ember-600 transition-all duration-300 font-extrabold text-xl tracking-wide group shadow-e2 hover:shadow-e2 motion-safe:hover:-translate-y-0.5"
+              className="inline-flex items-center justify-center gap-3 bg-ember-700 text-white px-12 py-6 hover:bg-ember-800 transition-all duration-300 font-extrabold text-xl tracking-wide group motion-safe:hover:-translate-y-0.5"
             >
               SUPPORT THE AGENDA
               <Heart size={28} strokeWidth={3} />

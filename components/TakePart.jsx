@@ -19,7 +19,7 @@ export default function TakePart() {
   const cards = [
     join,
     {
-      href: "/activities",
+      href: "/media#activities",
       title: "Turn up",
       body: "Congresses, rallies and registration drives, listed by zone and state.",
     },

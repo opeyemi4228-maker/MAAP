@@ -23,7 +23,7 @@ const AmaechiNews = () => {
     const isFeatured = size === "featured";
 
     return (
-      <article className={`bg-white overflow-hidden shadow-e2 hover:shadow-e2 transition-all duration-300 ${isFeatured ? 'lg:col-span-2' : ''} group`}>
+      <article className={`bg-white overflow-hidden transition-all duration-300 ${isFeatured ? 'lg:col-span-2' : ''} group`}>
         {/* Image */}
         <div className="relative h-64 md:h-80 lg:h-96 overflow-hidden">
           <div className="absolute inset-0 bg-linear-to-t from-black/60 to-transparent z-10"></div>
@@ -36,7 +36,7 @@ const AmaechiNews = () => {
           
           {/* Category Badge */}
           <div className="absolute top-4 left-4 z-20">
-            <span className="bg-brand-600 text-white px-4 py-2 text-xs font-extrabold tracking-wider shadow-e2">
+            <span className="bg-brand-600 text-white px-4 py-2 text-xs font-extrabold tracking-wider">
               {article.category.toUpperCase()}
             </span>
           </div>
@@ -44,7 +44,7 @@ const AmaechiNews = () => {
           {/* Featured Badge */}
           {article.featured && (
             <div className="absolute top-4 right-4 z-20">
-              <span className="bg-ember-500 text-white px-4 py-2 text-xs font-extrabold tracking-wider shadow-e2 flex items-center gap-2">
+              <span className="bg-ember-700 text-white px-4 py-2 text-xs font-extrabold tracking-wider flex items-center gap-2">
                 <TrendingUp size={14} strokeWidth={3} />
                 BREAKING
               </span>
@@ -150,7 +150,7 @@ const AmaechiNews = () => {
               <button className="w-10 h-10 bg-ink-100 hover:bg-brand-600 flex items-center justify-center transition-colors group/btn" aria-label="Share">
                 <Share2 size={18} className="text-ink-600 group-hover/btn:text-white" />
               </button>
-              <button className="w-10 h-10 bg-ink-100 hover:bg-ember-500 flex items-center justify-center transition-colors group/btn" aria-label="Bookmark">
+              <button className="w-10 h-10 bg-ink-100 hover:bg-ember-700 flex items-center justify-center transition-colors group/btn" aria-label="Bookmark">
                 <Bookmark size={18} className="text-ink-600 group-hover/btn:text-white" />
               </button>
             </div>
@@ -198,7 +198,7 @@ const AmaechiNews = () => {
                     onClick={() => setSelectedCategory(cat.id)}
                     className={`inline-flex items-center gap-2 px-4 py-2 font-bold text-sm transition-all duration-300 ${
                       selectedCategory === cat.id
-                        ? 'bg-brand-600 text-white shadow-e2 '
+                        ? 'bg-brand-600 text-white '
                         : 'bg-white text-ink-700 hover:bg-ink-100'
                     }`}
                   >
@@ -213,7 +213,7 @@ const AmaechiNews = () => {
       </section>
 
       {/* Breaking News Alert */}
-      <section className="bg-ember-500 text-white py-4">
+      <section className="bg-ember-700 text-white py-4">
         <div className="shell shell-wide">
           <div className="flex items-center gap-4">
             <div className="flex items-center gap-2 shrink-0">
@@ -250,7 +250,7 @@ const AmaechiNews = () => {
       </section>
 
       {/* Recent News */}
-      <section className="section bg-white">
+      <section className="border-t border-ink-200 section bg-white">
         <div className="shell shell-wide">
           <div className="mb-12">
             <div className="flex items-center gap-3 mb-4">
@@ -271,9 +271,9 @@ const AmaechiNews = () => {
       </section>
 
       {/* Newsletter Signup */}
-      <section className="section bg-white">
+      <section className="border-t border-ink-200 section bg-white">
         <div className="max-w-5xl mx-auto px-6 md:px-16 lg:px-24">
-          <div className="bg-linear-to-br from-brand-600 to-brand-700 p-12 md:p-16 text-white text-center shadow-e2">
+          <div className="bg-brand-700 p-12 md:p-16 text-white text-center">
             <Megaphone size={64} className="mx-auto mb-8 text-ember-500" strokeWidth={1.5} />
             <h2 className="text-fluid-4xl mb-6">
               Stay Informed
@@ -289,7 +289,7 @@ const AmaechiNews = () => {
               />
               <button 
                 type="submit"
-                className="bg-ember-500 text-white px-10 py-4 font-bold hover:bg-ember-600 transition-all duration-300 shadow-e2 hover:shadow-e2 flex items-center justify-center gap-2"
+                className="bg-ember-700 text-white px-10 py-4 font-bold hover:bg-ember-800 transition-all duration-300 flex items-center justify-center gap-2"
               >
                 Subscribe
                 <ArrowRight size={20} strokeWidth={3} />
@@ -303,7 +303,7 @@ const AmaechiNews = () => {
       </section>
 
       {/* Media Contact */}
-      <section className="section bg-white">
+      <section className="border-t border-ink-200 section bg-white">
         <div className="shell shell-wide">
           <div className="grid md:grid-cols-2 gap-12">
             <div>
@@ -323,7 +323,7 @@ const AmaechiNews = () => {
               </div>
             </div>
 
-            <div className="bg-white p-8 shadow-e2 border border-ink-200">
+            <div className="bg-white p-8 border border-ink-200">
               <h3 className="text-fluid-xl mb-6">Follow the Campaign</h3>
               <div className="grid grid-cols-2 gap-4">
                 {[
@@ -352,7 +352,7 @@ const AmaechiNews = () => {
       </section>
 
       {/* Final CTA */}
-      <section className="bg-linear-to-br from-brand-600 via-brand-700 to-brand-600 text-white py-20 md:py-32">
+      <section className="border-t border-ink-200 bg-brand-700 text-white py-20 md:py-32">
         <div className="shell md:px-16 text-center">
           <h2 className="text-5xl md:text-7xl font-extrabold mb-8">
             BE PART OF THE STORY
@@ -363,14 +363,14 @@ const AmaechiNews = () => {
           <div className="flex flex-col sm:flex-row gap-6 justify-center">
             <a 
               href="/volunteer" 
-              className="inline-flex items-center justify-center gap-3 bg-white text-brand-600 px-12 py-6 hover:bg-white/95 transition-all duration-300 font-extrabold text-xl tracking-wide group shadow-e2 hover:shadow-e2 motion-safe:hover:-translate-y-0.5"
+              className="inline-flex items-center justify-center gap-3 bg-white text-brand-600 px-12 py-6 hover:bg-white/95 transition-all duration-300 font-extrabold text-xl tracking-wide group motion-safe:hover:-translate-y-0.5"
             >
               <Users size={28} strokeWidth={3} />
               VOLUNTEER NOW
             </a>
             <a 
               href="/connect" 
-              className="inline-flex items-center justify-center gap-3 bg-ember-500 text-white px-12 py-6 hover:bg-ember-600 transition-all duration-300 font-extrabold text-xl tracking-wide group shadow-e2 hover:shadow-e2 motion-safe:hover:-translate-y-0.5"
+              className="inline-flex items-center justify-center gap-3 bg-ember-700 text-white px-12 py-6 hover:bg-ember-800 transition-all duration-300 font-extrabold text-xl tracking-wide group motion-safe:hover:-translate-y-0.5"
             >
               <MessageCircle size={28} strokeWidth={3} />
               GET IN TOUCH

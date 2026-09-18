@@ -10,7 +10,7 @@ import { clearViewerCache } from "@/lib/useViewer";
  * viewer. Signing out from the dashboard or the portal destroyed the session
  * cookie correctly — the server was never confused — but left the member's
  * name and face in sessionStorage, so the masthead on the next page still
- * greeted them and still hid "Join MAP". It looked like a half-completed sign
+ * greeted them and still hid "Join MAAP". It looked like a half-completed sign
  * out, and to the person doing it that is indistinguishable from a broken one.
  *
  * One component now, used by all four, so a fifth cannot forget.

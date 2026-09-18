@@ -69,18 +69,26 @@
   --color-gold-600: oklch(66% 0.12 80);
   --color-gold-700: oklch(55% 0.1 80);
 
-  /* ---- Ink: warm neutrals, never a cold grey ------------------- */
-  --color-ink-50: oklch(97.6% 0.004 85);
-  --color-ink-100: oklch(95% 0.006 85);
-  --color-ink-200: oklch(90.5% 0.008 85);
-  --color-ink-300: oklch(83% 0.01 85);
-  --color-ink-400: oklch(68% 0.012 85);
-  --color-ink-500: oklch(55% 0.012 85);
-  --color-ink-600: oklch(44% 0.011 85);
-  --color-ink-700: oklch(34% 0.01 85);
-  --color-ink-800: oklch(25% 0.009 85);
-  --color-ink-900: oklch(17% 0.007 85);
-  --color-ink-950: oklch(11% 0.005 85);
+  /* ---- Ink: true neutrals -------------------------------------- */
+  /* These carried a warm cast (chroma .004–.012 at hue 85) that read as
+     brown rather than as grey. At the light end especially, ink-50 was a
+     cream tint, and a page banded in it looked beige next to the white
+     sections above and below it — the "brownish white" this palette is
+     explicitly meant not to have. Chroma is 0 now, so a grey is a grey, and
+     white next to ink-50 reads as two steps of the same neutral rather than
+     as two different papers. Hue is kept at 85 so any future reintroduction
+     of warmth has somewhere to go. */
+  --color-ink-50: oklch(97.6% 0 85);
+  --color-ink-100: oklch(95% 0 85);
+  --color-ink-200: oklch(90.5% 0 85);
+  --color-ink-300: oklch(83% 0 85);
+  --color-ink-400: oklch(68% 0 85);
+  --color-ink-500: oklch(55% 0 85);
+  --color-ink-600: oklch(44% 0 85);
+  --color-ink-700: oklch(34% 0 85);
+  --color-ink-800: oklch(25% 0 85);
+  --color-ink-900: oklch(17% 0 85);
+  --color-ink-950: oklch(11% 0 85);
 
   /* Newsprint: the page tone. A warm paper cast rather than #fff,
      so photography and flat colour both sit on it comfortably. */
@@ -178,10 +186,11 @@
 
 .dark {
   --canvas: var(--color-ink-950);
-  --surface: oklch(15% 0.006 85);
-  --surface-raised: oklch(19% 0.007 85);
-  --hairline: oklch(28% 0.008 85);
-  --rule-color: oklch(88% 0.006 85);
+  /* Neutral, in step with the ink ramp above. */
+  --surface: oklch(15% 0 85);
+  --surface-raised: oklch(19% 0 85);
+  --hairline: oklch(28% 0 85);
+  --rule-color: oklch(88% 0 85);
   --content: var(--color-ink-50);
   --content-muted: var(--color-ink-300);
   --content-subtle: var(--color-ink-400);

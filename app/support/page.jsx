@@ -26,7 +26,7 @@ const AmaechiSupport = () => {
       icon: Megaphone,
       title: "Media & Communications",
       description: "Support TV/radio ads, social media campaigns, and voter education materials",
-      color: "bg-ember-500"
+      color: "bg-ember-700"
     },
     {
       id: "infrastructure",
@@ -159,10 +159,10 @@ const AmaechiSupport = () => {
               return (
                 <div 
                   key={index}
-                  className="bg-white p-8 hover:shadow-e2 transition-all duration-300 border border-transparent hover:border-brand-600"
+                  className="bg-white p-8 transition-all duration-300 border border-ink-200 hover:border-brand-600"
                 >
                   <div className="flex items-start gap-6">
-                    <div className="shrink-0 w-16 h-16 bg-brand-600 flex items-center justify-center shadow-e2">
+                    <div className="shrink-0 w-16 h-16 bg-brand-600 flex items-center justify-center">
                       <Icon size={32} className="text-white" strokeWidth={2.5} />
                     </div>
                     <div>
@@ -182,7 +182,7 @@ const AmaechiSupport = () => {
       </section>
 
       {/* Donation Form */}
-      <section id="donate" className="section bg-white">
+      <section id="donate" className="border-t border-ink-200 section bg-white">
         <div className="shell shell-wide">
           <div className="mb-14 border-t-2 border-ink-950 pt-7">
             <h2 className="text-fluid-4xl mb-6">Power the Campaign</h2>
@@ -194,14 +194,14 @@ const AmaechiSupport = () => {
           <div className="grid lg:grid-cols-5 gap-8">
             {/* Form */}
             <div className="lg:col-span-3">
-              <div className="bg-white shadow-e2 p-8 md:p-12 border border-ink-200">
+              <div className="bg-white p-8 md:p-12 border border-ink-200">
                 {/* Monthly/One-time Toggle */}
                 <div className="flex gap-4 mb-8">
                   <button
                     onClick={() => setDonationType("monthly")}
                     className={`flex-1 py-4 px-6 font-bold text-sm tracking-wider transition-all duration-300 ${
                       donationType === "monthly"
-                        ? "bg-brand-600 text-white shadow-e2 "
+                        ? "bg-brand-600 text-white "
                         : "bg-ink-100 text-ink-700 hover:bg-ink-200"
                     }`}
                   >
@@ -211,7 +211,7 @@ const AmaechiSupport = () => {
                     onClick={() => setDonationType("onetime")}
                     className={`flex-1 py-4 px-6 font-bold text-sm tracking-wider transition-all duration-300 ${
                       donationType === "onetime"
-                        ? "bg-brand-600 text-white shadow-e2 "
+                        ? "bg-brand-600 text-white "
                         : "bg-ink-100 text-ink-700 hover:bg-ink-200"
                     }`}
                   >
@@ -232,7 +232,7 @@ const AmaechiSupport = () => {
                         }}
                         className={`py-4 px-4 font-bold text-base md:text-lg transition-all duration-300 ${
                           selectedAmount === amount && !customAmount
-                            ? "bg-brand-600 text-white shadow-e2 "
+                            ? "bg-brand-600 text-white "
                             : "bg-ink-100 text-ink-700 hover:bg-ink-200"
                         }`}
                       >
@@ -272,7 +272,7 @@ const AmaechiSupport = () => {
                               : "border-ink-200 hover:border-ink-300"
                           }`}
                         >
-                          <div className={`shrink-0 w-14 h-14 ${area.color} flex items-center justify-center shadow-e2`}>
+                          <div className={`shrink-0 w-14 h-14 ${area.color} flex items-center justify-center`}>
                             <Icon size={28} className="text-white" strokeWidth={2.5} />
                           </div>
                           <div className="flex-1">
@@ -289,7 +289,7 @@ const AmaechiSupport = () => {
                 </div>
 
                 {/* Submit */}
-                <button className="w-full bg-linear-to-r from-brand-600 to-brand-700 text-white py-5 px-8 font-extrabold text-xl tracking-wider hover:from-brand-700 hover:to-brand-600 transition-all duration-300 shadow-e2 hover:shadow-e2 flex items-center justify-center gap-3 group">
+                <button className="w-full bg-brand-700 text-white py-5 px-8 font-extrabold text-xl tracking-wider hover:bg-brand-600 transition-all duration-300 flex items-center justify-center gap-3 group">
                   <CreditCard size={24} strokeWidth={2.5} />
                   DONATE NOW
                   <ArrowRight size={24} className="group-hover:translate-x-1 transition-transform duration-300" strokeWidth={3} />
@@ -303,7 +303,7 @@ const AmaechiSupport = () => {
 
             {/* Impact Sidebar */}
             <div className="lg:col-span-2">
-              <div className="bg-linear-to-br from-brand-600 to-brand-700 shadow-e2 p-8 text-white sticky top-8">
+              <div className="bg-brand-700 p-8 text-white sticky top-8">
                 <h3 className="text-3xl font-extrabold mb-6">YOUR IMPACT</h3>
                 <div className="space-y-4">
                   {impactStories.map((story, index) => (
@@ -312,7 +312,7 @@ const AmaechiSupport = () => {
                       className={`p-5 transition-all duration-300 ${
                         (customAmount && parseInt(customAmount) >= parseInt(story.amount.replace('₦', '').replace(',', ''))) ||
                         (selectedAmount && selectedAmount >= parseInt(story.amount.replace('₦', '').replace(',', '')))
-                          ? "bg-ember-500  shadow-e2"
+                          ? "bg-ember-700"
                           : "bg-white/10"
                       }`}
                     >
@@ -346,7 +346,7 @@ const AmaechiSupport = () => {
       </section>
 
       {/* Volunteer Section */}
-      <section id="volunteer" className="section bg-white">
+      <section id="volunteer" className="border-t border-ink-200 section bg-white">
         <div className="shell shell-wide">
           <div className="mb-14 border-t-2 border-ink-950 pt-7">
             <p className="eyebrow mb-5">JOIN 100,000+ VOLUNTEERS</p>
@@ -362,10 +362,10 @@ const AmaechiSupport = () => {
               return (
                 <div 
                   key={index}
-                  className="group bg-white p-8 hover:shadow-e2 transition-all duration-300 border border-transparent hover:border-brand-600"
+                  className="group bg-white p-8 transition-all duration-300 border border-ink-200 hover:border-brand-600"
                 >
                   <div className="flex items-start gap-6">
-                    <div className="shrink-0 w-16 h-16 bg-ember-500 flex items-center justify-center group-hover:rotate-12 transition-transform duration-300 shadow-e2">
+                    <div className="shrink-0 w-16 h-16 bg-ember-700 flex items-center justify-center group-hover:rotate-12 transition-transform duration-300">
                       <Icon size={32} className="text-white" strokeWidth={2.5} />
                     </div>
                     <div className="flex-1">
@@ -387,7 +387,7 @@ const AmaechiSupport = () => {
             })}
           </div>
 
-          <div className="bg-linear-to-r from-brand-600 to-brand-700 p-12 md:p-16 text-white text-center shadow-e2">
+          <div className="bg-brand-700 p-12 md:p-16 text-white text-center">
             <h3 className="text-fluid-3xl mb-6">Volunteer Benefits</h3>
             <div className="grid md:grid-cols-3 gap-6 mb-8">
               {[
@@ -406,7 +406,7 @@ const AmaechiSupport = () => {
             </div>
             <a 
               href="volunteer" 
-              className="inline-flex items-center gap-3 bg-white text-brand-600 px-12 py-5 hover:bg-white/95 transition-all duration-300 font-bold text-xl tracking-wide group shadow-e2 hover:shadow-e2 motion-safe:hover:-translate-y-0.5"
+              className="inline-flex items-center gap-3 bg-white text-brand-600 px-12 py-5 hover:bg-white/95 transition-all duration-300 font-bold text-xl tracking-wide group motion-safe:hover:-translate-y-0.5"
             >
               Start Volunteering
               <ArrowRight size={24} className="group-hover:translate-x-1 transition-transform duration-300" strokeWidth={3} />
@@ -416,7 +416,7 @@ const AmaechiSupport = () => {
       </section>
 
       {/* Coalition Partners */}
-      <section className="section bg-white">
+      <section className="border-t border-ink-200 section bg-white">
         <div className="shell shell-wide">
           <div className="mb-14 border-t-2 border-ink-950 pt-7">
             <h2 className="text-fluid-4xl mb-6">Coalition Partners</h2>
@@ -425,12 +425,12 @@ const AmaechiSupport = () => {
             </p>
           </div>
 
-          <div className="bg-white p-12 shadow-e2 border border-ink-200">
+          <div className="bg-white p-12 border border-ink-200">
             <div className="grid grid-cols-2 md:grid-cols-3 gap-8">
               {campaignPartners.map((partner, index) => (
                 <div 
                   key={index} 
-                  className="flex items-center justify-center p-6 bg-white hover:shadow-e2 transition-all duration-300 border border-transparent hover:border-brand-600"
+                  className="flex items-center justify-center p-6 bg-white transition-all duration-300 border border-ink-200 hover:border-brand-600"
                 >
                   <span className="text-ink-950 font-bold text-center">{partner}</span>
                 </div>
@@ -444,7 +444,7 @@ const AmaechiSupport = () => {
             </p>
             <a 
               href="#partner" 
-              className="inline-flex items-center gap-3 bg-brand-600 text-white px-10 py-5 hover:bg-brand-700 transition-all duration-300 font-bold text-lg tracking-wide group shadow-e2 hover:shadow-e2"
+              className="inline-flex items-center gap-3 bg-brand-600 text-white px-10 py-5 hover:bg-brand-700 transition-all duration-300 font-bold text-lg tracking-wide group"
             >
               Partner With Campaign
               <ArrowRight size={22} strokeWidth={3} />
@@ -454,7 +454,7 @@ const AmaechiSupport = () => {
       </section>
 
       {/* Final CTA */}
-      <section className="bg-linear-to-br from-brand-600 via-brand-700 to-brand-600 text-white py-20 md:py-32">
+      <section className="border-t border-ink-200 bg-brand-700 text-white py-20 md:py-32">
         <div className="shell md:px-16 text-center">
           <h2 className="text-5xl md:text-7xl font-extrabold mb-8">
             INVEST IN NIGERIA&rsquo;S FUTURE
@@ -469,14 +469,14 @@ const AmaechiSupport = () => {
           <div className="flex flex-col sm:flex-row gap-6 justify-center">
             <a 
               href="#donate" 
-              className="inline-flex items-center justify-center gap-3 bg-white text-brand-600 px-12 py-6 hover:bg-white/95 transition-all duration-300 font-extrabold text-xl tracking-wide group shadow-e2 hover:shadow-e2 motion-safe:hover:-translate-y-0.5"
+              className="inline-flex items-center justify-center gap-3 bg-white text-brand-600 px-12 py-6 hover:bg-white/95 transition-all duration-300 font-extrabold text-xl tracking-wide group motion-safe:hover:-translate-y-0.5"
             >
               <Heart size={28} fill="currentColor" strokeWidth={0} />
               DONATE NOW
             </a>
             <a 
               href="#volunteer" 
-              className="inline-flex items-center justify-center gap-3 bg-ember-500 text-white px-12 py-6 hover:bg-ember-600 transition-all duration-300 font-extrabold text-xl tracking-wide group shadow-e2 hover:shadow-e2 motion-safe:hover:-translate-y-0.5"
+              className="inline-flex items-center justify-center gap-3 bg-ember-700 text-white px-12 py-6 hover:bg-ember-800 transition-all duration-300 font-extrabold text-xl tracking-wide group motion-safe:hover:-translate-y-0.5"
             >
               <Users size={28} strokeWidth={3} />
               VOLUNTEER TODAY

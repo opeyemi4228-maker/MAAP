@@ -394,7 +394,7 @@ export default async function AdminOverview({ searchParams }) {
         )}
 
         {/* ── Who has just joined ──────────────────────────────────────
-            The reference this page is modelled on puts a chat feed here. MAP
+            The reference this page is modelled on puts a chat feed here. MAAP
             has no messaging, and a panel of invented activity would be worse
             than an empty one — so the rail carries the register's own
             activity instead: the last six people to walk in. */}

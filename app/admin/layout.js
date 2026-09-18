@@ -9,7 +9,7 @@ import AdminNav from "./AdminNav";
 import Sidebar from "./Sidebar";
 
 export const metadata = {
-  title: "Secretariat — MAP",
+  title: "Secretariat — MAAP",
   robots: { index: false, follow: false },
 };
 

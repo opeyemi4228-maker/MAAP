@@ -1,9 +1,19 @@
 "use client";
 
-import { useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
-import { Camera, CircleAlert, CircleCheck, Loader2, MapPin, Upload } from "lucide-react";
+import {
+  Camera,
+  CircleAlert,
+  CircleCheck,
+  Loader2,
+  MapPin,
+  Save,
+  Upload,
+  WifiOff,
+} from "lucide-react";
 
+import { clearDraft, draftKey, readDraft, readSheet, saveDraft, saveSheet } from "@/lib/draft";
 import { cn } from "@/lib/utils";
 
 /**
@@ -43,6 +53,13 @@ export default function ReturnForm({ post, election, parties, existing }) {
   const [notice, setNotice] = useState("");
   const [busy, setBusy] = useState(false);
   const [done, setDone] = useState(null);
+  /* Set when a submission failed for a reason that retrying could fix — a dead
+     network, a 5xx. Not set for a 422: bad arithmetic is not a connection
+     problem and telling an agent to "try again" would be a lie. */
+  const [unsent, setUnsent] = useState(false);
+  const [restored, setRestored] = useState(null);
+
+  const key = draftKey(election.id, post.pollingUnitId);
 
   const digits = (value) => String(value).replace(/[^\d]/g, "");
   const asNumber = (value) => (value === "" ? null : Number(value));
@@ -52,6 +69,55 @@ export default function ReturnForm({ post, election, parties, existing }) {
     [votes]
   );
 
+  /* ── The draft ───────────────────────────────────────────────────────────
+     Restored once, on mount. A draft only exists if a previous attempt was
+     never confirmed by the server, so it always wins over what the page was
+     rendered with — the server copy is by definition the older of the two. */
+  useEffect(() => {
+    let live = true;
+
+    /* Read on a microtask rather than in the effect body.
+
+       This has to be an effect: the draft lives in device storage, which the
+       server cannot see, so restoring it during render would make the first
+       client paint disagree with the HTML that was sent and break hydration.
+       But a synchronous setState in an effect body is a cascading render, and
+       React is right to complain about it.
+
+       Deferring by one microtask puts the restore in a callback — the same
+       shape as any other subscription to an external store — so hydration has
+       finished and the update is a normal one. It runs once per booth and
+       contest; re-running would fight the agent's typing. */
+    Promise.resolve().then(() => {
+      if (!live) return;
+      const draft = readDraft(key);
+      if (!draft) return;
+
+      if (draft.votes) setVotes((current) => ({ ...current, ...draft.votes }));
+      if (draft.figures) setFigures((current) => ({ ...current, ...draft.figures }));
+      if (typeof draft.note === "string") setNote(draft.note);
+      setUnsent(true);
+      setRestored(draft.savedAt ?? null);
+
+      readSheet(key).then((row) => {
+        if (!live || !row) return;
+        const file = new File([row.blob], row.name ?? "sheet.jpg", { type: row.blob.type });
+        setSheet({ file, url: URL.createObjectURL(row.blob), size: row.blob.size, restored: true });
+      });
+    });
+
+    return () => {
+      live = false;
+    };
+  }, [key]);
+
+  /* Written on every change rather than on a timer: the event this protects
+     against is the tab dying, and a timer is a window in which it can. */
+  useEffect(() => {
+    if (done) return;
+    saveDraft(key, { votes, figures, note });
+  }, [key, votes, figures, note, done]);
+
   /* The same arithmetic the server runs, run here first so the agent finds out
      while the sheet is still in their hand rather than after a round trip. */
   const accredited = asNumber(figures.accredited);
@@ -59,6 +125,30 @@ export default function ReturnForm({ post, election, parties, existing }) {
   const rejected = Number(figures.rejected) || 0;
   const overAccredited = accredited != null && cast + rejected > accredited;
   const overRegistered = registered != null && accredited != null && accredited > registered;
+
+  /* The picked photograph, already downscaled, kept alongside the figures. It
+     is the one part of a draft that cannot live in localStorage — see
+     lib/draft.js — and the one an agent would most resent re-doing in the dark. */
+  const keepSheet = useCallback(
+    (picked) => {
+      setSheet(picked);
+      if (picked?.file) void saveSheet(key, picked.file, "sheet.jpg");
+    },
+    [key]
+  );
+
+  /* Back on a network, with something still unsent. The submission is an upsert
+     on (election, booth), so pressing File twice is harmless — but it is still
+     pressed by the agent, never by this effect. Sending a declaration that says
+     "I am standing at this polling unit" without being asked would be the one
+     unforgivable thing for this form to do on its own. */
+  useEffect(() => {
+    if (!unsent) return undefined;
+    const onOnline = () =>
+      setNotice("You are back online. Press File this return to send it.");
+    window.addEventListener("online", onOnline);
+    return () => window.removeEventListener("online", onOnline);
+  }, [unsent]);
 
   async function submit(event) {
     event.preventDefault();
@@ -79,17 +169,29 @@ export default function ReturnForm({ post, election, parties, existing }) {
     setBusy(true);
     try {
       const response = await fetch("/api/results", { method: "POST", body });
-      const data = await response.json();
+      const data = await response.json().catch(() => ({}));
 
       if (!response.ok) {
         setErrors(data.errors ?? {});
         setNotice(data.error ?? "Check the highlighted figures.");
+        /* A 5xx is worth retrying; a 4xx is the agent's to fix first. Only the
+           former leaves the return flagged as unsent. */
+        setUnsent(response.status >= 500);
         return;
       }
+
+      /* Confirmed by the server, and only now is it safe to drop the copy on
+         the phone. Clearing it any earlier — optimistically, or in a `finally`
+         — would throw away the figures at the exact moment they still matter. */
+      clearDraft(key);
+      setUnsent(false);
       setDone(data);
       router.refresh();
     } catch {
-      setNotice("Could not reach the server. Your figures are still on screen — try again.");
+      setUnsent(true);
+      setNotice(
+        "Could not reach the server. Your figures are saved on this phone — press File again when you have signal."
+      );
     } finally {
       setBusy(false);
     }
@@ -117,6 +219,30 @@ export default function ReturnForm({ post, election, parties, existing }) {
 
   return (
     <form onSubmit={submit} noValidate className="space-y-8">
+      {/* ── Unsent ───────────────────────────────────────────────────────
+          Shown whenever there are figures on this phone the server has not
+          confirmed — whether they were typed a second ago or restored from a
+          session that died last night. The agent's question at this point is
+          "have I lost it?", and this is the answer to that question. */}
+      {unsent && (
+        <p
+          role="status"
+          className="flex items-start gap-3 border-2 border-ember-500 bg-ember-50 p-4 text-[0.875rem] leading-relaxed text-ink-950"
+        >
+          {restored ? (
+            <Save size={17} className="mt-0.5 shrink-0 text-ember-600" aria-hidden="true" />
+          ) : (
+            <WifiOff size={17} className="mt-0.5 shrink-0 text-ember-600" aria-hidden="true" />
+          )}
+          <span>
+            <strong className="font-bold">Not yet filed.</strong>{" "}
+            {restored
+              ? `These figures were saved on this phone ${ago(restored)} and have not reached the server. Check them against your sheet, then file.`
+              : "Your figures are saved on this phone. Press File this return again when you have signal."}
+          </span>
+        </p>
+      )}
+
       {/* ── Where you are ─────────────────────────────────────────────────
           Printed, not chosen. This is the agent's own appointment. */}
       <section className="border-2 border-ink-950 bg-white">
@@ -187,8 +313,11 @@ export default function ReturnForm({ post, election, parties, existing }) {
                 <span className="block font-display text-[0.9375rem] font-extrabold text-ink-950">
                   {party.code}
                 </span>
+                {/* The candidate's name where the ballot is known, the party's
+                    where it is not. An agent matching figures off a sheet reads
+                    the name on the paper, not the party's legal title. */}
                 <span className="block truncate text-[0.75rem] text-content-subtle">
-                  {party.name}
+                  {party.candidate ?? party.name}
                 </span>
               </span>
               <input
@@ -200,7 +329,7 @@ export default function ReturnForm({ post, election, parties, existing }) {
                   setVotes((previous) => ({ ...previous, [party.id]: digits(event.target.value) }))
                 }
                 placeholder="0"
-                aria-label={`Votes for ${party.name}`}
+                aria-label={`Votes for ${party.candidate ? `${party.candidate}, ${party.code}` : party.name}`}
                 className="h-12 w-28 shrink-0 border-2 border-ink-200 bg-white px-3 text-right font-display text-lg font-extrabold text-ink-950 tabular-nums focus:border-brand-600 focus:outline-none"
               />
             </label>
@@ -273,7 +402,7 @@ export default function ReturnForm({ post, election, parties, existing }) {
           are only a claim.
         </p>
 
-        <SheetPicker sheet={sheet} onPick={setSheet} inputRef={sheetRef} error={errors.sheet} />
+        <SheetPicker sheet={sheet} onPick={keepSheet} inputRef={sheetRef} error={errors.sheet} />
       </section>
 
       {/* ── What INEC declared, if it is up ──────────────────────────── */}
@@ -406,6 +535,18 @@ function Figure({ label, value, onChange, error }) {
       {error && <p className="mt-1.5 text-[0.8125rem] font-semibold text-red-700">{error}</p>}
     </div>
   );
+}
+
+/** "11 minutes ago". Relative, because the absolute time means nothing to
+    somebody who has just picked their phone back up. */
+function ago(timestamp) {
+  const minutes = Math.round((Date.now() - timestamp) / 60000);
+  if (minutes < 1) return "a moment ago";
+  if (minutes < 60) return `${minutes} minute${minutes === 1 ? "" : "s"} ago`;
+  const hours = Math.round(minutes / 60);
+  if (hours < 24) return `${hours} hour${hours === 1 ? "" : "s"} ago`;
+  const days = Math.round(hours / 24);
+  return `${days} day${days === 1 ? "" : "s"} ago`;
 }
 
 /**

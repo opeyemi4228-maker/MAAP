@@ -98,7 +98,7 @@ export async function POST(request) {
     userId: result.member.userId,
     phone: result.member.phone,
     purpose: "REGISTRATION",
-    message: "{code} is your MAP confirmation code. It expires in five minutes.",
+    message: "{code} is your MAAP confirmation code. It expires in five minutes.",
   }).catch((error) => console.error("[register] could not send confirmation code", error));
 
   // Registration signs you straight in: one less step, and the confirmation

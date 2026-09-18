@@ -6,7 +6,7 @@ import { currentSession } from "@/lib/session";
 import { mfaRequired, mfaState } from "@/lib/mfa";
 import MfaPanel from "@/app/admin/security/MfaPanel";
 
-export const metadata = { title: "Secure your account — MAP", robots: { index: false, follow: false } };
+export const metadata = { title: "Secure your account — MAAP", robots: { index: false, follow: false } };
 export const dynamic = "force-dynamic";
 
 /**
@@ -45,7 +45,7 @@ export default async function SecureAccount() {
       <div className="shell">
         <div className="mx-auto max-w-3xl">
           <p className="flex items-center gap-2.5">
-            <span aria-hidden="true" className="grid size-8 place-items-center bg-ember-500 text-white">
+            <span aria-hidden="true" className="grid size-8 place-items-center bg-ember-700 text-white">
               <ShieldAlert size={16} strokeWidth={2.75} />
             </span>
             <span className="text-[0.6875rem] font-bold tracking-[0.16em] text-ink-950 uppercase">
@@ -58,10 +58,10 @@ export default async function SecureAccount() {
           </h1>
 
           <p className="prose-body mt-4 max-w-prose text-[0.9375rem]">
-            You hold {scope.roleTitle} for {scope.label}. A stolen password for a seat at
-            this level is not an account takeover, it is a territory takeover — the whole
-            register with every phone number in it, the exports, and the ability to text
-            all of them. §13.2 requires a second factor before the secretariat opens.
+            You hold {scope.roleTitle} for {scope.label}. At this level a stolen
+            password is not an account takeover but a territory takeover: the whole
+            register, every phone number in it, and the ability to text them all.
+            §13.2 requires a second factor before the secretariat opens.
           </p>
 
           <div className="mt-8">

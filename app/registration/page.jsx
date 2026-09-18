@@ -102,7 +102,7 @@ const AmaechiRegistration = () => {
           </div>
 
           {submitted ? (
-            <div className="bg-linear-to-br from-brand-50 to-brand-50 border-4 border-brand-600 p-12 text-center shadow-e2">
+            <div className="bg-brand-50 border-4 border-brand-600 p-12 text-center">
               <div className="w-24 h-24 bg-brand-600 flex items-center justify-center mx-auto mb-6">
                 <CheckCircle size={56} className="text-white" strokeWidth={3} />
               </div>
@@ -116,13 +116,13 @@ const AmaechiRegistration = () => {
               </p>
               <button
                 onClick={resetForm}
-                className="bg-brand-600 text-white px-10 py-4 font-bold hover:bg-brand-700 transition-all duration-300 shadow-e2"
+                className="bg-brand-600 text-white px-10 py-4 font-bold hover:bg-brand-700 transition-all duration-300"
               >
                 Register Another Member
               </button>
             </div>
           ) : (
-            <form onSubmit={handleSubmit} className="bg-white shadow-e2 p-8 md:p-12 border border-ink-200">
+            <form onSubmit={handleSubmit} className="bg-white p-8 md:p-12 border border-ink-200">
 
               {/* Full Name */}
               <div className="mb-6">
@@ -260,7 +260,7 @@ const AmaechiRegistration = () => {
               {/* Submit */}
               <button 
                 type="submit"
-                className="w-full bg-linear-to-r from-brand-600 to-brand-700 text-white py-5 px-8 font-extrabold text-xl tracking-wider hover:from-brand-700 hover:to-brand-600 transition-all duration-300 shadow-e2 hover:shadow-e2 flex items-center justify-center gap-3 group"
+                className="w-full bg-brand-700 text-white py-5 px-8 font-extrabold text-xl tracking-wider hover:bg-brand-600 transition-all duration-300 flex items-center justify-center gap-3 group"
               >
                 <Send size={24} strokeWidth={2.5} />
                 COMPLETE REGISTRATION

@@ -27,14 +27,16 @@ export const metadata = {
     template: `%s | ${site.acronym}`,
   },
   description:
-    "The Movement for Amaechi Presidency (MAP) is a nationwide political movement organising in all 36 states, the Federal Capital Territory, 774 Local Government Areas and over 8,000 wards behind the presidential aspiration of Rt. Hon. Chibuike Rotimi Amaechi.",
+    "The Movement for Atiku Amaechi Presidency (MAAP) is a nationwide political movement organising in all 36 states, the Federal Capital Territory, 774 Local Government Areas and over 8,000 wards behind the presidential ticket of H.E. Atiku Abubakar and Rt. Hon. Chibuike Rotimi Amaechi.",
   applicationName: site.movement,
   authors: [{ name: site.movement }],
   keywords: [
-    "Movement for Amaechi Presidency",
-    "MAP Nigeria",
-    "MAP membership",
-    "Amaechi 2027",
+    "Movement for Atiku Amaechi Presidency",
+    "MAAP Nigeria",
+    "MAAP membership",
+    "Atiku 2027",
+    "Atiku Abubakar",
+    "Atiku Amaechi",
     "Rotimi Amaechi",
     "Chibuike Rotimi Amaechi",
     "Nigeria political movement",
@@ -44,7 +46,7 @@ export const metadata = {
   openGraph: {
     title: site.movement,
     description:
-      "A disciplined, verifiable national structure, built ward by ward, behind the presidential aspiration of Rt. Hon. Chibuike Rotimi Amaechi. Register in under two minutes.",
+      "A disciplined, verifiable national structure, built ward by ward, behind the presidential ticket of H.E. Atiku Abubakar and Rt. Hon. Chibuike Rotimi Amaechi. Register in under two minutes.",
     type: "website",
     locale: "en_NG",
     url: site.url,
@@ -55,7 +57,7 @@ export const metadata = {
     site: "@map9ja",
     title: site.movement,
     description:
-      "Organising in all 36 states, the FCT, 774 LGAs and over 8,000 wards. Every ward matters. Join MAP.",
+      "Organising in all 36 states, the FCT, 774 LGAs and over 8,000 wards. Every ward matters. Join MAAP.",
   },
   robots: { index: true, follow: true },
 };
@@ -69,9 +71,15 @@ export const viewport = {
 };
 
 /* Structured data. The site's primary entity is the movement, so the graph
-   leads with the Organization and carries Amaechi as the person it supports.
-   Previously this declared a Person as the subject of the whole site, which
-   told search engines this was a personal homepage rather than MAP's. */
+   leads with the Organization and carries the ticket as the people it
+   supports. Previously this declared a Person as the subject of the whole site,
+   which told search engines this was a personal homepage rather than MAAP's.
+
+   Two Person nodes, not one, and the WebSite's `about` points at the head of
+   the ticket. A graph that named only one of them would leave a search engine
+   to infer the other from the movement's name, and it would infer wrongly:
+   "Atiku Amaechi" parses as a single person to anything that does not already
+   know otherwise. `knows` links them so the pair reads as a ticket. */
 const organisationSchema = {
   "@context": "https://schema.org",
   "@graph": [
@@ -93,6 +101,17 @@ const organisationSchema = {
     {
       "@type": "Person",
       "@id": `${site.url}#aspirant`,
+      name: "Atiku Abubakar",
+      honorificPrefix: "H.E.",
+      honorificSuffix: "GCON",
+      jobTitle: "Former Vice President, Federal Republic of Nigeria",
+      nationality: "Nigerian",
+      affiliation: { "@type": "Organization", name: site.party },
+      knows: { "@id": `${site.url}#running-mate` },
+    },
+    {
+      "@type": "Person",
+      "@id": `${site.url}#running-mate`,
       name: "Chibuike Rotimi Amaechi",
       honorificPrefix: "Rt. Hon.",
       honorificSuffix: "CON",
@@ -100,6 +119,7 @@ const organisationSchema = {
         "Former Minister of Transportation, Federal Republic of Nigeria",
       nationality: "Nigerian",
       affiliation: { "@type": "Organization", name: site.party },
+      knows: { "@id": `${site.url}#aspirant` },
     },
     {
       "@type": "WebSite",

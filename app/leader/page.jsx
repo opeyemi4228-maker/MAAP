@@ -79,7 +79,7 @@ const moments = [
   {
     year: "2007",
     title: "Supreme Court affirms his mandate",
-    body: "After being substituted as his party's candidate, the Court ruled on 26 October that he was the rightful candidate, and he was sworn in as Governor of Rivers State.",
+    body: "His party had substituted him as its candidate. On 26 October the Court ruled that he was the rightful candidate, and he was sworn in as Governor of Rivers State.",
   },
   {
     year: "2011",

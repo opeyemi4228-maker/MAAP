@@ -46,7 +46,7 @@ const AmaechiConnect = () => {
       title: "Campaign Hotline",
       primary: "+234 803 ADC 2027",
       secondary: "WhatsApp: +234 806 AMAECHI",
-      color: "bg-ember-500"
+      color: "bg-ember-700"
     },
     {
       icon: MapPin,
@@ -60,7 +60,7 @@ const AmaechiConnect = () => {
       title: "Contact Hours",
       primary: "24/7 Hotline Available",
       secondary: "Office: Mon to Sat, 8AM to 8PM",
-      color: "bg-ember-500"
+      color: "bg-ember-700"
     }
   ];
 
@@ -70,28 +70,28 @@ const AmaechiConnect = () => {
       title: "Volunteer with Us",
       description: "Join 100,000+ volunteers mobilizing for change. Door to door, phone banking, events.",
       action: "Sign Up to Volunteer",
-      color: "from-brand-600 to-brand-700"
+      color: "bg-brand-700"
     },
     {
       icon: Heart,
       title: "Support the Campaign",
       description: "Your donation funds grassroots organizing, town halls, and voter education.",
       action: "Donate Now",
-      color: "from-ember-500 to-ember-600"
+      color: "bg-ember-700"
     },
     {
       icon: Megaphone,
       title: "Become an Advocate",
       description: "Share our message on social media. Talk to friends, family, neighbors about the Amaechi Agenda.",
       action: "Get Resources",
-      color: "from-brand-600 to-brand-700"
+      color: "bg-brand-700"
     },
     {
       icon: HandshakeIcon,
       title: "Partnership Opportunities",
       description: "Corporate partnerships, CSR collaborations, and strategic initiatives with proven leadership.",
       action: "Partner with Us",
-      color: "from-ember-500 to-ember-600"
+      color: "bg-ember-700"
     }
   ];
 
@@ -133,7 +133,7 @@ const AmaechiConnect = () => {
      through the shared <BrandIcon> marks. */
   const socialMedia = [
     { brand: "x", name: "X", handle: "@map9ja", url: socials.find((s) => s.icon === "x")?.href ?? "#" },
-    { brand: "facebook", name: "Facebook", handle: "Movement for Amaechi Presidency", url: socials.find((s) => s.icon === "facebook")?.href ?? "#" },
+    { brand: "facebook", name: "Facebook", handle: "Movement for Atiku Amaechi Presidency", url: socials.find((s) => s.icon === "facebook")?.href ?? "#" },
     { brand: "instagram", name: "Instagram", handle: "@map.9ja", url: socials.find((s) => s.icon === "instagram")?.href ?? "#" },
     { brand: "tiktok", name: "TikTok", handle: "@map.9ja", url: socials.find((s) => s.icon === "tiktok")?.href ?? "#" }
   ];
@@ -226,9 +226,9 @@ const AmaechiConnect = () => {
               return (
                 <div 
                   key={index}
-                  className="bg-white p-8 hover:shadow-e2 transition-all duration-300 border border-transparent hover:border-brand-600"
+                  className="bg-white p-8 transition-all duration-300 border border-ink-200 hover:border-brand-600"
                 >
-                  <div className={`w-16 h-16 ${info.color} flex items-center justify-center mb-6 shadow-e2`}>
+                  <div className={`w-16 h-16 ${info.color} flex items-center justify-center mb-6`}>
                     <Icon size={32} className="text-white" strokeWidth={2.5} />
                   </div>
                   <h3 className="text-xl font-extrabold text-ink-950 mb-4">
@@ -248,7 +248,7 @@ const AmaechiConnect = () => {
       </section>
 
       {/* Engagement Options */}
-      <section id="volunteer" className="section bg-white">
+      <section id="volunteer" className="border-t border-ink-200 section bg-white">
         <div className="shell shell-wide">
           <div className="mb-14 border-t-2 border-ink-950 pt-7">
             <p className="eyebrow mb-5">GET INVOLVED</p>
@@ -264,7 +264,7 @@ const AmaechiConnect = () => {
               return (
                 <div 
                   key={index}
-                  className={`bg-linear-to-br ${option.color} p-8 md:p-10 text-white hover:shadow-e2 transition-all duration-300 motion-safe:hover:-translate-y-0.5`}
+                  className={`${option.color} p-8 md:p-10 text-white transition-all duration-300 motion-safe:hover:-translate-y-0.5`}
                 >
                   <div className="w-16 h-16 bg-white/20 backdrop-blur-sm flex items-center justify-center mb-6">
                     <Icon size={32} className="text-white" strokeWidth={2.5} />
@@ -275,7 +275,7 @@ const AmaechiConnect = () => {
                   <p className="text-lg text-white/90 leading-relaxed mb-8">
                     {option.description}
                   </p>
-                  <button className="bg-white text-brand-600 px-8 py-4 font-bold hover:bg-white/95 transition-all duration-300 shadow-e2 hover:shadow-e2 inline-flex items-center gap-3">
+                  <button className="bg-white text-brand-600 px-8 py-4 font-bold hover:bg-white/95 transition-all duration-300 inline-flex items-center gap-3">
                     {option.action}
                     <ArrowRight size={20} strokeWidth={3} />
                   </button>
@@ -285,7 +285,7 @@ const AmaechiConnect = () => {
           </div>
 
           {/* Volunteer Benefits */}
-          <div className="bg-white shadow-e2 p-8 md:p-12 border-2 border-brand-600">
+          <div className="bg-white p-8 md:p-12 border-2 border-brand-600">
             <h3 className="text-3xl font-extrabold text-center mb-8">Why Volunteer?</h3>
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {volunteerBenefits.map((benefit, idx) => (
@@ -300,7 +300,7 @@ const AmaechiConnect = () => {
       </section>
 
       {/* Contact Form */}
-      <section id="contact" className="section bg-white">
+      <section id="contact" className="border-t border-ink-200 section bg-white">
         <div className="shell shell-wide">
           <div className="grid lg:grid-cols-5 gap-12">
             {/* Form */}
@@ -313,7 +313,7 @@ const AmaechiConnect = () => {
               </div>
 
               {submitted ? (
-                <div className="bg-linear-to-br from-brand-50 to-brand-50 border-4 border-brand-600 p-12 text-center">
+                <div className="bg-brand-50 border-4 border-brand-600 p-12 text-center">
                   <div className="w-24 h-24 bg-brand-600 flex items-center justify-center mx-auto mb-6">
                     <CheckCircle size={56} className="text-white" strokeWidth={3} />
                   </div>
@@ -334,13 +334,13 @@ const AmaechiConnect = () => {
                         message: ""
                       });
                     }}
-                    className="bg-brand-600 text-white px-10 py-4 font-bold hover:bg-brand-700 transition-all duration-300 shadow-e2"
+                    className="bg-brand-600 text-white px-10 py-4 font-bold hover:bg-brand-700 transition-all duration-300"
                   >
                     Send Another Message
                   </button>
                 </div>
               ) : (
-                <form onSubmit={handleSubmit} className="bg-white shadow-e2 p-8 md:p-12 border border-ink-200">
+                <form onSubmit={handleSubmit} className="bg-white p-8 md:p-12 border border-ink-200">
                   {/* Name and Email */}
                   <div className="grid md:grid-cols-2 gap-6 mb-6">
                     <div>
@@ -484,7 +484,7 @@ const AmaechiConnect = () => {
                   {/* Submit */}
                   <button 
                     type="submit"
-                    className="w-full bg-linear-to-r from-brand-600 to-brand-700 text-white py-5 px-8 font-extrabold text-xl tracking-wider hover:from-brand-700 hover:to-brand-600 transition-all duration-300 shadow-e2 hover:shadow-e2 flex items-center justify-center gap-3 group"
+                    className="w-full bg-brand-700 text-white py-5 px-8 font-extrabold text-xl tracking-wider hover:bg-brand-600 transition-all duration-300 flex items-center justify-center gap-3 group"
                   >
                     <Send size={24} strokeWidth={2.5} />
                     SEND MESSAGE
@@ -502,7 +502,7 @@ const AmaechiConnect = () => {
             <div className="lg:col-span-2">
               <div className="sticky top-8 space-y-8">
                 {/* Inquiry Categories */}
-                <div className="bg-linear-to-br from-brand-600 to-brand-700 shadow-e2 p-8 text-white">
+                <div className="bg-brand-700 p-8 text-white">
                   <h3 className="text-fluid-xl mb-6">How Can We Help?</h3>
                   <div className="space-y-4">
                     {inquiryCategories.map((category, index) => {
@@ -513,7 +513,7 @@ const AmaechiConnect = () => {
                           className="bg-white/10 backdrop-blur-sm p-4 hover:bg-white/20 transition-all duration-300"
                         >
                           <div className="flex items-start gap-4">
-                            <div className="shrink-0 w-12 h-12 bg-ember-500 flex items-center justify-center">
+                            <div className="shrink-0 w-12 h-12 bg-ember-700 flex items-center justify-center">
                               <Icon size={20} className="text-white" strokeWidth={2.5} />
                             </div>
                             <div>
@@ -530,7 +530,7 @@ const AmaechiConnect = () => {
                 </div>
 
                 {/* Social Media */}
-                <div className="bg-white shadow-e2 p-8 border border-ink-200">
+                <div className="bg-white p-8 border border-ink-200">
                   <h3 className="text-fluid-xl mb-6">Follow the Campaign</h3>
                   <div className="space-y-3">
                     {socialMedia.map((social) => (
@@ -564,7 +564,7 @@ const AmaechiConnect = () => {
       </section>
 
       {/* State Offices */}
-      <section className="section bg-white">
+      <section className="border-t border-ink-200 section bg-white">
         <div className="shell shell-wide">
           <div className="mb-14 border-t-2 border-ink-950 pt-7">
             <p className="eyebrow mb-5">NATIONWIDE PRESENCE</p>
@@ -578,7 +578,7 @@ const AmaechiConnect = () => {
             {stateOffices.map((office, index) => (
               <div 
                 key={index}
-                className={`bg-white p-8 hover:shadow-e2 transition-all duration-300 border-4 ${
+                className={`bg-white p-8 transition-all duration-300 border-4 ${
                   office.isMain ? 'border-brand-600' : 'border-ink-200'
                 } motion-safe:hover:-translate-y-0.5`}
               >
@@ -587,7 +587,7 @@ const AmaechiConnect = () => {
                     NATIONAL HQ
                   </span>
                 )}
-                <div className="w-16 h-16 bg-linear-to-br from-brand-600 to-ember-500 flex items-center justify-center mb-6 shadow-e2">
+                <div className="w-16 h-16 bg-brand-600 flex items-center justify-center mb-6">
                   <MapPin size={32} className="text-white" strokeWidth={2.5} />
                 </div>
                 <h3 className="text-fluid-xl text-ink-950 mb-2">
@@ -623,9 +623,9 @@ const AmaechiConnect = () => {
       </section>
 
       {/* Newsletter */}
-      <section className="section bg-white">
+      <section className="border-t border-ink-200 section bg-white">
         <div className="max-w-5xl mx-auto px-6 md:px-16 lg:px-24">
-          <div className="bg-linear-to-br from-ink-950 to-ink-800 p-12 md:p-16 text-white text-center shadow-e2">
+          <div className="bg-ink-950 p-12 md:p-16 text-white text-center">
             <Mail size={64} className="mx-auto mb-8 text-ember-500" strokeWidth={1.5} />
             <h2 className="text-fluid-4xl mb-6">
               Stay Informed. Stay Engaged.
@@ -641,7 +641,7 @@ const AmaechiConnect = () => {
               />
               <button 
                 type="submit"
-                className="bg-brand-600 text-white px-10 py-4 font-bold hover:bg-brand-700 transition-all duration-300 shadow-e2 hover:shadow-e2 flex items-center justify-center gap-2"
+                className="bg-brand-600 text-white px-10 py-4 font-bold hover:bg-brand-700 transition-all duration-300 flex items-center justify-center gap-2"
               >
                 Subscribe
                 <ArrowRight size={20} strokeWidth={3} />
@@ -655,7 +655,7 @@ const AmaechiConnect = () => {
       </section>
 
       {/* Final CTA */}
-      <section className="bg-linear-to-br from-brand-600 via-brand-700 to-brand-600 text-white py-20 md:py-32">
+      <section className="border-t border-ink-200 bg-brand-700 text-white py-20 md:py-32">
         <div className="shell md:px-16 text-center">
           <h2 className="text-5xl md:text-7xl font-extrabold mb-8">
             EVERY VOICE MATTERS
@@ -670,14 +670,14 @@ const AmaechiConnect = () => {
           <div className="flex flex-col sm:flex-row gap-6 justify-center">
             <a 
               href="#volunteer" 
-              className="inline-flex items-center justify-center gap-3 bg-white text-brand-600 px-12 py-6 hover:bg-white/95 transition-all duration-300 font-extrabold text-xl tracking-wide group shadow-e2 hover:shadow-e2 motion-safe:hover:-translate-y-0.5"
+              className="inline-flex items-center justify-center gap-3 bg-white text-brand-600 px-12 py-6 hover:bg-white/95 transition-all duration-300 font-extrabold text-xl tracking-wide group motion-safe:hover:-translate-y-0.5"
             >
               <Users size={28} strokeWidth={3} />
               VOLUNTEER NOW
             </a>
             <a 
               href="#contact" 
-              className="inline-flex items-center justify-center gap-3 bg-ember-500 text-white px-12 py-6 hover:bg-ember-600 transition-all duration-300 font-extrabold text-xl tracking-wide group shadow-e2 hover:shadow-e2 motion-safe:hover:-translate-y-0.5"
+              className="inline-flex items-center justify-center gap-3 bg-ember-700 text-white px-12 py-6 hover:bg-ember-800 transition-all duration-300 font-extrabold text-xl tracking-wide group motion-safe:hover:-translate-y-0.5"
             >
               <Send size={28} strokeWidth={3} />
               GET IN TOUCH

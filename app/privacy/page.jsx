@@ -8,7 +8,7 @@ import { site } from "@/lib/site";
 export const metadata = {
   title: "Privacy Policy",
   description:
-    "How the Movement for Amaechi Presidency collects, uses and protects the personal data of its members.",
+    "How the Movement for Atiku Amaechi Presidency collects, uses and protects the personal data of its members.",
 };
 
 /**
@@ -31,7 +31,7 @@ const sections = [
   {
     heading: "Who we are",
     body: [
-      `The Movement for Amaechi Presidency (MAP) is the data controller for personal data collected through this website. MAP is a membership movement organising in support of the presidential aspiration of Rt. Hon. Chibuike Rotimi Amaechi.`,
+      `The Movement for Atiku Amaechi Presidency (MAAP) is the data controller for personal data collected through this website. MAAP is a membership movement organising in support of the presidential aspiration of Rt. Hon. Chibuike Rotimi Amaechi.`,
       `Contact details for the movement's Data Protection Officer are published here once appointed. Until then, data protection enquiries should be sent through the Complaint category on our contact page.`,
     ],
   },
@@ -46,7 +46,7 @@ const sections = [
     heading: "Where your registration is currently stored",
     body: [
       `Registrations submitted through this website are presently delivered to a Google Form operated by the movement, and are stored in Google's systems outside Nigeria. This includes any NIN you choose to provide.`,
-      `MAP is migrating registration onto its own membership database, where personal data will be held in a single controlled register, identifiers will be encrypted at rest, and access will be limited to named officers. Until that migration completes, please take the paragraph above into account when deciding whether to supply your NIN.`,
+      `MAAP is migrating registration onto its own membership database, where personal data will be held in a single controlled register, identifiers will be encrypted at rest, and access will be limited to named officers. Until that migration completes, please take the paragraph above into account when deciding whether to supply your NIN.`,
     ],
   },
   {
@@ -72,7 +72,7 @@ export default function Privacy() {
         breadcrumb="Privacy"
         kicker="Data protection"
         title="Privacy Policy"
-        lead="How MAP collects, uses and protects the personal data of its members, and what you can ask us to do with it."
+        lead="How MAAP collects, uses and protects the personal data of its members, and what you can ask us to do with it."
       />
 
       <Section className="bg-white">
@@ -89,7 +89,7 @@ export default function Privacy() {
               <strong className="font-bold text-ink-950">
                 This policy is in draft.
               </strong>{" "}
-              It describes MAP&rsquo;s current practice accurately, but it has not
+              It describes MAAP&rsquo;s current practice accurately, but it has not
               yet been reviewed by the movement&rsquo;s legal counsel and no Data
               Protection Officer has been named. It will be updated on both
               counts.
@@ -98,7 +98,7 @@ export default function Privacy() {
 
           <div className="mt-14 space-y-12">
             {sections.map((section, index) => (
-              <section key={section.heading}>
+              <section className="border-t border-ink-200" key={section.heading}>
                 <h2 className="flex items-baseline gap-4 border-t-2 border-ink-950 pt-5 font-display text-xl font-extrabold tracking-tight text-ink-950">
                   <span className="text-[0.75rem] font-extrabold text-ember-600 tabular-nums">
                     {String(index + 1).padStart(2, "0")}

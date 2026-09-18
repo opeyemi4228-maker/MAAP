@@ -8,7 +8,7 @@ import { requireSecretariat } from "@/lib/guard";
 import { cardData, cardFilename, inlineCardSvg } from "@/lib/idcard";
 import { Card, PageTitle } from "../ui";
 
-export const metadata = { title: "ID card — MAP", robots: { index: false, follow: false } };
+export const metadata = { title: "ID card — MAAP", robots: { index: false, follow: false } };
 export const dynamic = "force-dynamic";
 
 /**

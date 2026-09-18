@@ -9,6 +9,19 @@ const nextConfig = {
     remotePatterns: [],
   },
 
+  /* Activities, Gallery and Videos were three routes describing one thing at
+     three moments of its life, and are now /media. These are permanent because
+     the old URLs have been in the navigation and the footer — anything already
+     shared or indexed should land on the merged page rather than a 404, and the
+     anchor puts the visitor in the part they were looking for. */
+  async redirects() {
+    return [
+      { source: "/activities", destination: "/media#activities", permanent: true },
+      { source: "/gallery", destination: "/media#photographs", permanent: true },
+      { source: "/videos", destination: "/media#video", permanent: true },
+    ];
+  },
+
   /* The register is not a public document. These are belt-and-braces on top of
      the per-route `robots` metadata: a crawler that ignores the meta tag still
      sees the header, and the frame rules stop a signed-in coordinator's

@@ -61,7 +61,7 @@ export default function VideoCard({ video, priority = false, className }) {
                  own black rectangle, and it is obviously deliberate. */
               <span className="absolute inset-0 grid place-items-center bg-ink-900">
                 <Image
-                  src={assets.mapMark}
+                  src={assets.maapMark}
                   alt=""
                   sizes="96px"
                   className="h-14 w-auto object-contain opacity-25"

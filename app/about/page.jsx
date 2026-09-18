@@ -1,17 +1,20 @@
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { ArrowRight, ArrowUpRight, ShieldCheck, Scale, Users, HeartHandshake, Flag, Compass } from "lucide-react";
 import PageHeader from "@/components/ui/PageHeader";
 import Button from "@/components/ui/Button";
 import Reveal from "@/components/ui/Reveal";
 import { Section, SectionHeading } from "@/components/ui/Section";
 import { coreValues, objectives, nationalExecutive, totalSeats } from "@/lib/map";
+import { site, secondaryCta } from "@/lib/site";
+import { assets } from "@/assets/assets";
 import JoinCta from "@/components/JoinCta";
 
 export const metadata = {
   title: "About the Movement",
   description:
-    "The Movement for Amaechi Presidency (MAP): its mission, its values, its objectives and its National Executive.",
+    "The Movement for Atiku Amaechi Presidency (MAAP): its mission, its values, its objectives, its ticket and its National Executive.",
 };
 
 /* Values are ordered by the lib/map.js list; the icons map onto it by index so
@@ -26,8 +29,8 @@ export default function About() {
       <PageHeader
         breadcrumb="About"
         kicker="The movement"
-        title="Movement for Amaechi Presidency"
-        lead="A nationwide political movement organising in all 36 states, the Federal Capital Territory, 774 Local Government Areas and over 8,000 wards behind one objective, the presidential aspiration of Rt. Hon. Chibuike Rotimi Amaechi."
+        title="Movement for Atiku Amaechi Presidency"
+        lead="One objective: the presidential ticket of Atiku Abubakar and Rotimi Amaechi. Organising in all 36 states, the FCT, 774 Local Government Areas and over 8,000 wards."
       >
         <div className="flex flex-wrap gap-3">
           <JoinCta variant="inverse" size="lg" />
@@ -42,9 +45,9 @@ export default function About() {
         <div className="shell shell-wide py-16 lg:py-20">
           <Reveal>
             <p className="max-w-4xl text-fluid-2xl leading-tight font-bold text-white">
-              MAP exists to build a disciplined, verifiable, nationally
-              distributed structure, built ward by ward, in support of the
-              presidential aspiration of Rt. Hon. Chibuike Rotimi Amaechi.
+              MAAP exists to build a disciplined, verifiable national structure,
+              ward by ward, behind the presidential ticket of Atiku Abubakar and
+              Rotimi Amaechi.
             </p>
           </Reveal>
         </div>
@@ -56,34 +59,28 @@ export default function About() {
           index={1}
           eyebrow="Why the movement exists"
           title="Structure is the argument"
-          lead="Nigerian politics is not short of declarations. It is short of organisations that can name the person responsible in a given ward, and show when they were appointed and by whom. That is the gap MAP was built to close."
+          lead="Nigerian politics is not short of declarations. It is short of organisations that can name who is responsible in a given ward, and when they were appointed. That is the gap MAAP closes."
         />
 
         <div className="mt-14 grid gap-12 lg:grid-cols-2 lg:gap-16">
           <Reveal>
             <div className="prose-body space-y-5">
               <p>
-                A movement that cannot say who speaks for it in Oredo, or in
-                Gwagwalada, or in Nganzai, is not a national movement. It is an
-                announcement with a logo. MAP is organised the other way round.
-                The structure comes first, it is built to the same shape in every
-                state, and it is recorded in one register that the movement&rsquo;s
-                own officers are accountable to.
+                A movement that cannot name who speaks for it in Oredo, or
+                Gwagwalada, or Nganzai is not national. It is an announcement
+                with a logo. MAAP works the other way round: structure first, one
+                register, the same shape in every state.
               </p>
               <p>
-                That register holds {formatter.format(totalSeats)} seats, from the
-                National Executive down to the tenth officer in the smallest
-                ward. Every one of them is either filled by a named member, or
-                openly vacant and waiting on the authority above it to appoint.
-                There is no third state, and no seat that exists only by
-                rumour.
+                The register holds {formatter.format(totalSeats)} seats, from the
+                National Executive to the tenth officer in the smallest ward.
+                Each is either filled by a named member or openly vacant. There
+                is no third state.
               </p>
               <p>
-                Membership is deliberate. Members share the movement&rsquo;s stated
-                outlook, accept its Code of Conduct, and register in the ward
-                where they vote, which is what places them in the structure.
-                Office at Local Government level and above requires verification
-                by the movement.
+                Members accept the Code of Conduct and register in the ward where
+                they vote. That is what places them in the structure. Office at
+                LGA level and above requires verification.
               </p>
             </div>
           </Reveal>
@@ -109,7 +106,7 @@ export default function About() {
       </Section>
 
       {/* ---------------------------------------------------------- values */}
-      <Section className="bg-ink-50">
+      <Section className="border-t border-ink-200">
         <SectionHeading
           index={2}
           eyebrow="Core values"
@@ -139,25 +136,103 @@ export default function About() {
         </ul>
       </Section>
 
-      {/* ------------------------------------------------------ the aspirant */}
-      <Section className="bg-white">
+      {/* -------------------------------------------------------- the ticket */}
+      {/* Two profiles side by side, each with its office named under it, and
+          the party plate beneath them both. The pair is the movement's whole
+          proposition, so it gets a section rather than a line of copy — and
+          setting them as equals in the grid while labelling the offices
+          differently is what keeps "joint ticket" and "who is standing for
+          what" from being the same question. */}
+      <Section className="border-t border-ink-200 bg-white">
         <SectionHeading
           index={3}
-          eyebrow="The aspirant"
-          title="Rt. Hon. Chibuike Rotimi Amaechi"
-          lead="Speaker of the Rivers State House of Assembly, Governor of Rivers State for eight years, and Minister of Transportation from 2015 to 2022, the office that delivered 1,763km of standard gauge rail."
-          actions={
-            <Button href="/about/amaechi" variant="outline" size="md">
-              Who is Amaechi?
-              <ArrowRight size={16} strokeWidth={2.75} />
-            </Button>
-          }
+          eyebrow="The ticket"
+          title="Atiku Abubakar and Rotimi Amaechi"
+          lead="A former Vice President and a former Minister of Transportation, on the platform of the African Democratic Congress."
         />
 
-        <div className="mt-14 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+        <ul className="mt-14 grid gap-px bg-ink-200 lg:grid-cols-2">
           {[
-            { href: "/about/amaechi", label: "Who is Amaechi?", body: "The public record, office by office." },
+            {
+              href: "/about/atiku",
+              office: "For President",
+              prefix: "H.E.",
+              name: "Atiku Abubakar",
+              honorific: "GCON · Waziri Adamawa",
+              body: "Twenty years in Customs, to Deputy Director. Vice President from 1999 to 2007. He chaired the National Economic Council and the National Council on Privatisation, and founded the American University of Nigeria.",
+              cta: "Who is Atiku?",
+            },
+            {
+              href: "/about/amaechi",
+              office: "For Vice President",
+              prefix: "Rt. Hon.",
+              name: "Chibuike Rotimi Amaechi",
+              honorific: "CON · KSJ",
+              body: "Speaker of the Rivers State House of Assembly. Governor for eight years. Minister of Transportation from 2015 to 2022, the office that delivered 1,763km of rail and 32 stations.",
+              cta: "Who is Amaechi?",
+            },
+          ].map((person, index) => (
+            <Reveal as="li" key={person.href} delay={index * 80} className="bg-white">
+              <article className="flex h-full flex-col p-7 lg:p-9">
+                <p className="font-display text-[0.6875rem] font-bold tracking-[0.18em] text-ember-600 uppercase">
+                  {person.office}
+                </p>
+                <p className="mt-5 text-[0.625rem] font-bold tracking-[0.24em] text-ink-500 uppercase">
+                  {person.prefix}
+                </p>
+                <h3 className="mt-1.5 font-display text-fluid-2xl leading-tight font-extrabold tracking-[-0.03em] text-ink-950">
+                  {person.name}
+                </h3>
+                <p className="mt-2 text-[0.6875rem] font-bold tracking-[0.16em] text-brand-600 uppercase">
+                  {person.honorific}
+                </p>
+                <p className="prose-body mt-5 text-[0.9375rem]">{person.body}</p>
+                <div className="mt-auto pt-7">
+                  <Button href={person.href} variant="outline" size="md">
+                    {person.cta}
+                    <ArrowRight size={16} strokeWidth={2.75} />
+                  </Button>
+                </div>
+              </article>
+            </Reveal>
+          ))}
+        </ul>
+
+        {/* The party plate. The ADC mark sits on its own rule rather than in
+            the masthead lockup: the movement is not the party, and putting the
+            two marks together at the top of the page would say it was. */}
+        <Reveal delay={160}>
+          <div className="mt-14 flex flex-col gap-6 border-t-2 border-ink-950 pt-7 sm:flex-row sm:items-center sm:justify-between">
+            <div className="flex items-center gap-5">
+              <Image
+                src={assets.adcLogo}
+                alt={`${site.party} (${site.partyShort})`}
+                sizes="80px"
+                className="size-16 shrink-0 object-contain"
+              />
+              <div className="min-w-0">
+                <p className="font-display text-[0.6875rem] font-bold tracking-[0.18em] text-ink-500 uppercase">
+                  On the platform of
+                </p>
+                <p className="mt-1.5 font-display text-lg font-extrabold tracking-[-0.02em] text-ink-950">
+                  {site.party}
+                </p>
+              </div>
+            </div>
+            <Button href={secondaryCta.href} variant="outline" size="md" external>
+              {secondaryCta.label}
+              <ArrowUpRight size={16} strokeWidth={2.75} />
+            </Button>
+          </div>
+        </Reveal>
+      </Section>
+
+      {/* ------------------------------------------------------- read next */}
+      <Section className="border-t border-ink-200 bg-white" tight>
+        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+          {[
             { href: "/planforchange", label: "Plan for Change", body: "The agenda for Nigeria, sector by sector." },
+            { href: "/structure", label: "Structure", body: "Every seat, from the National Executive to the ward." },
             { href: "/leader", label: "Leadership", body: "The character behind the record." },
             { href: "/news", label: "Newsroom", body: "Statements, coverage and campaign updates." },
           ].map((card, index) => (
@@ -189,13 +264,26 @@ export default function About() {
           tone="inverse"
           eyebrow="National Executive"
           title="Fifteen offices, named as each is confirmed"
-          lead="The National Executive is seeded first and by hand, so that every application from the tiers below has a real officer waiting to decide it. Officers appear here as their appointments are confirmed."
+          lead="None of the fifteen has been announced yet. They are seeded first, by hand, so every application from below has a real officer to decide it. Names appear as appointments are confirmed."
         />
 
+        {/* One "to be announced" for the section, not fifteen.
+
+            This was fifteen cards, each repeating the same empty state under
+            its own rule. Fifteen restatements of "nobody holds this yet" is
+            not fifteen pieces of information — it is one, told fifteen times,
+            and it made the page's longest section its least informative. The
+            honest empty state is kept (a placeholder name here would be a
+            fabricated officer on a political movement's public site); it is
+            now stated once, in the lead above, where a reader meets it before
+            the list rather than after every item in it.
+
+            What survives is the part that does carry information: which
+            fifteen offices exist, and what each is responsible for. */}
         <ul className="mt-14 grid gap-px bg-white/10 sm:grid-cols-2 lg:grid-cols-3">
           {nationalExecutive.map((office, index) => (
             <Reveal as="li" key={office.code} delay={Math.min(index * 40, 320)} className="bg-ink-950">
-              <div className="h-full p-6">
+              <div className="flex h-full flex-col p-6">
                 <div className="flex items-start justify-between gap-3">
                   <h3 className="font-display text-[0.9375rem] leading-snug font-bold text-white">
                     {office.title}
@@ -208,11 +296,6 @@ export default function About() {
                 </div>
                 <p className="mt-2 text-[0.8125rem] leading-snug text-white/45">
                   {office.scope}
-                </p>
-                {/* An honest empty state. A placeholder name here would be a
-                    fabricated officer on a political movement's public site. */}
-                <p className="mt-5 border-t border-white/10 pt-4 text-[0.6875rem] font-bold tracking-[0.12em] text-white/30 uppercase">
-                  To be announced
                 </p>
               </div>
             </Reveal>

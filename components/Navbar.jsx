@@ -9,28 +9,29 @@ import {
   X,
   ArrowUpRight,
   ArrowRight,
-  LogIn,
   IdCard,
   LayoutDashboard,
   LogOut,
   Crown,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { navigation, primaryCta, secondaryCta, site } from "@/lib/site";
+import { navigation, secondaryCta, site, socials } from "@/lib/site";
 import { assets } from "@/assets/assets";
 import Button from "@/components/ui/Button";
 import Avatar from "@/components/ui/Avatar";
+import BrandIcon from "@/components/ui/BrandIcon";
 import AccountMenu from "@/components/AccountMenu";
+import NavDropdown from "@/components/NavDropdown";
 import { clearViewerCache, useViewer } from "@/lib/useViewer";
 
 /**
  * The type half of the lockup: what the mark beside it does not already say.
  *
- * The mark renders "MAP" in letterforms, so setting MAP again in type was the
+ * The mark renders "MAAP" in letterforms, so setting MAAP again in type was the
  * same word twice, side by side. The type expands the acronym instead (the
  * WWF/NASA convention): a small tracked kicker over the movement's name, with
  * the name as the dominant line so the hierarchy runs mark → name → kicker
- * rather than a 31-character descriptor dwarfing a three-letter word.
+ * rather than a 37-character descriptor dwarfing a four-letter word.
  *
  * Hidden below sm, where the mark stands alone: at 360px the mark, the name and
  * the menu button cannot all fit, and a logo is precisely the thing that is
@@ -38,7 +39,11 @@ import { clearViewerCache, useViewer } from "@/lib/useViewer";
  */
 function Wordmark({ compact = false }) {
   return (
-    <span className="hidden min-w-0 flex-col justify-center leading-none sm:flex">
+    <span
+      className={cn(
+        "hidden min-w-0 flex-col justify-center leading-none sm:flex"
+      )}
+    >
       <span
         className={cn(
           "font-display truncate font-bold text-content-subtle uppercase transition-all duration-300",
@@ -49,16 +54,31 @@ function Wordmark({ compact = false }) {
       >
         Movement for
       </span>
-      {/* truncate, not whitespace-nowrap: this is the longest run in the lockup,
+      {/* The name is never hidden to make room. It used to disappear entirely
+          from 1280px to 1535px — the whole common laptop range — because seven
+          links left no space for it. Now the bar carries five (Media and News
+          share a menu; the lockup is the Home link), and in that one tight band
+          the name gives up a notch of size instead of its place. Measured: at
+          1280px it clears the row with the widest signed-in account menu, and
+          it returns to full size at 2xl.
+
+          truncate, not whitespace-nowrap: this is the longest run in the lockup,
           and nowrap alone just lets it spill under the menu button on a narrow
-          tablet rather than clipping cleanly. */}
+          tablet rather than clipping cleanly.
+
+          "Atiku Amaechi Presidency" is five characters longer than the name it
+          replaced, which is enough to start clipping on a small tablet at the
+          old size, so the expanded state steps down a notch and only reaches
+          the previous size at lg. */}
       <span
         className={cn(
           "font-display truncate font-extrabold tracking-[-0.015em] text-content uppercase transition-all duration-300",
-          compact ? "mt-1 text-[0.9375rem]" : "mt-1.5 text-[1.0625rem] lg:text-xl"
+          compact
+            ? "mt-1 text-[0.875rem]"
+            : "mt-1.5 text-[1rem] lg:text-[1.125rem] xl:text-[0.9375rem] 2xl:text-[1.125rem]"
         )}
       >
-        Amaechi Presidency
+        Atiku Amaechi Presidency
       </span>
     </span>
   );
@@ -122,7 +142,7 @@ export default function Navbar() {
   /* Publish the pinned masthead height so page-level sticky bars (the newsroom
      filter rail) can sit directly beneath it instead of being buried under it.
      Measured rather than hard-coded, so it stays correct through the h-25 →
-     h-19 condense, and drops to 0 while the masthead is retracted so those
+     h-19 -> h-15 condense, and drops to 0 while the masthead is retracted so those
      bars rise to meet the viewport edge rather than leaving a floating gap. */
   useEffect(() => {
     const el = navRef.current;
@@ -202,8 +222,18 @@ export default function Navbar() {
     };
   }, [open, close]);
 
-  const isActive = (href) =>
+  const matches = (href) =>
     href === "/" ? pathname === "/" : pathname.startsWith(href);
+
+  /* A parent is lit on its own page and on any of its children's. The leader
+     profiles live under /about/, not under /leaders/, so a prefix match on the
+     parent's href alone would light About instead of Our Leaders on them. */
+  const isActive = (item) =>
+    matches(item.href) || Boolean(item.children?.some((child) => matches(child.href)));
+
+  const childOwner = navigation.find((item) =>
+    item.children?.some((child) => matches(child.href))
+  );
 
   return (
     <>
@@ -225,15 +255,20 @@ export default function Navbar() {
         ---------------------------------------------------------------- */}
         <div
           className={cn(
-            "overflow-hidden bg-linear-to-r from-brand-900 via-brand-800 to-brand-900 text-white transition-[height] duration-300 ease-out-quart",
-            scrolled ? "h-0" : "h-10"
+            /* Black, not green. The homepage hero directly below is a green
+               field, and a green bar over a white masthead over a green field
+               striped the top of the page. Black also matches the ticket's name
+               plate, so the top of the page and the foot of the hero use the
+               same colour. */
+            "overflow-hidden bg-ink-950 text-white transition-[height] duration-300 ease-out-quart",
+            scrolled ? "h-0" : "h-9"
           )}
           /* `inert`, not `aria-hidden`: the bar holds a link, and aria-hidden
              alone would leave it in the tab order, so keyboard focus would land
              on a zero-height element nobody can see. */
           inert={scrolled}
         >
-          <div className="shell shell-wide flex h-10 items-center justify-between gap-4 text-[0.6875rem]">
+          <div className="shell shell-wide flex h-9 items-center justify-between gap-4 text-[0.6875rem]">
             <p className="flex min-w-0 items-center gap-2.5 font-semibold tracking-[0.16em] uppercase">
               {/* Pulse ring reads as "live campaign", not as a stray dot. */}
               <span className="relative flex size-1.5 shrink-0">
@@ -261,6 +296,24 @@ export default function Navbar() {
                 />
               </a>
               <span aria-hidden="true" className="h-3 w-px bg-white/20" />
+              {/* Socials live here, with the other ways off the site, rather
+                  than as a black block parked on the corner of the hero art. */}
+              <ul className="-mx-1.5 flex items-center">
+                {socials.map((social) => (
+                  <li key={social.label}>
+                    <a
+                      href={social.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={`MAAP on ${social.label}`}
+                      className="grid size-7 place-items-center text-white/60 transition-colors duration-200 hover:text-ember-400"
+                    >
+                      <BrandIcon name={social.icon} className="size-3.5" />
+                    </a>
+                  </li>
+                ))}
+              </ul>
+              <span aria-hidden="true" className="h-3 w-px bg-white/20" />
               <span className="font-display font-extrabold tracking-[0.3em] text-ember-400">
                 2027
               </span>
@@ -285,7 +338,7 @@ export default function Navbar() {
           <div
             className={cn(
               "shell shell-wide flex items-center justify-between gap-3 transition-[height] duration-300 sm:gap-6",
-              scrolled ? "h-19" : "h-20 lg:h-25"
+              scrolled ? "h-15" : "h-16 lg:h-19"
             )}
           >
             {/* Mark + wordmark. min-w-0 so the lockup is what gives way on a
@@ -301,39 +354,62 @@ export default function Navbar() {
                   about 4px tall, so the name is set in type beside it instead,
                   where it stays legible and selectable. */}
               <Image
-                src={assets.mapMark}
+                src={assets.maapMark}
                 alt=""
                 priority
                 sizes="80px"
                 className={cn(
                   /* Larger below sm, where it carries the identity alone. */
                   "w-auto shrink-0 object-contain transition-[height,transform] duration-300 group-hover:-translate-y-0.5",
-                  scrolled ? "h-10 sm:h-9" : "h-11 sm:h-10 lg:h-12"
+                  scrolled ? "h-8" : "h-9 lg:h-10"
                 )}
               />
               <span
                 aria-hidden="true"
                 className={cn(
                   "hidden w-px self-stretch bg-hairline transition-all duration-300 sm:block",
-                  scrolled ? "my-3.5" : "my-4"
+                  scrolled ? "my-2.5" : "my-3"
                 )}
               />
               <Wordmark compact={scrolled} />
             </Link>
 
-            {/* Links. Six labels this long genuinely need xl to sit on one
-                row; below that they live in the drawer. */}
-            <ul className="hidden items-center gap-0.5 xl:flex">
-              {navigation.map((item) => {
-                const active = isActive(item.href);
+            {/* Links. Seven labels this long genuinely need xl to sit on one
+                row; below that they live in the drawer. shrink-0: when the row
+                is short, the lockup gives way, never the links. A truncated
+                name is untidy; links drawn over each other cannot be clicked. */}
+            {/* No "Home" in the bar. The lockup to the left of it already is
+                the home link, and a second one beside it bought nothing except
+                the ~70px the movement's name needs to be shown whole on a
+                laptop. The drawer keeps its Home link: when the drawer is open
+                it covers the lockup, so there it is the only way back. */}
+            <ul className="hidden shrink-0 items-center gap-0.5 xl:flex">
+              {navigation.filter((item) => item.href !== "/").map((item) => {
+                /* A child's page belongs to its parent, not to whichever other
+                   item its URL happens to start with. */
+                const active =
+                  isActive(item) && !(childOwner && childOwner !== item);
+
+                if (item.children) {
+                  return (
+                    <NavDropdown
+                      key={item.href}
+                      item={item}
+                      active={active}
+                      pathname={pathname}
+                      hidden={hidden}
+                    />
+                  );
+                }
+
                 return (
                   <li key={item.href}>
                     <Link
                       href={item.href}
                       aria-current={active ? "page" : undefined}
                       className={cn(
-                        "group relative flex items-center px-3.5 py-2.5",
-                        "font-display text-[0.75rem] font-bold tracking-[0.11em] whitespace-nowrap uppercase",
+                        "group relative flex items-center px-2 py-2.5 2xl:px-3",
+                        "font-display text-[0.75rem] font-bold tracking-[0.08em] whitespace-nowrap uppercase 2xl:tracking-[0.11em]",
                         "transition-colors duration-200",
                         active
                           ? "text-brand-700"
@@ -351,7 +427,7 @@ export default function Navbar() {
                       <span
                         aria-hidden="true"
                         className={cn(
-                          "absolute inset-x-3.5 bottom-1 h-0.75 origin-center rounded-full bg-ember-500 transition-transform duration-300 ease-out-quart",
+                          "absolute inset-x-2 bottom-1 h-0.75 origin-center bg-ember-500 transition-transform duration-300 ease-out-quart 2xl:inset-x-3",
                           active ? "scale-x-100" : "scale-x-0"
                         )}
                       />
@@ -366,7 +442,7 @@ export default function Navbar() {
                 the one control this bar exists to carry.
 
                 What that action *is* depends on who is reading. Asking a
-                signed-in member to "Join MAP" is the site failing to recognise
+                signed-in member to "Join MAAP" is the site failing to recognise
                 somebody who has already done the thing being asked of them —
                 so once they are known, the slot becomes their account. */}
             <div className="hidden shrink-0 items-center gap-2 md:flex">
@@ -381,23 +457,20 @@ export default function Navbar() {
               ) : member ? (
                 <AccountMenu member={member} />
               ) : (
-                <>
-                  <Link
-                    href="/login"
-                    className="hidden items-center gap-1.5 px-3 py-2.5 font-display text-[0.75rem] font-bold tracking-[0.11em] whitespace-nowrap text-content-muted uppercase transition-colors duration-200 hover:text-brand-700 lg:inline-flex"
-                  >
-                    <LogIn size={14} strokeWidth={2.75} aria-hidden="true" />
-                    Sign in
-                  </Link>
-                  <Button href={primaryCta.href} variant="primary" size="md">
-                    {primaryCta.label}
-                    <ArrowRight
-                      size={16}
-                      strokeWidth={2.75}
-                      className="transition-transform duration-300 group-hover:translate-x-0.5"
-                    />
-                  </Button>
-                </>
+                /* One door, not two. "Sign in" and "Join MAAP" side by side
+                   made a visitor decide which kind of person they were before
+                   they had read a word. The portal asks that itself: signed
+                   out, /portal sends them to /login, which links on to /join. */
+                <Button href="/portal" variant="primary" size="md">
+                  <IdCard size={16} strokeWidth={2.5} aria-hidden="true" />
+                  Portal
+                  <ArrowRight
+                    size={16}
+                    strokeWidth={2.75}
+                    aria-hidden="true"
+                    className="transition-transform duration-300 group-hover:translate-x-0.5"
+                  />
+                </Button>
               )}
             </div>
 
@@ -415,12 +488,13 @@ export default function Navbar() {
             </button>
           </div>
 
-          {/* Tier 3, the flag hairline. Anchors the masthead without a grey border. */}
-          <div aria-hidden="true" className="flex h-0.75">
-            <span className="flex-1 bg-brand-600" />
-            <span className="w-16 bg-gold-500" />
-            <span className="flex-1 bg-brand-600" />
-          </div>
+          {/* Tier 3, the seam. One ember rule rather than the green-gold flag
+              hairline: green disappeared against the green hero field it now
+              sits on, and the gold stub in the middle read as a stray mark
+              under the nav rather than as a flag. Ember is the accent the whole
+              top of the page already uses (the active-link bar, the headline,
+              the ticket's name plate), so the seam reads as part of that. */}
+          <div aria-hidden="true" className="h-0.75 bg-ember-500" />
         </nav>
       </header>
 
@@ -473,7 +547,7 @@ export default function Navbar() {
           <div className="flex items-center justify-between gap-4 border-b border-hairline px-5 py-4">
             <div className="flex items-center gap-3">
               <Image
-                src={assets.mapMark}
+                src={assets.maapMark}
                 alt=""
                 sizes="64px"
                 className="h-8 w-auto object-contain"
@@ -520,7 +594,8 @@ export default function Navbar() {
 
           <ul className="flex flex-col px-3 py-4">
             {navigation.map((item) => {
-              const active = isActive(item.href);
+              const active =
+                isActive(item) && !(childOwner && childOwner !== item);
               return (
                 <li key={item.href}>
                   <Link
@@ -550,6 +625,54 @@ export default function Navbar() {
                       </span>
                     )}
                   </Link>
+
+                  {/* Children are always shown here, never behind an accordion.
+                      The drawer has the height to spare, and an accordion would
+                      make the two most-asked questions on the site cost two
+                      taps instead of one. */}
+                  {item.children && (
+                    <ul className="mb-1 ml-4 border-l-2 border-ink-100">
+                      {item.children.map((child) => {
+                        const current = pathname === child.href;
+                        return (
+                          <li key={child.href}>
+                            <Link
+                              href={child.href}
+                              aria-current={current ? "page" : undefined}
+                              className={cn(
+                                "-ml-0.5 flex items-center gap-3 border-l-2 py-2.5 pr-4 pl-4 transition-colors duration-200",
+                                current
+                                  ? "border-ember-500 bg-brand-50 text-brand-700"
+                                  : "border-transparent hover:bg-ink-100"
+                              )}
+                            >
+                              {/* People carry a portrait; places do not. See
+                                  components/NavDropdown.jsx for why. */}
+                              {child.image && (
+                                <span className="relative h-10 w-8 shrink-0 overflow-hidden bg-ink-100">
+                                  <Image
+                                    src={child.image}
+                                    alt=""
+                                    fill
+                                    sizes="32px"
+                                    className="object-cover object-top"
+                                  />
+                                </span>
+                              )}
+                              <span className="min-w-0">
+                                <span className="block font-display text-[0.9375rem] font-bold tracking-tight">
+                                  {child.label}
+                                </span>
+                                <span className="mt-0.5 block truncate text-[0.75rem] text-content-subtle">
+                                  {child.office ? `${child.office} · ${child.name}` : child.description}
+                                </span>
+                              </span>
+                            </Link>
+                          </li>
+                        );
+                      })}
+                    </ul>
+                  )}
                 </li>
               );
             })}
@@ -580,13 +703,10 @@ export default function Navbar() {
               </>
             ) : (
               <>
-                <Button href={primaryCta.href} variant="primary" size="lg" full>
-                  {primaryCta.label}
+                <Button href="/portal" variant="primary" size="lg" full>
+                  <IdCard size={17} strokeWidth={2.5} />
+                  Portal
                   <ArrowRight size={17} strokeWidth={2.75} />
-                </Button>
-                <Button href="/login" variant="outline" size="lg" full>
-                  <LogIn size={17} strokeWidth={2.75} />
-                  Sign in
                 </Button>
                 <Button href={secondaryCta.href} variant="outline" size="lg" full>
                   {secondaryCta.label}

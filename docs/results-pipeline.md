@@ -7,9 +7,8 @@ This document covers the two halves of the results system — **the upload**, wh
 is one agent filing one return from one booth, and **the display**, which is that
 return aggregated up six levels and drawn at each of them.
 
-Status is marked throughout: **Built** means it is in the repository and working,
-**Partial** means the mechanism exists but does not yet cover every case, and
-**Proposed** means it is designed here and not yet written.
+Status is marked throughout: **Built** means it is in the repository and working;
+anything short of that says so, and says exactly what is missing.
 
 ---
 
@@ -117,8 +116,9 @@ part of one. So they are their own table with their own membership —
 constituencies) and `ConstituencyWard` for the federal constituencies that split
 an LGA.
 
-**Built** — schema and seed. **Partial** — see §12.1: nothing in the read path
-filters by constituency yet.
+**Built** — schema, resolver (`lib/constituencies.js`) and the read path. The 37
+governorship constituencies are seeded from the register; the 109 senatorial and
+360 federal ones need INEC delimitation data. See §12.1.
 
 ---
 
@@ -219,6 +219,40 @@ since changed.
 
 ---
 
+### 4.6 And a copy goes to Data Bank — **Built**
+
+Data Bank is the sibling hub that records *what arrived, from whom and when*.
+It is a separate deployment on a **separate Neon database**, so there is no
+shared table and no view to publish: the sheet travels over the network,
+through Data Bank's intake door, exactly as a WhatsApp photograph does.
+
+`after()` in [`app/api/results/route.js`](../app/api/results/route.js) calls
+`forwardReturn()` in [`lib/databank.js`](../lib/databank.js) once the response
+is already on its way to the agent's phone. Nothing about forwarding can fail a
+return: it is called after the write has committed, every path inside it
+swallows its own errors, and with `DATABANK_INTAKE_URL` and `DATABANK_API_KEY`
+unset it does nothing at all.
+
+Two details are load-bearing:
+
+- **The unit code is translated, and fails closed.** This application writes
+  `ABI-001-09-003`; Data Bank validates `NN/NN/NN/NNN` against INEC's numbering.
+  `canonicalUnitCode()` converts it and returns `null` for anything it does not
+  recognise, because a *missing* code is rendered there as a finding somebody
+  follows up, while a *wrong* one files a photograph of one booth under another
+  booth's code and nothing downstream can detect it. The state table is pinned
+  against Data Bank's own fixture data in `tests/databank.test.js`. The place
+  names travel on every forward, so a sheet is identifiable either way.
+- **Re-sending is free.** The `externalId` is
+  `poll360:result:<id>:<sheet hash>`, and Data Bank returns the existing row
+  untouched for one it has seen. The hash is in the key because an amended
+  return is genuinely different evidence and has to bank as its own arrival.
+
+Returns filed before this existed are sent with
+`npm run databank:backfill` — a dry run unless given `--confirm`.
+
+---
+
 ## 5. Verification and disputes
 
 `PATCH /api/results/[id]` — **Built**.
@@ -310,11 +344,13 @@ Three options, two of them rejected:
   cartography removed. It answers "who is leading across this LGA" in one look,
   and does not pretend to say where anything is. **This is what is built.**
 
-### 7.2 The five levels, as drawn
+### 7.2 The levels, as drawn
 
 | Level | Route | Drawn as | Units | Source |
 |---|---|---|---|---|
 | **Nation** | `/results` | Choropleth of Nigeria | 37 states | `public/geo/map/states.json` |
+| **Zone** | `/results/zone/[code]` | Choropleth, cropped to the zone | its states | the same file, filtered |
+| **Constituency** | aggregation only | — | its LGAs | join tables, §12.1 |
 | **State** | `/results/[state]` | Choropleth of the state | its LGAs | `public/geo/map/<CODE>.json` |
 | **LGA** | `/results/[state]?lga=` | **Tile grid** | its wards | no polygons exist |
 | **Ward** | `/results/[state]?lga=&ward=` | **Tile grid** | its polling units | no polygons exist |
@@ -423,6 +459,9 @@ the reader's territory and a sheet that does not exist come back identically.
 | `POST /api/results` | File or amend a return | Built |
 | `PATCH /api/results/[id]` | Verify / dispute | Built |
 | `GET /api/results/[id]/sheet` | The EC8A photograph | Built |
+| `/results/zone/[code]` | Public zone aggregate, all six | Built |
+| `/results/gap` | Declared against witnessed, ranked | Built |
+| `/api/admin/export/returns` | Every counted return, CSV | Built |
 
 ---
 
@@ -430,7 +469,9 @@ the reader's territory and a sheet that does not exist come back identically.
 
 | Hazard | Handling | Status |
 |---|---|---|
-| Agent's connection drops mid-submit | Error shown, nothing persisted, agent must retype | **Gap — see 12.2** |
+| Agent's connection drops mid-submit | Figures and photograph kept on the phone until the server confirms | Built |
+| Filing exceeds the transaction ceiling | 20s interactive timeout, not Prisma's 5s default | Built |
+| A figure filed against a party not on that ballot | Ballot resolved from the booth; the figure is dropped | Built |
 | Agent files a mistyped figure | Client + server arithmetic; amendment path | Built |
 | Two agents at one booth | Impossible: `seatsPerUnit: 1`, unique on (election, unit) | Built |
 | Agent files for the wrong booth | Impossible: booth comes from the appointment | Built |
@@ -442,52 +483,154 @@ the reader's territory and a sheet that does not exist come back identically.
 
 ---
 
-## 12. Not built yet
+## 12. The gaps, closed
 
-### 12.1 Constituency-scoped aggregation — **Proposed**
+The five gaps this document listed on its first pass have been worked through.
+One of them turned out not to be a gap at all.
 
-`Constituency`, `ConstituencyLga` and `ConstituencyWard` are modelled and seeded,
-and `Candidate` already carries `constituencyId`. But nothing in `lib/elections.js`
-filters by it. Today a governorship, senatorial or federal-constituency race
-aggregates by **geography**, which is right for presidential and wrong for the
-other three — a senatorial total should be the sum of the booths in that
-district, not of the state that contains it.
+### 12.1 Constituency-scoped aggregation — **Built, pending delimitation data**
 
-**Work:** add `constituencyId` to `resultsWhere()`, resolving to the union of its
-LGAs and wards; add a constituency level to `LEVELS`; and choose the ballot for a
-booth by the constituencies containing its ward.
+The query layer now exists. `resultsWhere()` accepts a constituency and filters
+on the union of its whole LGAs and its individual split wards; `reporting()`
+counts its booths rather than its state's; `breakdown({ level: "constituency" })`
+breaks it down into the LGAs a reader recognises. An empty constituency reads
+nothing rather than falling through to the federation — that fall-through would
+have reported the whole country's votes as one senatorial district's.
 
-### 12.2 An offline queue for agents — **Proposed**
+`lib/constituencies.js` resolves the three memberships a ward has, and
+`ballotFor(electionId, wardId)` turns them into the ballot an agent actually
+sees. **The parties on the form are now decided by the booth**, and the filing
+route reads the ballot from the booth rather than from the request — a figure
+posted against a party not standing at that polling unit is discarded, the same
+principle as the polling unit itself. Where candidates are recorded the form
+shows the candidate's name, which is what an agent reads off the sheet.
 
-The form is described as built for "a connection that may not hold", and it is —
-right up to the submit button. There is no `localStorage` draft and no retry: a
-failed submission loses the typed figures.
+If no candidates are recorded, the ballot falls back to every party
+(`byCandidate: false`). An empty ballot is a form nobody can file on election
+night; a missing candidate table is an administrative gap, not a reason to stop
+counting.
 
-**Work:** persist the form state on every keystroke under a key of
-`(electionId, pollingUnitId)`; on submit failure keep the draft and offer retry;
-restore it on next load. The photograph is the awkward part — a downscaled blob
-in IndexedDB rather than `localStorage`. A service worker with background sync
-is the fuller version and is probably more than this needs.
+**`scripts/seed-constituencies.mjs`** seeds the 37 STATE constituencies — one per
+state, containing exactly that state's LGAs, derived from the register with no
+external data. Verified: 37 constituencies, 774 LGA memberships, every set
+identical to the register.
 
-### 12.3 A zone level in the public UI — **Proposed**
+**What is still missing is data, not code.** The 109 senatorial districts and
+360 federal constituencies are INEC delimitation tables. They are not in this
+repository and a seed script may not guess them — inventing a constituency
+boundary would silently produce a wrong result for a real race. Supply them and
+they work immediately:
 
-`breakdown({ level: "zone" })` is implemented and there is no route that calls
-it. Six geopolitical zones is a natural way to read a national result, and the
-query is already there. **Work:** `/results/zone/[code]`.
+```bash
+node scripts/seed-constituencies.mjs --file delimitation.json
+```
 
-### 12.4 Result export — **Proposed**
+Names are matched on a normalised form, so "Opobo/Nkoro" and "Opobo Nkoro" both
+resolve, and anything that does not match is **reported rather than skipped** —
+a constituency quietly missing an LGA reports a wrong total for a real race.
 
-`/api/admin/export/[dataset]` exists for members. Returns are not among the
-datasets. Anyone doing serious analysis on election night will want a CSV of
-every counted return within their scope.
+Until that file exists, senatorial and House of Representatives results
+aggregate by geography, which is wrong for those two races. Presidential and
+governorship are correct today.
 
-### 12.5 An INEC-gap view of its own — **Partial**
+### 12.2 An offline draft for agents — **Built**
 
-The gap is computed and shown as a panel. It is arguably the most newsworthy
-thing this system produces, and it has no surface of its own — no "where the
-declared figure diverges most from what our agents witnessed", ranked.
+`lib/draft.js`, wired into the return form.
+
+Every keystroke is written to the phone and **nothing is cleared until the
+server has confirmed the write**. A crashed tab, a dead battery, a walk out of
+signal and back: the figures are still there, and the form says so — *"Not yet
+filed. These figures were saved on this phone 11 minutes ago and have not
+reached the server."*
+
+Two stores, for one reason each. The figures go to `localStorage`, which is
+synchronous and cannot fail halfway — the right trade for eleven short numbers
+written on every keypress. The photograph cannot: `localStorage` holds strings,
+and base64ing a 300KB JPEG into it wastes a third of it on the main thread. The
+already-downscaled blob goes to IndexedDB, which stores Blobs natively. That is
+the difference between a retry that needs the sheet photographed again and one
+that does not.
+
+It is **not** a queue and **not** background sync. Nothing sends on its own.
+Coming back online offers a retry; it does not take one. A declaration that says
+*"I am standing at this polling unit"* may only be made by a person pressing a
+button.
+
+Only a 5xx or a dead connection leaves a return flagged unsent. A 422 is bad
+arithmetic, and telling an agent to "try again" when the numbers do not balance
+would be a lie.
+
+### 12.3 A zone level in the public UI — **Built**
+
+`/results/zone/[code]` — the six geopolitical zones, which is how a Nigerian
+election night is actually discussed. The aggregation had been sitting in
+`lib/elections.js` since the drilldown was built with no route calling it.
+
+The map is the national projection **cropped** to the zone's states rather than
+a projection of its own, so a zone and the country are the same map at two
+window sizes. Every state in the zone appears whether or not it has reported.
+
+### 12.4 Result export — **Already built; the earlier claim was wrong**
+
+`/api/admin/export/returns` exists and always did. It emits a column per party
+worked out from the data rather than hard-coded, the turnout arithmetic, both
+INEC columns, the status, whether a sheet is on file, and the agent who filed
+it — and, like every dataset on that route, it is nationwide-only and written to
+the audit trail before the file is handed over.
+
+### 12.5 The INEC gap, given its own surface — **Built**
+
+`/results/gap`. `divergence()` ranks the units where the declared figure and
+what our agents recorded disagree most, by state and by individual polling unit.
+
+**Like is compared with like.** Only units where an agent could read a declared
+figure are counted, and our total for those units is summed from the same rows.
+Comparing our count of 500 booths against INEC's declared total for the 120 an
+agent happened to read would manufacture a scandal out of arithmetic.
+
+The caveat is above the table, not under it: *a difference here is not evidence
+of fraud*. The commonest explanation is an agent copying a provisional figure
+from a sheet that was corrected an hour later. The page shows where the two
+records disagree so the question can be asked; it does not answer it.
+
+Ties break on the absolute number of votes, so a 100% gap over 12 votes does not
+outrank a 20% gap over 40,000.
 
 ---
+
+## 12A. One bug found while testing this
+
+Filing a return failed with a 503 on an ordinary connection:
+
+```
+Transaction API error: A commit cannot be executed on an expired transaction.
+The timeout for this transaction was 5000 ms, however 7551 ms passed.
+```
+
+`fileReturn()` makes four sequential round trips inside one interactive
+transaction — upsert, delete, insert, sheet — and Prisma allows such a
+transaction five seconds by default. On election night those round trips go over
+mobile data to a pooled Postgres endpoint that may be a continent away, and the
+default rejects the write *after* doing all the work: the agent is told to try
+again, and the retry is just as slow.
+
+Now `{ timeout: 20_000, maxWait: 10_000 }`. A booth reports once; spending twenty
+seconds on it is nothing, and losing it to a timeout calibrated for a datacentre
+is exactly the failure this pipeline exists to prevent. `maxWait` — the queue for
+a connection — stays short on purpose: if the pool is saturated, failing fast is
+better than piling on.
+
+---
+
+## 12B. Still open
+
+- **Delimitation data** for the 469 senatorial and federal constituencies. The
+  only thing standing between those two races and correct aggregation.
+- **Candidates.** No candidate is seeded for any 2027 race, deliberately —
+  naming one is not a seed script's business. Until they are recorded, every
+  ballot is the party fallback.
+- **Ward and polling unit boundaries.** Not a gap that can be closed: see §7.1.
+  Nobody has released the shapes.
 
 ## 13. Running it
 
@@ -495,7 +638,11 @@ declared figure diverges most from what our agents witnessed", ranked.
 npm run db:migrate            # schema, including the results tables
 node prisma/seed.mjs          # geography, roles, 268,807 seats
 node scripts/build-map.mjs    # SVG paths — only if boundaries are revised
-node scripts/seed-election.mjs --unit <INEC-CODE>
+node scripts/seed-constituencies.mjs
+                              # 37 governorship constituencies, from the register
+node scripts/seed-constituencies.mjs --file delimitation.json
+                              # the 109 senatorial and 360 federal ones
+node scripts/seed-election.mjs --agent <INEC-CODE>
                               # a Polling Unit Coordinator to file with
 ```
 

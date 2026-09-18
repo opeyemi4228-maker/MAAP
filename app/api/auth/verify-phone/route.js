@@ -60,7 +60,7 @@ export async function POST(request) {
       userId: account.id,
       phone: account.phone,
       purpose: "REGISTRATION",
-      message: "{code} is your MAP confirmation code. It expires in five minutes.",
+      message: "{code} is your MAAP confirmation code. It expires in five minutes.",
     });
 
     if (!sent.ok) {

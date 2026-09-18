@@ -8,7 +8,7 @@ import { Empty, PageTitle, SectionHead, StatTile, Table } from "../ui";
 import SeatRow from "./SeatRow";
 import ApplicationCard from "./ApplicationCard";
 
-export const metadata = { title: "Appointments — MAP Secretariat", robots: { index: false, follow: false } };
+export const metadata = { title: "Appointments — MAAP Secretariat", robots: { index: false, follow: false } };
 export const dynamic = "force-dynamic";
 
 /**

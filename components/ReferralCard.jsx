@@ -33,10 +33,10 @@ export default function ReferralCard({ code, className }) {
   }
 
   async function share() {
-    const text = `Join the Movement for Amaechi Presidency. Register with my referral code ${code}: ${link}`;
+    const text = `Join the Movement for Atiku Amaechi Presidency. Register with my referral code ${code}: ${link}`;
     if (navigator.share) {
       try {
-        await navigator.share({ title: "Join MAP", text, url: link });
+        await navigator.share({ title: "Join MAAP", text, url: link });
         return;
       } catch {
         // Dismissed. Nothing to report — they closed a sheet they opened.

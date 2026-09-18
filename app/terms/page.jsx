@@ -8,7 +8,7 @@ import { site } from "@/lib/site";
 export const metadata = {
   title: "Terms of Use",
   description:
-    "The terms on which the Movement for Amaechi Presidency provides this website and membership platform.",
+    "The terms on which the Movement for Atiku Amaechi Presidency provides this website and membership platform.",
 };
 
 /**
@@ -26,7 +26,7 @@ const sections = [
   {
     heading: "Membership",
     body: [
-      `Membership of MAP is free. The movement never asks for payment to register, to be appointed to any office, or to keep one. Any person, page or account demanding money for membership or for a position is not acting for this movement.`,
+      `Membership of MAAP is free. The movement never asks for payment to register, to be appointed to any office, or to keep one. Any person, page or account demanding money for membership or for a position is not acting for this movement.`,
       `You must be at least 18 years old to register. One membership per person, and one membership per phone number, because your phone number is how the movement identifies you.`,
       `The information you give at registration must be accurate. Registrations found to be duplicated or falsified may be cancelled.`,
     ],
@@ -34,7 +34,7 @@ const sections = [
   {
     heading: "Holding office",
     body: [
-      `Office in MAP is by appointment. Members do not apply for seats and cannot nominate themselves. Every seat is filled by the officer the movement's structure names as the appointing authority for it, appointing from the members registered in that territory, and the National Coordinator, as Super Admin, may appoint anywhere in the structure.`,
+      `Office in MAAP is by appointment. Members do not apply for seats and cannot nominate themselves. Every seat is filled by the officer the movement's structure names as the appointing authority for it, appointing from the members registered in that territory, and the National Coordinator, as Super Admin, may appoint anywhere in the structure.`,
       `A member may hold one office at a time, and may only be appointed to a seat within the territory they registered in. If you relocate, you request a transfer of registration, and an officer must vacate their seat before transferring.`,
       `Appointments are recorded permanently against the name of the officer who made them. No appointment made outside this chain is valid, and nobody may promise you a seat.`,
     ],
@@ -49,8 +49,8 @@ const sections = [
   {
     heading: "Conduct",
     body: [
-      `Members accept the movement's Code of Conduct at registration. Using MAP's name, marks or structure to solicit money, to impersonate an officer, or to make claims on the movement's behalf without authority is grounds for removal.`,
-      `Content on this site, meaning text, photographs, the MAP mark and the movement's branding, belongs to the movement and may not be reproduced to suggest endorsement or affiliation that does not exist. Press use of the media kit is welcome.`,
+      `Members accept the movement's Code of Conduct at registration. Using MAAP's name, marks or structure to solicit money, to impersonate an officer, or to make claims on the movement's behalf without authority is grounds for removal.`,
+      `Content on this site, meaning text, photographs, the MAAP mark and the movement's branding, belongs to the movement and may not be reproduced to suggest endorsement or affiliation that does not exist. Press use of the media kit is welcome.`,
     ],
   },
   {
@@ -69,7 +69,7 @@ export default function Terms() {
         breadcrumb="Terms"
         kicker="Using this platform"
         title="Terms of Use"
-        lead="The terms on which MAP provides this website, and the rules that govern membership and office within the movement."
+        lead="The terms on which MAAP provides this website, and the rules that govern membership and office within the movement."
       />
 
       <Section className="bg-white">
@@ -92,7 +92,7 @@ export default function Terms() {
 
           <div className="mt-14 space-y-12">
             {sections.map((section, index) => (
-              <section key={section.heading}>
+              <section className="border-t border-ink-200" key={section.heading}>
                 <h2 className="flex items-baseline gap-4 border-t-2 border-ink-950 pt-5 font-display text-xl font-extrabold tracking-tight text-ink-950">
                   <span className="text-[0.75rem] font-extrabold text-ember-600 tabular-nums">
                     {String(index + 1).padStart(2, "0")}

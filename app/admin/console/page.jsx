@@ -44,7 +44,7 @@ import { Anchor, DailyBars, Facts, Proportion } from "./ui";
 export const dynamic = "force-dynamic";
 
 export const metadata = {
-  title: "Console — MAP Secretariat",
+  title: "Console — MAAP Secretariat",
   robots: { index: false, follow: false },
 };
 
@@ -556,8 +556,6 @@ export default async function ConsolePage() {
               ? `${openElections.length} election${openElections.length === 1 ? "" : "s"} open for returns. Reporting is measured against all ${reach.units.all.toLocaleString()} polling units in the federation.`
               : "No election is currently accepting returns."
           }
-          href="/results"
-          hrefLabel="Public results"
         />
         <Table
           head={[

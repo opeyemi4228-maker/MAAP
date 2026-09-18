@@ -58,7 +58,7 @@ export async function POST(request) {
         userId: user.id,
         phone: user.phone,
         purpose: "PASSWORD_RESET",
-        message: "{code} is your MAP password reset code. It expires in five minutes. If this was not you, ignore it.",
+        message: "{code} is your MAAP password reset code. It expires in five minutes. If this was not you, ignore it.",
       }).catch((error) => console.error("[reset] could not send code", error));
     }
 

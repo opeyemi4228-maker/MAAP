@@ -68,22 +68,79 @@ import Amae from "./Amae.webp";
 import Pro1 from "./Pro1.webp";
 import Camp1 from "./Camp1.jpeg";
 import Camp2 from "./Camp2.jpeg";
+import Atiku from "./Atiku.jpg";
 
-/* The MAP identity, cropped from the supplied "MAP NEW.png" master.
-   That file is 4400x4400 with the artwork occupying only the middle third, so
-   used directly it renders at about a third of whatever box it is given.
+/* The ticket as poster artwork: both men cut out of their studio backgrounds
+   by scripts/build-ticket-portraits.mjs, so the hero can overlap them on a
+   green field the way the campaign's own posters do. Transparent WebPs, meant
+   to be laid over colour — on white they read as two men floating in a void. */
+import ticketAtiku from "./ticket-atiku.webp";
+import ticketAmaechi from "./ticket-amaechi.webp";
 
-   mapMark  is the MAP symbol alone, for the masthead and footer lockups where
-              the movement's name is already set in type beside it.
-   mapLogo  is the full lockup including "Movement for Amaechi Presidency", for
-              places with room to set it large enough to read. */
-import mapMark from "./map-mark.png";
-import mapLogo from "./map-logo.png";
+/* The campaign's photo shoot of the ticket, sized for the web by
+   scripts/build-photos.mjs. Named for what is in the frame, so a slot can be
+   chosen by reading the name rather than by opening the file. */
+import atikuStudioGaze from "./photos/atiku-studio-gaze.webp";
+import atikuStudioSmile from "./photos/atiku-studio-smile.webp";
+import atikuAgbadaSeated from "./photos/atiku-agbada-seated.webp";
+import atikuRobeChair from "./photos/atiku-robe-chair.webp";
+import atikuWaving from "./photos/atiku-waving.webp";
+import atikuCasual from "./photos/atiku-casual.webp";
+import atikuSuitGesture from "./photos/atiku-suit-gesture.webp";
+import atikuSuitSeated from "./photos/atiku-suit-seated.webp";
+import atikuSuitPortrait from "./photos/atiku-suit-portrait.webp";
+import atikuSuitMono from "./photos/atiku-suit-mono.webp";
+import atikuSpeakingWide from "./photos/atiku-speaking-wide.webp";
+import atikuSpeaking from "./photos/atiku-speaking.webp";
+import atikuSpeakingBlue from "./photos/atiku-speaking-blue.webp";
+import atikuLaughing from "./photos/atiku-laughing.webp";
+import atikuSeated from "./photos/atiku-seated.webp";
+import amaechiGreen from "./photos/amaechi-green.webp";
+import amaechiSuit from "./photos/amaechi-suit.webp";
+
+/* The MAAP identity, derived from the supplied masters by
+   scripts/build-brand-assets.mjs. Both masters ship with the artwork floating
+   in a white field, which renders as a card behind the mark on any surface that
+   is not white — see that script for the crop and the de-whiting.
+
+   maapMark  is the MAAP symbol alone, for the masthead and footer lockups where
+               the movement's name is already set in type beside it. Green and
+               red only, so it reads on the ink-950 footer as well as on white.
+   maapLogo  is the full lockup including "Movement for Atiku Amaechi
+               Presidency". The descender type is black, so this one is for
+               light surfaces with room to set it large enough to read.
+   adcLogo   is the African Democratic Congress mark — the party whose platform
+               the ticket stands on. A partner mark, never the site's own: it is
+               always shown beside the MAAP identity, never in place of it. */
+import maapMark from "./maap-mark.png";
+import maapLogo from "./maap-logo.png";
+import adcLogo from "./adc-logo.png";
 
 export const assets = {
   logo,
-  mapMark,
-  mapLogo,
+  Atiku,
+  ticketAtiku,
+  ticketAmaechi,
+  atikuStudioGaze,
+  atikuStudioSmile,
+  atikuAgbadaSeated,
+  atikuRobeChair,
+  atikuWaving,
+  atikuCasual,
+  atikuSuitGesture,
+  atikuSuitSeated,
+  atikuSuitPortrait,
+  atikuSuitMono,
+  atikuSpeakingWide,
+  atikuSpeaking,
+  atikuSpeakingBlue,
+  atikuLaughing,
+  atikuSeated,
+  amaechiGreen,
+  amaechiSuit,
+  maapMark,
+  maapLogo,
+  adcLogo,
   Abujakaduna,
   Pro1,
   Camp1,

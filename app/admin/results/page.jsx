@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowUpRight, ExternalLink, ShieldAlert, Vote } from "lucide-react";
+import { ArrowUpRight, ShieldAlert, Vote } from "lucide-react";
 
 import LiveRefresh from "@/components/results/LiveRefresh";
 import UnitGrid from "@/components/results/UnitGrid";
@@ -20,7 +20,7 @@ import { cn } from "@/lib/utils";
 import { Card, Cell, Empty, PageTitle, Row, SectionHead, StatTile, Table } from "../ui";
 import ReviewRow from "./ReviewRow";
 
-export const metadata = { title: "Results — MAP Secretariat", robots: { index: false, follow: false } };
+export const metadata = { title: "Results — MAAP Secretariat", robots: { index: false, follow: false } };
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
 
@@ -171,7 +171,7 @@ export default async function AdminResults({ searchParams }) {
 
       <PageTitle
         title="Results"
-        lead={`${election.name}. Your agents' returns from ${scope.label} — MAP's own count, not an INEC declaration.`}
+        lead={`${election.name}. Your agents' returns from ${scope.label} — MAAP's own count, not an INEC declaration.`}
         action={
           <div className="flex flex-wrap items-center gap-3">
             {elections.length > 1 && (
@@ -193,13 +193,6 @@ export default async function AdminResults({ searchParams }) {
                 ))}
               </div>
             )}
-            <Link
-              href={`/results?election=${election.id}`}
-              className="flex shrink-0 items-center gap-1.5 text-[0.75rem] font-bold tracking-[0.08em] text-brand-700 uppercase hover:text-ember-600"
-            >
-              <ExternalLink size={14} strokeWidth={3} />
-              Public map
-            </Link>
           </div>
         }
       />

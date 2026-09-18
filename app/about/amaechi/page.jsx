@@ -9,6 +9,7 @@ import { Section, SectionHeading } from "@/components/ui/Section";
 import { assets } from "@/assets/assets";
 import { bio, record, offices } from "@/lib/amaechi";
 import JoinCta from "@/components/JoinCta";
+import PhotoGallery from "@/components/PhotoGallery";
 
 export const metadata = {
   title: "Who is Amaechi",
@@ -21,9 +22,9 @@ export default function WhoIsAmaechi() {
     <>
       <PageHeader
         breadcrumb="Who is Amaechi"
-        kicker="The aspirant"
+        kicker="The running mate"
         title="Who is Amaechi?"
-        lead="Three decades in public service: Speaker of the Rivers State House of Assembly, Governor of Rivers State, and Federal Minister of Transportation."
+        lead="Three decades in public service: Speaker of the Rivers State House of Assembly, Governor of Rivers State, and Federal Minister of Transportation. Running mate to H.E. Atiku Abubakar."
         image={assets.Amaechi1}
       />
 
@@ -70,14 +71,14 @@ export default function WhoIsAmaechi() {
       </Section>
 
       {/* --------------------------------------------------------- offices */}
-      <Section className="bg-ink-50">
+      <Section className="border-t border-ink-200">
         <SectionHeading
           index={2}
           eyebrow="Public offices held"
           title="Office by office, 1992 to 2022"
         />
 
-        <ol className="mt-14 space-y-px">
+        <ol className="mt-14 space-y-px bg-ink-200">
           {offices.map((office, index) => (
             <Reveal as="li" key={office.id} delay={index * 60}>
               <article className="grid gap-6 bg-white p-6 md:grid-cols-[13rem_1fr] md:gap-10 md:p-8">
@@ -127,6 +128,29 @@ export default function WhoIsAmaechi() {
         </ol>
       </Section>
 
+      {/* ------------------------------------------------------ photographs */}
+      <Section className="border-t border-ink-200 bg-white">
+        <SectionHeading
+          index={3}
+          eyebrow="In pictures"
+          title="Rotimi Amaechi"
+        />
+
+        <PhotoGallery
+          photos={[
+            { src: assets.Amaechi7, alt: "Rotimi Amaechi in white, arms folded" },
+            { src: assets.amaechiSuit, alt: "Rotimi Amaechi in a blue suit, seated" },
+            { src: assets.Amaechi6, alt: "Rotimi Amaechi in a burgundy agbada and cap" },
+            { src: assets.amaechiGreen, alt: "Rotimi Amaechi in striped traditional attire, arms folded" },
+            { src: assets.Amaechi11, alt: "Rotimi Amaechi in white agbada and headwrap, hands clasped" },
+            { src: assets.Amaechi12, alt: "Rotimi Amaechi in a patterned shirt and red cap" },
+            { src: assets.Amaechi5, alt: "Rotimi Amaechi in white, seated" },
+            { src: assets.Amaechi8, alt: "Rotimi Amaechi in white agbada and cap" },
+            { src: assets.Amaechi10, alt: "Rotimi Amaechi in white agbada and headwrap, with glasses" },
+          ]}
+        />
+      </Section>
+
       {/* ------------------------------------------------------------- CTA */}
       <section className="bg-brand-700">
         <div className="shell shell-wide py-16 lg:py-20">
@@ -136,13 +160,17 @@ export default function WhoIsAmaechi() {
                 That is the record. This is the plan.
               </h2>
               <p className="mt-4 text-fluid-lg leading-relaxed text-white/70">
-                What he intends to do with the presidency, sector by sector.
+                What the ticket intends to do with the office, sector by sector
+                — or read the record of the man at the head of it.
               </p>
             </div>
             <div className="flex shrink-0 flex-wrap gap-3">
-              <Button href="/planforchange" variant="inverse" size="lg">
-                Plan for Change
+              <Button href="/about/atiku" variant="inverse" size="lg">
+                Who is Atiku?
                 <ArrowRight size={17} strokeWidth={2.75} />
+              </Button>
+              <Button href="/planforchange" variant="inverseOutline" size="lg">
+                Plan for Change
               </Button>
               <JoinCta variant="inverseOutline" size="lg" arrow={false} />
             </div>

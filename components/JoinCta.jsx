@@ -6,7 +6,7 @@ import Button from "@/components/ui/Button";
 import { useViewer } from "@/lib/useViewer";
 
 /**
- * "Join MAP" — unless you already have.
+ * "Join MAAP" — unless you already have.
  *
  * ── WHY THIS EXISTS ────────────────────────────────────────────────────────
  * The masthead swapped its call to action for a signed-in member, but a dozen
@@ -26,7 +26,7 @@ import { useViewer } from "@/lib/useViewer";
  * a page with four of these still makes one request.
  */
 export default function JoinCta({
-  label = "Join MAP",
+  label = "Join MAAP",
   signedInLabel = "Your membership",
   variant = "primary",
   size = "lg",
@@ -39,7 +39,7 @@ export default function JoinCta({
   const { status, member } = useViewer();
 
   /* While the answer is in flight, hold the space rather than guess. A button
-     that says "Join MAP" for a beat and then changes its mind is worse than one
+     that says "Join MAAP" for a beat and then changes its mind is worse than one
      that arrives a moment late — and the reserved block keeps the row from
      jumping when it does. */
   if (status === "loading") {

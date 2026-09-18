@@ -241,7 +241,7 @@ export default function Login() {
                 href="/join"
                 className="font-bold text-brand-700 underline underline-offset-4 transition-colors hover:text-ember-600"
               >
-                Join MAP
+                Join MAAP
               </Link>
             </p>
           )}

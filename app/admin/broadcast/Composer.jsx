@@ -169,7 +169,7 @@ export default function Composer({ initial, gateway, territory }) {
               }}
               rows={7}
               maxLength={1600}
-              placeholder="MAP: Ward congress this Saturday, 10am, at the LGA secretariat. Bring your membership number. — Reply STOP to opt out."
+              placeholder="MAAP: Ward congress this Saturday, 10am, at the LGA secretariat. Bring your membership number. — Reply STOP to opt out."
               className="w-full resize-y border-2 border-ink-200 px-4 py-3 text-[0.9375rem] leading-relaxed text-ink-950 outline-none focus:border-ink-950"
             />
 

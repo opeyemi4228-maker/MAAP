@@ -16,7 +16,7 @@ import { clearViewerCache } from "@/lib/useViewer";
 import { cn } from "@/lib/utils";
 
 /**
- * The signed-in half of the masthead: the control that replaces "Join MAP"
+ * The signed-in half of the masthead: the control that replaces "Join MAAP"
  * once you already have.
  *
  * Everything in the panel is a link the member would otherwise have to

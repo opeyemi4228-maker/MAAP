@@ -25,7 +25,7 @@ import { growthSeries, referralList, referralSummary } from "@/lib/referrals";
 import { cn } from "@/lib/utils";
 
 export const metadata = {
-  title: "Your membership — MAP",
+  title: "Your membership — MAAP",
   robots: { index: false, follow: false },
 };
 
@@ -325,7 +325,7 @@ export default async function Portal() {
           <p className="flex items-start gap-3 bg-white p-4 text-[0.8125rem] leading-relaxed text-content-muted">
             <ShieldCheck size={17} className="mt-0.5 shrink-0 text-brand-600" aria-hidden="true" />
             <span>
-              MAP never asks for payment to register, to be appointed to any
+              MAAP never asks for payment to register, to be appointed to any
               office, or to keep one.
             </span>
           </p>

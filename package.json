@@ -2,7 +2,7 @@
   "name": "map-platform",
   "version": "0.1.0",
   "private": true,
-  "description": "Membership and structure platform for the Movement for Amaechi Presidency (MAP).",
+  "description": "Membership and structure platform for the Movement for Atiku Amaechi Presidency (MAAP).",
   "engines": {
     "node": ">=20.9"
   },
@@ -17,7 +17,12 @@
     "db:seed": "node prisma/seed.mjs",
     "db:studio": "prisma studio",
     "geo:build": "node scripts/build-geography.mjs",
+    "brand:build": "node scripts/build-brand-assets.mjs",
+    "portraits:build": "node scripts/build-ticket-portraits.mjs",
+    "photos:build": "node scripts/build-photos.mjs",
     "referrals:backfill": "node scripts/backfill-referral-codes.mjs",
+    "databank:backfill": "node scripts/backfill-databank.mjs",
+    "members:renumber": "node scripts/renumber-membership-maap.mjs",
     "postinstall": "prisma generate",
     "test": "node --import ./tests/setup.mjs --test \"tests/**/*.test.js\""
   },
