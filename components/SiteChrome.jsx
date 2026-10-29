@@ -19,11 +19,30 @@ import SupportRail from "@/components/SupportRail";
  * The exclusion is by path rather than by route group so that the public routes
  * did not all have to move into a `(site)` directory to get one screen out of
  * the chrome. The trade is that this component is a client component and reads
- * the path — cheap, and it renders nothing at all on the route it excludes.
+ * the path — cheap, and it renders nothing at all on the routes it excludes.
+ *
+ * /portal is excluded for the same reason as /admin: it is the member's own
+ * dashboard, not a page of the website. A campaign masthead inviting them to
+ * "Join MAAP" above their own membership card, and four columns of marketing
+ * links below it, are chrome for a stranger. The portal carries its own way
+ * back to the site instead — see app/portal/layout.js.
+ *
+ * The four AUTH routes are excluded as well. They are one task on one screen:
+ * type these two things and get in. A masthead there offers eight ways to
+ * abandon it — including a Portal button that lands right back on the page
+ * they are already looking at, which is how somebody signed out ends up
+ * thinking the sign-in page IS the portal. Their way back is one arrow, in
+ * components/auth/AuthShell.jsx.
  */
+
+/* Signing in, joining, resetting a password, enrolling a second factor. */
+const AUTH = ["/login", "/join", "/reset", "/secure"];
 export default function SiteChrome({ children }) {
   const pathname = usePathname();
-  const bare = pathname.startsWith("/admin");
+  const bare =
+    pathname.startsWith("/admin") ||
+    pathname.startsWith("/portal") ||
+    AUTH.some((route) => pathname === route || pathname.startsWith(`${route}/`));
 
   if (bare) return <main id="main">{children}</main>;
 

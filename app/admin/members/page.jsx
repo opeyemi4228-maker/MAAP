@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Search } from "lucide-react";
+import { Search, SearchX, UserPlus } from "lucide-react";
 
 import Avatar from "@/components/ui/Avatar";
 import { requireSecretariat } from "@/lib/guard";
@@ -65,10 +65,15 @@ export default async function MembersPage({ searchParams }) {
         ]}
         empty={
           result.rows.length === 0 && (
-            <Empty>
+            <Empty
+              icon={q ? SearchX : UserPlus}
+              title={q ? "Nothing matched that search" : "The register is empty here"}
+              href={q ? undefined : "/join"}
+              hrefLabel={q ? undefined : "Send someone the form"}
+            >
               {q
-                ? `No member in ${scope.label} matches “${q}”.`
-                : `No members have registered in ${scope.label} yet.`}
+                ? `No member in ${scope.label} matches “${q}”. Try a surname, a phone number or a membership number.`
+                : `Nobody has registered in ${scope.label} yet. Membership is free and takes under two minutes.`}
             </Empty>
           )
         }

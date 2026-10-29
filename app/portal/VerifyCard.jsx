@@ -29,7 +29,9 @@ import { cn } from "@/lib/utils";
  * "verified" without saying that would be the page overstating itself.
  * ───────────────────────────────────────────────────────────────────────────
  */
-export default function VerifyCard({ verified, hasNin }) {
+/* `bare` draws only the form, for when the portal's next-step card is already
+   the frame around it and has already said what this is and why. */
+export default function VerifyCard({ verified, hasNin, bare = false }) {
   const router = useRouter();
   const [nin, setNin] = useState("");
   const [busy, setBusy] = useState(false);
@@ -74,24 +76,28 @@ export default function VerifyCard({ verified, hasNin }) {
   return (
     <div
       className={cn(
-        "border-2 bg-white p-6",
-        settled ? "border-ink-200" : "border-ember-500"
+        !bare && "h-full rounded-3xl bg-white p-6",
+        false
       )}
     >
+      {!bare && (
+      <>
       <div className="flex items-center gap-2.5">
         {settled ? (
           <BadgeCheck size={18} className="text-brand-600" aria-hidden="true" />
         ) : (
-          <ShieldAlert size={18} className="text-ember-600" aria-hidden="true" />
+          <ShieldAlert size={18} className="text-brand-600" aria-hidden="true" />
         )}
-        <p className="text-[0.6875rem] font-bold tracking-[0.12em] text-ink-500 uppercase">
+        <p className="text-[0.8125rem] font-medium text-ink-600">
           Verification
         </p>
       </div>
 
-      <p className="mt-3 font-display text-lg font-extrabold tracking-tight text-ink-950">
+      <p className="mt-3 text-lg font-semibold tracking-[-0.01em] text-ink-950">
         {settled ? "Verified" : "Not yet verified"}
       </p>
+      </>
+      )}
 
       {settled ? (
         <p className="mt-2 text-[0.875rem] leading-relaxed text-content-muted">
@@ -100,16 +106,16 @@ export default function VerifyCard({ verified, hasNin }) {
         </p>
       ) : (
         <>
-          <p className="mt-2 text-[0.875rem] leading-relaxed text-content-muted">
-            Add your National Identification Number and you are verified straight away.
-            Without it you can still hold a ward seat, but office at LGA level and above
-            is closed to you.
-          </p>
+          {!bare && (
+            <p className="mt-2 text-[0.875rem] leading-relaxed text-content-muted">
+              Add your NIN and you&rsquo;re verified instantly. It unlocks office above ward level.
+            </p>
+          )}
 
-          <form onSubmit={submit} className="mt-5">
+          <form onSubmit={submit} className={bare ? "" : "mt-5"}>
             <label
               htmlFor="nin"
-              className="block text-[0.6875rem] font-bold tracking-[0.12em] text-ink-500 uppercase"
+              className="block text-[0.8125rem] font-medium text-ink-600"
             >
               NIN — 11 digits
             </label>
@@ -125,7 +131,7 @@ export default function VerifyCard({ verified, hasNin }) {
               autoComplete="off"
               placeholder="12345678901"
               aria-describedby="nin-note"
-              className="mt-2 w-full border-2 border-ink-200 px-4 py-3 font-mono text-[1.0625rem] tracking-[0.12em] tabular-nums text-ink-950 outline-none focus:border-ink-950"
+              className="mt-2 w-full rounded-xl border border-ink-200 px-4 py-3 font-mono text-[1.0625rem] tabular-nums text-ink-950 outline-none focus:border-brand-600 focus:ring-2 focus:ring-brand-100"
             />
 
             {error && (
@@ -138,17 +144,16 @@ export default function VerifyCard({ verified, hasNin }) {
             <button
               type="submit"
               disabled={nin.length !== 11 || busy}
-              className="mt-4 flex w-full items-center justify-center gap-2 border-2 border-ink-950 bg-ink-950 px-5 py-3 text-[0.8125rem] font-bold tracking-[0.08em] text-white uppercase transition-colors hover:bg-brand-600 disabled:cursor-not-allowed disabled:border-ink-300 disabled:bg-ink-200 disabled:text-ink-500"
+              className="mt-4 flex w-full items-center justify-center gap-2 rounded-full bg-brand-700 px-5 py-3 text-[0.9375rem] font-semibold text-white transition-colors hover:bg-brand-800 disabled:cursor-not-allowed disabled:bg-ink-200 disabled:text-ink-500"
             >
               {busy && <Loader2 size={14} strokeWidth={3} className="animate-spin" />}
               {busy ? "Saving" : "Verify my membership"}
             </button>
 
             <p id="nin-note" className="mt-4 text-[0.75rem] leading-relaxed text-content-subtle">
-              Encrypted the moment it arrives and never displayed again — not to you, not
-              to a coordinator, not in any export. It is used for one thing: making sure
-              one person holds one membership. We do not check it against NIMC, so it
-              proves the number is unique in this register, not that it is yours.
+              Encrypted on arrival and never shown again — not to you, coordinators or any
+              export. It only proves one person holds one membership; it is not checked
+              against NIMC.
             </p>
           </form>
         </>

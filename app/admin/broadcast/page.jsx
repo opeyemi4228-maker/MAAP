@@ -103,7 +103,10 @@ export default async function BroadcastPage() {
           ]}
           empty={
             sent.length === 0 ? (
-              <Empty>Nothing has been broadcast from here yet.</Empty>
+              <Empty icon={MessageSquare} title="No messages yet">
+                Nothing has been broadcast from here. Anything you send is
+                listed here with what it cost and who received it.
+              </Empty>
             ) : null
           }
         >

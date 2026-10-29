@@ -7,7 +7,6 @@ import { ArrowRight } from "lucide-react";
 import Button from "@/components/ui/Button";
 import Reveal from "@/components/ui/Reveal";
 import JoinCta from "@/components/JoinCta";
-import ElectionCountdown from "@/components/ElectionCountdown";
 import { election } from "@/lib/agenda";
 
 /* The caption under the panel. Order is the order of the ticket, and each name
@@ -89,8 +88,16 @@ const RIBBON = "Atiku · Amaechi · Affordable Nigeria";
 
    The ribbon rides the last sixth of the stage, under Amaechi's folded arms —
    his arms are the pose, and a band across them reads as a band across him.
-   Drawn in the stage's own 4:3 units, 400 x 300. */
-const RIBBON_PATH = "M-8,278 C70,254 150,242 236,233 C310,225 372,217 412,201";
+   Drawn in the stage's own 4:3 units, 400 x 300.
+
+   It is clipped to the arch, so both ends finish on the arch's own edges. Left
+   unclipped, the path ran past the arch and stopped dead on the pale card, a
+   cut end hanging in the gap beside the copy. */
+const RIBBON_PATH = "M-8,286 C70,268 150,258 236,252 C310,247 372,243 412,234";
+
+/* The arch in the same units: 3%–97% across (12–388), a half-round top of
+   radius 188, flat sides down to the foot. */
+const ARCH_PATH = "M12,300 V188 A188,188 0 0 1 388,188 V300 Z";
 
 function Stage() {
   const id = React.useId().replace(/:/g, "");
@@ -136,21 +143,26 @@ function Stage() {
       >
         <defs>
           <path id={`${id}-ribbon`} d={RIBBON_PATH} />
+          <clipPath id={`${id}-arch`}>
+            <path d={ARCH_PATH} />
+          </clipPath>
         </defs>
-        <use href={`#${id}-ribbon`} fill="none" stroke="var(--color-ember-500)" strokeWidth="19" />
-        <text
-          className="font-display"
-          fill="var(--color-ink-950)"
-          fontSize="10"
-          fontWeight="800"
-          letterSpacing="1.4"
-          dominantBaseline="central"
-          textAnchor="middle"
-        >
-          <textPath href={`#${id}-ribbon`} startOffset="52%">
-            {RIBBON.toUpperCase()}
-          </textPath>
-        </text>
+        <g clipPath={`url(#${id}-arch)`}>
+          <use href={`#${id}-ribbon`} fill="none" stroke="var(--color-ember-500)" strokeWidth="19" />
+          <text
+            className="font-display"
+            fill="var(--color-ink-950)"
+            fontSize="10"
+            fontWeight="800"
+            letterSpacing="1.4"
+            dominantBaseline="central"
+            textAnchor="middle"
+          >
+            <textPath href={`#${id}-ribbon`} startOffset="52%">
+              {RIBBON.toUpperCase()}
+            </textPath>
+          </text>
+        </g>
       </svg>
     </div>
   );
@@ -271,13 +283,9 @@ export default function Hero() {
                   </Button>
                 </div>
 
-                <div className="mt-6 flex flex-wrap items-center gap-x-3 gap-y-2">
-                  <ElectionCountdown inline tone="light" />
-                  <span aria-hidden="true" className="h-3 w-px bg-ink-300" />
-                  <p className="text-[0.75rem] text-content-subtle">
-                    Membership is free and takes under two minutes.
-                  </p>
-                </div>
+                <p className="mt-6 text-[0.75rem] text-content-subtle">
+                  Membership is free and takes under two minutes.
+                </p>
               </div>
 
               {/* ── the ticket ──────────────────────────────────────────── */}

@@ -75,7 +75,7 @@ function Wordmark({ compact = false }) {
           "font-display truncate font-extrabold tracking-[-0.015em] text-content uppercase transition-all duration-300",
           compact
             ? "mt-1 text-[0.875rem]"
-            : "mt-1.5 text-[1rem] lg:text-[1.125rem] xl:text-[0.9375rem] 2xl:text-[1.125rem]"
+            : "mt-1.5 text-[1rem] lg:text-[1.125rem] xl:text-[0.8125rem] 2xl:text-[1.125rem]"
         )}
       >
         Atiku Amaechi Presidency
@@ -384,7 +384,7 @@ export default function Navbar() {
                 laptop. The drawer keeps its Home link: when the drawer is open
                 it covers the lockup, so there it is the only way back. */}
             <ul className="hidden shrink-0 items-center gap-0.5 xl:flex">
-              {navigation.filter((item) => item.href !== "/").map((item) => {
+              {navigation.map((item) => {
                 /* A child's page belongs to its parent, not to whichever other
                    item its URL happens to start with. */
                 const active =
@@ -409,7 +409,12 @@ export default function Navbar() {
                       aria-current={active ? "page" : undefined}
                       className={cn(
                         "group relative flex items-center px-2 py-2.5 2xl:px-3",
-                        "font-display text-[0.75rem] font-bold tracking-[0.08em] whitespace-nowrap uppercase 2xl:tracking-[0.11em]",
+                        /* A notch smaller between xl and 2xl. Seven labels,
+                           a dropdown caret and the Portal button share that
+                           row with the lockup, and at 1280 the lockup was the
+                           thing that gave way: the movement's name truncated
+                           to "ATIKU AMAECHI PRESI…". */
+                        "font-display text-[0.6875rem] font-bold tracking-[0.06em] whitespace-nowrap uppercase 2xl:text-[0.75rem] 2xl:tracking-[0.11em]",
                         "transition-colors duration-200",
                         active
                           ? "text-brand-700"

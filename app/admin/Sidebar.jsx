@@ -36,31 +36,30 @@ export default function Sidebar({
   roleTitle,
   isSuperAdmin,
 }) {
+  const quiet =
+    "flex w-full items-center gap-3.5 px-8 py-2.5 text-[0.9375rem] text-ink-500 transition-colors hover:text-ink-950";
+
   return (
-    <div className="flex h-full flex-col bg-white">
-      <Link href="/" className="flex items-center gap-3 px-6 pt-7 pb-6">
+    <div className="flex h-full flex-col rounded-3xl bg-ink-50/70 py-7">
+      <Link href="/" className="flex items-center gap-3 px-8 pb-7">
         <Image src={assets.maapMark} alt="" sizes="40px" className="h-9 w-auto object-contain" />
-        <span className="font-display text-base font-extrabold tracking-[-0.02em] text-ink-950">
-          MAAP
-        </span>
-        <span className="ml-auto text-[0.5625rem] font-bold tracking-[0.14em] text-ink-500 uppercase">
-          Secretariat
-        </span>
+        <span className="font-display text-xl font-bold tracking-[-0.03em] text-ink-950">MAAP</span>
       </Link>
 
-      {/* ── Where you stand ─────────────────────────────────────────────── */}
-      <div className="mx-4 mb-5 border-2 border-ink-950 px-4 py-3.5">
-        <p className="text-[0.5625rem] font-bold tracking-[0.18em] text-ink-500 uppercase">
+      {/* ── Where you stand ───────────────────────────────────────────────
+          Administering the wrong territory is the failure this whole area is
+          built to prevent, so which office and which unit stay in view for
+          the entire session. Quiet, but always there. */}
+      <div className="mx-5 mb-8 rounded-2xl bg-white px-4 py-3.5">
+        <p className="text-[0.6875rem] font-medium tracking-[0.06em] text-ink-400 uppercase">
           {tierLabel}
         </p>
-        <p className="mt-1 truncate font-display text-[1.0625rem] font-extrabold tracking-tight text-ink-950">
-          {unitName}
-        </p>
-        <p className="mt-1.5 truncate text-[0.75rem] text-content-muted">{roleTitle}</p>
+        <p className="mt-0.5 truncate text-[0.9375rem] font-semibold text-ink-950">{unitName}</p>
+        <p className="truncate text-[0.8125rem] text-content-subtle">{roleTitle}</p>
         {isSuperAdmin && (
-          <span className="mt-3 inline-flex items-center gap-1.5 bg-ember-500 px-2 py-1 text-[0.5625rem] font-extrabold tracking-widest text-white uppercase">
-            <ShieldCheck size={10} strokeWidth={3} />
-            Super Admin
+          <span className="mt-2.5 inline-flex items-center gap-1.5 rounded-md bg-ember-50 px-2 py-0.5 text-[0.6875rem] font-semibold text-ember-700">
+            <ShieldCheck size={12} strokeWidth={2.5} aria-hidden="true" />
+            Super admin
           </span>
         )}
       </div>
@@ -75,38 +74,28 @@ export default function Sidebar({
         />
       </div>
 
-      <div className="mt-6 border-t border-ink-200 px-2 py-3">
-        {/* The way back out. The mark at the top of the rail links home too,
-            but a logo is not a signpost — somebody deep in the register looking
-            for the public site should not have to guess that clicking the logo
-            is how they leave. */}
-        <Link
-          href="/"
-          className="flex items-center gap-3 px-4 py-2.5 text-[0.75rem] font-bold tracking-[0.06em] text-ink-500 uppercase transition-colors hover:text-ink-950"
-        >
-          <Globe size={16} strokeWidth={2.5} />
-          Go to the website
+      <div className="mt-8">
+        <p className="px-8 pb-2 text-[0.6875rem] font-medium tracking-[0.08em] text-ink-400 uppercase">
+          General
+        </p>
+        {/* The way back out. A logo is not a signpost: somebody deep in the
+            register looking for the public site should not have to guess that
+            the mark is how they leave. */}
+        <Link href="/portal" className={quiet}>
+          <ArrowUpRight size={19} strokeWidth={1.75} className="shrink-0 text-ink-400" aria-hidden="true" />
+          My membership
         </Link>
-        <Link
-          href="/portal"
-          className="flex items-center gap-3 px-4 py-2.5 text-[0.75rem] font-bold tracking-[0.06em] text-ink-500 uppercase transition-colors hover:text-ink-950"
-        >
-          <ArrowUpRight size={16} strokeWidth={2.5} />
-          Your membership
+        <Link href="/" className={quiet}>
+          <Globe size={19} strokeWidth={1.75} className="shrink-0 text-ink-400" aria-hidden="true" />
+          Website
         </Link>
-        <Link
-          href="/support"
-          className="flex items-center gap-3 px-4 py-2.5 text-[0.75rem] font-bold tracking-[0.06em] text-ink-500 uppercase transition-colors hover:text-ink-950"
-        >
-          <CircleHelp size={16} strokeWidth={2.5} />
+        <Link href="/support" className={quiet}>
+          <CircleHelp size={19} strokeWidth={1.75} className="shrink-0 text-ink-400" aria-hidden="true" />
           Help
         </Link>
         <SignOutForm>
-          <button
-            type="submit"
-            className="flex w-full items-center gap-3 px-4 py-2.5 text-[0.75rem] font-bold tracking-[0.06em] text-ink-500 uppercase transition-colors hover:text-red-700"
-          >
-            <LogOut size={16} strokeWidth={2.5} />
+          <button type="submit" className={`${quiet} hover:text-red-600`}>
+            <LogOut size={19} strokeWidth={1.75} className="shrink-0 text-ink-400" aria-hidden="true" />
             Sign out
           </button>
         </SignOutForm>

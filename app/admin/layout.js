@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
+import { Search } from "lucide-react";
 
 import Avatar from "@/components/ui/Avatar";
 import { currentSession } from "@/lib/session";
@@ -34,8 +35,8 @@ export const dynamic = "force-dynamic";
  * office you hold and which territory it governs — in view for the whole
  * session, rather than in a banner the reader scrolled past an hour ago.
  *
- * Below `lg` the rail becomes a scrolling row above the content: the same five
- * destinations in the same order, because a coordinator who learns them on a
+ * Below `lg` the rail becomes a scrolling row of pills above the content: the
+ * same destinations in the same order, because a coordinator who learns them on a
  * laptop should find them unchanged on a phone at a ward meeting.
  * ───────────────────────────────────────────────────────────────────────────
  */
@@ -46,9 +47,9 @@ export default async function AdminLayout({ children }) {
 
   if (!scope) {
     return (
-      <section className="shell py-24">
-        <div className="mx-auto max-w-lg border-2 border-ink-950 p-8">
-          <h1 className="font-display text-2xl font-extrabold tracking-tight text-ink-950">
+      <section className="min-h-screen bg-ink-100 px-4 py-24">
+        <div className="mx-auto max-w-lg rounded-3xl bg-white p-8 sm:p-10">
+          <h1 className="font-display text-2xl font-bold tracking-[-0.02em] text-ink-950">
             You do not hold an office
           </h1>
           <p className="mt-4 text-[0.9375rem] leading-relaxed text-content-muted">
@@ -62,13 +63,13 @@ export default async function AdminLayout({ children }) {
           <div className="mt-8 flex flex-wrap gap-3">
             <Link
               href="/portal"
-              className="border-2 border-ink-950 bg-ink-950 px-5 py-3 text-[0.8125rem] font-bold tracking-[0.08em] text-white uppercase"
+              className="rounded-full bg-brand-700 px-6 py-3 text-[0.9375rem] font-semibold text-white transition-colors hover:bg-brand-800"
             >
               Your membership
             </Link>
             <Link
               href="/structure"
-              className="border-2 border-ink-950 px-5 py-3 text-[0.8125rem] font-bold tracking-[0.08em] text-ink-950 uppercase"
+              className="rounded-full border border-ink-300 px-6 py-3 text-[0.9375rem] font-semibold text-ink-950 transition-colors hover:border-brand-700 hover:text-brand-700"
             >
               See the structure
             </Link>
@@ -110,9 +111,17 @@ export default async function AdminLayout({ children }) {
      enters none of them — see the note on ITEMS in AdminNav. */
   const agent = scope.scopeType === "POLLING_UNIT";
 
+  const firstName = member.name.split(" ")[0];
+
   return (
-    <div className="min-h-screen bg-ink-50 lg:flex">
-      <aside className="sticky top-0 hidden h-screen w-64 shrink-0 overflow-y-auto border-r-2 border-ink-950 bg-white lg:block">
+    /* A soft grey canvas with white panels floating on it: the frame does the
+       separating, so nothing inside needs a heavy border to say where it ends. */
+    <div className="min-h-screen bg-ink-100 lg:flex lg:gap-4 lg:p-4">
+      <a href="#admin-main" className="skip-link">
+        Skip to the page
+      </a>
+
+      <aside className="sticky top-4 hidden h-[calc(100vh-2rem)] w-68 shrink-0 overflow-y-auto rounded-3xl bg-white scrollbar-none lg:block">
         <Sidebar
           local={local}
           regional={regional}
@@ -126,23 +135,49 @@ export default async function AdminLayout({ children }) {
         />
       </aside>
 
-      <div className="min-w-0 flex-1">
-        {/* Phone header: the mark, who is acting, and the same navigation. */}
-        <header className="lg:hidden">
-          <div className="flex items-center gap-4 border-b border-ink-200 bg-white px-4 py-4">
-            <div className="min-w-0">
-              <p className="text-[0.5625rem] font-bold tracking-[0.18em] text-ink-500 uppercase">
-                {scope.tierLabel}
-              </p>
-              <p className="truncate font-display text-[0.9375rem] font-extrabold text-ink-950">
-                {scope.unitName}
-              </p>
-              <p className="truncate text-[0.75rem] text-content-muted">{scope.roleTitle}</p>
-            </div>
-            <Link href="/portal" className="ml-auto shrink-0">
-              <Avatar name={member.name} src={member.photoUrl} size="sm" />
+      <div className="min-w-0 flex-1 lg:space-y-4">
+        {/* ── Top bar ─────────────────────────────────────────────────────
+            Search and the person. The search is the members register's own
+            GET form, so it works from every page, needs no script, and lands
+            on a shareable URL. Pinned on a phone, where it also carries the
+            navigation and the territory being acted in. */}
+        <header className="sticky top-0 z-30 bg-ink-100 lg:static lg:bg-transparent">
+          <div className="flex items-center gap-3 px-4 pt-4 pb-3 lg:rounded-3xl lg:bg-white lg:px-5 lg:py-4">
+            <form action="/admin/members" method="get" role="search" className="relative min-w-0 flex-1 lg:max-w-md">
+              <Search
+                size={18}
+                strokeWidth={2}
+                aria-hidden="true"
+                className="pointer-events-none absolute top-1/2 left-4 -translate-y-1/2 text-ink-400"
+              />
+              <input
+                type="search"
+                name="q"
+                placeholder="Search members"
+                aria-label="Search members by name, number or phone"
+                className="h-12 w-full rounded-full bg-white pr-4 pl-11 text-[0.9375rem] text-ink-950 placeholder:text-ink-400 focus:ring-2 focus:ring-brand-600 focus:outline-none lg:bg-ink-50"
+              />
+            </form>
+
+            <Link
+              href="/portal"
+              className="ml-auto flex shrink-0 items-center gap-3 rounded-full py-1 pr-1 pl-1 transition-colors hover:bg-ink-50 lg:pr-4"
+            >
+              <Avatar name={member.name} src={member.photoUrl} size="sm" ring={false} className="rounded-full" />
+              <span className="hidden min-w-0 lg:block">
+                <span className="block truncate text-[0.9375rem] font-semibold text-ink-950">{member.name}</span>
+                <span className="block max-w-56 truncate text-[0.8125rem] text-content-subtle">
+                  {scope.roleTitle}
+                </span>
+              </span>
+              <span className="sr-only lg:hidden">{firstName}, your membership</span>
             </Link>
           </div>
+
+          <p className="truncate px-5 pb-3 text-[0.8125rem] text-content-subtle lg:hidden">
+            <span className="font-semibold text-ink-900">{scope.unitName}</span> · {scope.roleTitle}
+          </p>
+
           <AdminNav
             local={local}
             regional={regional}
@@ -152,7 +187,11 @@ export default async function AdminLayout({ children }) {
           />
         </header>
 
-        <main className="mx-auto w-full max-w-[100rem] px-4 py-8 sm:px-6 lg:px-10 lg:py-10">
+        <main
+          id="admin-main"
+          tabIndex={-1}
+          className="w-full px-4 pt-4 pb-10 outline-none sm:px-6 lg:rounded-3xl lg:bg-ink-50 lg:px-8 lg:py-8 xl:px-10"
+        >
           {children}
         </main>
       </div>

@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowUpRight, ShieldAlert, Vote } from "lucide-react";
+import { ArrowUpRight, Radio, ShieldAlert, Vote } from "lucide-react";
 
 import LiveRefresh from "@/components/results/LiveRefresh";
 import UnitGrid from "@/components/results/UnitGrid";
@@ -198,7 +198,7 @@ export default async function AdminResults({ searchParams }) {
       />
 
       {/* ── coverage first, because that is the coordinator's actual job ── */}
-      <div className="grid gap-px bg-ink-200 sm:grid-cols-2 xl:grid-cols-4">
+      <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
         <StatTile
           icon={Vote}
           label="Booths reporting"
@@ -288,7 +288,15 @@ export default async function AdminResults({ searchParams }) {
                 { label: "Status" },
                 { label: "Check it against the sheet", align: "right" },
               ]}
-              empty={latest.length === 0 ? <Empty>No agent has filed yet.</Empty> : null}
+              empty={
+                latest.length === 0 ? (
+                  <Empty icon={Radio} title="No returns yet">
+                    Nothing has been filed from a polling unit in your
+                    territory. Returns appear here the moment an agent submits
+                    one.
+                  </Empty>
+                ) : null
+              }
             >
               {latest.map((row) => (
                 <Row key={row.id}>

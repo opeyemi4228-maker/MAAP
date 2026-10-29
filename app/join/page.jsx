@@ -14,6 +14,7 @@ import {
   ShieldCheck,
 } from "lucide-react";
 import PageHeader from "@/components/ui/PageHeader";
+import AuthShell from "@/components/auth/AuthShell";
 import Button from "@/components/ui/Button";
 import { cn } from "@/lib/utils";
 import { states } from "@/lib/geography";
@@ -24,9 +25,27 @@ import { useGeography } from "@/lib/useGeography";
    an abandoned one. */
 const steps = [
   { id: 1, label: "You", fields: ["name", "phone", "email", "referralCode"] },
-  { id: 2, label: "Where you vote", fields: ["state", "lga", "ward", "pollingUnit"] },
+  /* "Where you vote" truncated to "WHERE YO…" in a three-up stepper at the
+     form's width. "Ward" is what the step actually decides, and it fits. */
+  { id: 2, label: "Ward", fields: ["state", "lga", "ward", "pollingUnit"] },
   { id: 3, label: "Security", fields: ["nin", "password", "confirm"] },
 ];
+
+/* What the old right-hand column called "what happens next". It moves to the
+   shell's panel, which is where a stranger is deciding whether to start. */
+const POINTS = [
+  "A permanent membership number, tied to the ward where you vote",
+  "Your ward and LGA coordinators can see you in the register",
+  "Office is by appointment from that register — nothing to apply for",
+];
+
+/* The form's own subtitle, which changes with the step: a stranger three
+   fields in has a different question from one who has just arrived. */
+const STEP_LEAD = {
+  1: "Three short steps, under two minutes. Start with who you are.",
+  2: "Where you vote decides which ward you are registered in, and who coordinates you.",
+  3: "Last step. Your NIN verifies you are one person, and the password signs you back in.",
+};
 
 const EMPTY = {
   name: "",
@@ -230,23 +249,34 @@ export default function Join() {
 
   /* --------------------------------------------------------------- form */
   return (
-    <>
-      <PageHeader
-        breadcrumb="Join MAAP"
-        kicker="Membership is free"
-        title="Join the movement"
-        lead="Three short steps, under two minutes. MAAP never asks for payment to register or to hold office."
-      />
-
-      <section className="border-t border-ink-200 section bg-white">
-        {/* Two columns, not one 52rem trench. A three-field step set across the
-            full text measure gives an 832px-wide box to type a name into, with
-            an empty page around it. The form now sits at a proper form measure
-            and the space beside it does work: what happens next, and the way
-            back in for members who already have an account. */}
-        <div className="shell grid gap-14 lg:grid-cols-[1fr_19rem] lg:gap-20">
-          <div className="min-w-0 max-w-[33rem]">
-            {/* ------------------------------------------------- progress */}
+    <AuthShell
+      kicker="Membership is free"
+      title="Join the movement"
+      lead={STEP_LEAD[step]}
+      points={POINTS}
+      footer={
+        /* The way back in for somebody who already has an account. It used to
+           be the top of a column beside the form; here it is the last thing
+           under it, which is where a returning member looks once they realise
+           they are on the wrong page. */
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <p className="text-[0.875rem] text-content-muted">Already a member?</p>
+          <Link
+            href="/login"
+            className="group inline-flex items-center gap-2 border-2 border-ink-950 px-4 py-2.5 font-display text-[0.75rem] font-extrabold tracking-[0.1em] text-ink-950 uppercase transition-colors hover:bg-ink-950 hover:text-white"
+          >
+            Sign in
+            <ArrowRight
+              size={14}
+              strokeWidth={3}
+              aria-hidden="true"
+              className="transition-transform duration-300 group-hover:translate-x-0.5"
+            />
+          </Link>
+        </div>
+      }
+    >
+      {/* ------------------------------------------------- progress */}
           {/* The rule under the steps is the track, so it has to read as the
               part still to do: light, and the same 4px as the ember fill that
               advances over it. Black here made two unfinished steps look
@@ -569,68 +599,8 @@ export default function Join() {
                 )}
               </div>
             </div>
-          </form>
-
-          </div>
-
-          {/* ------------------------------------------------------ aside */}
-          <aside className="min-w-0 lg:sticky lg:top-32 lg:self-start">
-            {/* The only route to sign-in on the whole site now that it has left
-                the masthead, so it leads here, above the explanatory copy,
-                rather than sitting under the form as a footnote a returning
-                member has to scroll three steps to find. */}
-            <div className="border-2 border-ink-950 p-6">
-              <p className="font-display text-base font-extrabold tracking-tight text-ink-950">
-                Already a member?
-              </p>
-              <p className="mt-1.5 text-[0.875rem] leading-snug text-content-muted">
-                Sign in with your phone number or email address.
-              </p>
-              <div className="mt-5">
-                <Button href="/login" variant="outline" size="md" full>
-                  Sign in
-                  <ArrowRight size={16} strokeWidth={2.75} />
-                </Button>
-              </div>
-            </div>
-
-            <div className="mt-10 border-t-2 border-ink-950 pt-6">
-              <h2 className="text-[0.6875rem] font-bold tracking-[0.12em] text-ink-500 uppercase">
-                What happens next
-              </h2>
-              <ol className="mt-5 space-y-5">
-                {[
-                  "You get a permanent membership number, tied to your ward.",
-                  "Your ward and LGA coordinators can see you in the register.",
-                  "Office is by appointment. Coordinators fill vacant seats from that register, so there is nothing to apply for.",
-                ].map((item, index) => (
-                  <li key={item} className="flex gap-4">
-                    <span className="shrink-0 font-display text-[0.8125rem] font-extrabold text-ember-600 tabular-nums">
-                      {String(index + 1).padStart(2, "0")}
-                    </span>
-                    <span className="text-[0.875rem] leading-snug text-content-muted">
-                      {item}
-                    </span>
-                  </li>
-                ))}
-              </ol>
-            </div>
-
-            <p className="mt-10 flex items-start gap-3 bg-ink-50 p-4 text-[0.8125rem] leading-relaxed text-content-muted">
-              <ShieldCheck
-                size={17}
-                className="mt-0.5 shrink-0 text-brand-600"
-                aria-hidden="true"
-              />
-              <span>
-                Membership is free. MAAP never asks for payment to register, to be
-                appointed to any office, or to keep one.
-              </span>
-            </p>
-          </aside>
-        </div>
-      </section>
-    </>
+      </form>
+    </AuthShell>
   );
 }
 
@@ -706,7 +676,7 @@ function Field({
     <div className="min-w-0">
       <label
         htmlFor={id}
-        className="block text-[0.6875rem] font-bold tracking-[0.12em] text-ink-500 uppercase"
+        className="block text-[0.75rem] font-bold tracking-[0.08em] text-ink-700 uppercase"
       >
         {label}
         {optional && (
@@ -716,19 +686,20 @@ function Field({
         )}
       </label>
 
-      <div className="relative mt-2.5">
+      <div className="relative mt-2">
         <input
           id={id}
           name={id}
           aria-invalid={error ? true : undefined}
           aria-describedby={describedBy || undefined}
           className={cn(
-            "h-13 w-full border-2 bg-white px-4 text-[0.9375rem] text-ink-950 transition-colors",
-            "focus:outline-none disabled:bg-ink-50 disabled:text-ink-400",
-            trailing && "pr-14",
+            "h-12 w-full border bg-white px-3.5 text-[0.9375rem] text-ink-950",
+            "transition-[border-color,box-shadow] placeholder:text-ink-400",
+            "focus:outline-none focus:ring-2 disabled:bg-ink-50 disabled:text-ink-400",
+            trailing && "pr-12",
             error
-              ? "border-red-600 focus:border-red-600"
-              : "border-ink-200 focus:border-brand-600",
+              ? "border-red-600 focus:border-red-600 focus:ring-red-600/25"
+              : "border-ink-300 focus:border-brand-600 focus:ring-brand-600/25",
             className
           )}
           {...props}
@@ -775,7 +746,7 @@ function Select({
     <div className="min-w-0">
       <label
         htmlFor={id}
-        className="block text-[0.6875rem] font-bold tracking-[0.12em] text-ink-500 uppercase"
+        className="block text-[0.75rem] font-bold tracking-[0.08em] text-ink-700 uppercase"
       >
         {label}
         {optional && (
@@ -790,9 +761,12 @@ function Select({
         aria-invalid={error ? true : undefined}
         aria-describedby={describedBy || undefined}
         className={cn(
-          "mt-2.5 h-13 w-full border-2 bg-white px-4 text-[0.9375rem] text-ink-950 transition-colors",
-          "focus:outline-none disabled:bg-ink-50 disabled:text-ink-400",
-          error ? "border-red-600" : "border-ink-200 focus:border-brand-600"
+          "mt-2 h-12 w-full border bg-white px-3.5 text-[0.9375rem] text-ink-950",
+          "transition-[border-color,box-shadow] focus:outline-none focus:ring-2",
+          "disabled:bg-ink-50 disabled:text-ink-400",
+          error
+            ? "border-red-600 focus:border-red-600 focus:ring-red-600/25"
+            : "border-ink-300 focus:border-brand-600 focus:ring-brand-600/25"
         )}
         {...props}
       >

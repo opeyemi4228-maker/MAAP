@@ -329,6 +329,77 @@ export default function Footer() {
           </div>
         </div>
 
+        {/* ── The people it is all for ──────────────────────────────────────
+            A band, not two thumbnails in a 20rem column. These are the only
+            two photographs of the movement in the field that the repository
+            holds, so they are given the width to be read as photographs: each
+            one half the page, captioned over its own foot, both linking to
+            the rest of them.
+
+            The caption sits on a scrim rather than under the frame. A line of
+            grey type under a photograph is a credit; a line over the bottom of
+            it is what the picture is of, and it keeps the two frames reading
+            as one strip.
+
+            Add a third photograph and the grid becomes three across at lg on
+            its own — nothing here counts to two.
+        ──────────────────────────────────────────────────────────────────── */}
+        <div className="border-t border-white/10">
+          <div className="shell py-12 lg:py-16">
+            <div className="flex flex-wrap items-end justify-between gap-x-8 gap-y-3">
+              <div>
+                <p className="text-[0.6875rem] font-bold tracking-[0.18em] text-ember-400 uppercase">
+                  The movement, in the field
+                </p>
+                <h2 className="mt-3 font-display text-fluid-xl font-extrabold tracking-[-0.025em]">
+                  Nigerians, ward by ward.
+                </h2>
+              </div>
+              <Link
+                href="/media#photographs"
+                className="group inline-flex items-center gap-2 font-display text-[0.75rem] font-extrabold tracking-[0.1em] text-white uppercase transition-colors hover:text-ember-400"
+              >
+                All photographs
+                <ArrowRight
+                  size={14}
+                  strokeWidth={3}
+                  aria-hidden="true"
+                  className="transition-transform duration-300 group-hover:translate-x-0.5"
+                />
+              </Link>
+            </div>
+
+            <ul className="mt-8 grid gap-px bg-white/10 sm:grid-cols-2 lg:grid-cols-[repeat(auto-fit,minmax(20rem,1fr))]">
+              {[
+                { src: assets.Camp2, alt: "Supporters at a ward congress" },
+                { src: assets.Camp1, alt: "Mobilisation drive in the market" },
+              ].map((photo) => (
+                <li key={photo.alt} className="group relative bg-ink-900">
+                  <Link href="/media#photographs" className="block">
+                    <span className="relative block aspect-16/9 overflow-hidden">
+                      <Image
+                        src={photo.src}
+                        alt={photo.alt}
+                        fill
+                        sizes="(min-width: 640px) 45vw, 100vw"
+                        className="object-cover transition-transform duration-700 ease-out-quart group-hover:scale-[1.04]"
+                      />
+                      <span
+                        aria-hidden="true"
+                        className="absolute inset-x-0 bottom-0 h-2/5 bg-linear-to-t from-ink-950/90 to-transparent"
+                      />
+                      <span className="absolute inset-x-0 bottom-0 flex items-center gap-2.5 p-5 text-[0.8125rem] font-semibold text-white">
+                        <span aria-hidden="true" className="h-0.75 w-5 shrink-0 bg-ember-500" />
+                        {photo.alt}
+                      </span>
+                    </span>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+
         {/* ------------------------------------------------------ base bar */}
         <div className="border-t border-white/10">
           <div className="shell flex flex-col gap-4 py-6 text-[0.8125rem] text-white/50 lg:flex-row lg:items-center lg:justify-between">

@@ -5,7 +5,6 @@ import Button from "@/components/ui/Button";
 import Reveal from "@/components/ui/Reveal";
 import { SectionHeading } from "@/components/ui/Section";
 import AgendaIcon from "@/components/AgendaIcon";
-import ElectionCountdown from "@/components/ElectionCountdown";
 import JoinCta from "@/components/JoinCta";
 import { election, framing, pillars, sources, subsidy, themes } from "@/lib/agenda";
 
@@ -123,7 +122,7 @@ export default function AgendaPage() {
             {/* The date the argument is settled on. */}
             <Reveal delay={180}>
               <aside
-                aria-label="Election countdown"
+                aria-label="Election dates"
                 className="max-w-xl border border-white/15 bg-white/[0.04] backdrop-blur-sm xl:max-w-none"
               >
                 <div className="flex items-center justify-between gap-4 border-b border-white/10 px-6 py-4">
@@ -136,8 +135,7 @@ export default function AgendaPage() {
                   </span>
                 </div>
                 <div className="px-6 py-7">
-                  <ElectionCountdown />
-                  <p className="mt-7 font-display text-lg font-extrabold tracking-[-0.02em]">
+                  <p className="font-display text-fluid-xl font-extrabold tracking-[-0.025em]">
                     {election.day}
                   </p>
                   <p className="mt-1 text-[0.8125rem] text-white/55">

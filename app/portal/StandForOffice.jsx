@@ -85,20 +85,15 @@ export default function StandForOffice({ vacancies, applications }) {
   }
 
   return (
-    <div className="border-2 border-ink-200 bg-white p-6">
-      <p className="text-[0.6875rem] font-bold tracking-[0.12em] text-ink-500 uppercase">
-        Serving the movement
-      </p>
-      <p className="mt-3 font-display text-lg font-extrabold tracking-tight text-ink-950">
-        Stand for office
-      </p>
+    <div className="rounded-3xl bg-white p-6">
+      <h2 className="text-lg font-semibold tracking-[-0.01em] text-ink-950">Stand for office</h2>
 
       {applications.length > 0 && (
         <ul className="mt-4 space-y-2">
           {applications.slice(0, 5).map((row) => {
             const [tone, label] = STATUS[row.status] ?? ["bg-ink-100 text-ink-600", row.status];
             return (
-              <li key={row.id} className="border border-ink-200 p-3">
+              <li key={row.id} className="rounded-2xl border border-ink-100 p-3.5">
                 <div className="flex flex-wrap items-start justify-between gap-2">
                   <span className="min-w-0">
                     <span className="block text-[0.875rem] font-bold text-ink-950">
@@ -108,7 +103,7 @@ export default function StandForOffice({ vacancies, applications }) {
                   </span>
                   <span
                     className={cn(
-                      "shrink-0 px-2 py-1 text-[0.5625rem] font-extrabold tracking-widest uppercase",
+                      "shrink-0 rounded-md px-2 py-0.5 text-[0.6875rem] font-medium",
                       tone
                     )}
                   >
@@ -139,7 +134,7 @@ export default function StandForOffice({ vacancies, applications }) {
                       type="button"
                       onClick={() => pull(row.id)}
                       disabled={busy}
-                      className="text-[0.6875rem] font-bold tracking-[0.08em] text-ink-500 uppercase hover:text-red-700 disabled:opacity-40"
+                      className="text-[0.6875rem] font-bold text-ink-500 hover:text-red-700 disabled:opacity-40"
                     >
                       Withdraw
                     </button>
@@ -152,7 +147,7 @@ export default function StandForOffice({ vacancies, applications }) {
       )}
 
       {done && (
-        <p className="mt-4 flex gap-2 border-2 border-brand-600 bg-brand-50 px-4 py-3 text-[0.8125rem] leading-snug text-ink-950">
+        <p className="mt-4 flex gap-2 rounded-xl bg-brand-50 px-4 py-3 text-[0.8125rem] leading-snug text-ink-950">
           <CircleCheck size={15} strokeWidth={2.5} className="mt-0.5 shrink-0 text-brand-600" aria-hidden="true" />
           Sent. The officer above that seat has 72 hours to answer you.
         </p>
@@ -172,7 +167,7 @@ export default function StandForOffice({ vacancies, applications }) {
         <form onSubmit={submit} className="mt-5 border-t border-ink-200 pt-5">
           <label
             htmlFor="seat"
-            className="block text-[0.6875rem] font-bold tracking-[0.12em] text-ink-500 uppercase"
+            className="block text-[0.8125rem] font-medium text-ink-600"
           >
             Vacancies near you
           </label>
@@ -184,7 +179,7 @@ export default function StandForOffice({ vacancies, applications }) {
               setError("");
               setDone(false);
             }}
-            className="mt-2 w-full border-2 border-ink-200 bg-white px-3 py-2.5 text-[0.875rem] text-ink-950 outline-none focus:border-ink-950"
+            className="mt-2 w-full rounded-xl border border-ink-200 bg-white px-3 py-2.5 text-[0.875rem] text-ink-950 outline-none focus:border-brand-600 focus:ring-2 focus:ring-brand-100"
           >
             <option value="">Choose a seat…</option>
             {vacancies.map((seat) => (
@@ -197,7 +192,7 @@ export default function StandForOffice({ vacancies, applications }) {
 
           <label
             htmlFor="statement"
-            className="mt-4 block text-[0.6875rem] font-bold tracking-[0.12em] text-ink-500 uppercase"
+            className="mt-4 block text-[0.8125rem] font-medium text-ink-600"
           >
             Why you (optional)
           </label>
@@ -208,7 +203,7 @@ export default function StandForOffice({ vacancies, applications }) {
             rows={3}
             maxLength={500}
             placeholder="What you would do, and what you have done already."
-            className="mt-2 w-full resize-y border-2 border-ink-200 px-3 py-2.5 text-[0.875rem] leading-relaxed outline-none focus:border-ink-950"
+            className="mt-2 w-full resize-y rounded-xl border border-ink-200 px-3 py-2.5 text-[0.875rem] leading-relaxed outline-none focus:border-brand-600 focus:ring-2 focus:ring-brand-100"
           />
 
           {error && (
@@ -221,7 +216,7 @@ export default function StandForOffice({ vacancies, applications }) {
           <button
             type="submit"
             disabled={!chosen || busy}
-            className="mt-4 flex w-full items-center justify-center gap-2 border-2 border-ink-950 px-4 py-2.5 text-[0.75rem] font-bold tracking-[0.08em] text-ink-950 uppercase transition-colors hover:bg-ink-950 hover:text-white disabled:cursor-not-allowed disabled:border-ink-300 disabled:text-ink-400"
+            className="mt-4 flex w-full items-center justify-center gap-2 rounded-full border border-ink-300 px-5 py-2.5 text-[0.875rem] font-semibold text-ink-950 transition-colors hover:border-brand-700 hover:text-brand-700 disabled:cursor-not-allowed disabled:border-ink-300 disabled:text-ink-400"
           >
             {busy && <Loader2 size={13} strokeWidth={3} className="animate-spin" />}
             Put my name forward

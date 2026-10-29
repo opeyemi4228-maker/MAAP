@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { MapPin, Search, Users, CircleSlash } from "lucide-react";
+import { MapPin, Search, SearchX, Users, CircleSlash } from "lucide-react";
 
 import { requireSecretariat } from "@/lib/guard";
 import { pollingUnits } from "@/lib/dashboard";
@@ -140,10 +140,13 @@ export default async function PollingUnitsPage({ searchParams }) {
         ]}
         empty={
           result.rows.length === 0 && (
-            <Empty>
+            <Empty
+              icon={SearchX}
+              title={q ? "Nothing matched that search" : "No units listed"}
+            >
               {q
-                ? `No polling unit in ${scope.label} matches “${q}”.`
-                : `No polling units are listed for ${scope.label}.`}
+                ? `No polling unit in ${scope.label} matches “${q}”. Try the unit name or its INEC code.`
+                : `No polling units are listed for ${scope.label}. The secretariat loads them from the INEC register.`}
             </Empty>
           )
         }

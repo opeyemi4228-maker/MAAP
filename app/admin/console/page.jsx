@@ -208,7 +208,7 @@ export default async function ConsolePage() {
           lead={`Since ${day(register.firstJoined)}. Every member the platform has, counted every way somebody is likely to ask.`}
         />
 
-        <div className="grid gap-px bg-ink-200 sm:grid-cols-2 xl:grid-cols-4">
+        <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
           <StatTile
             icon={Users}
             label="Members"
@@ -611,7 +611,7 @@ export default async function ConsolePage() {
         />
         <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,2fr)]">
           <div className="space-y-6">
-            <div className="grid gap-px bg-ink-200 sm:grid-cols-2 lg:grid-cols-1">
+            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-1">
               <StatTile
                 icon={Share2}
                 label="Recruited members"
@@ -672,7 +672,7 @@ export default async function ConsolePage() {
           hrefLabel="Send one"
         />
 
-        <div className="grid gap-px bg-ink-200 sm:grid-cols-2 xl:grid-cols-4">
+        <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
           <StatTile
             icon={MessageSquare}
             label="Broadcasts sent"
@@ -860,7 +860,7 @@ export default async function ConsolePage() {
           </Table>
 
           <div className="space-y-6">
-            <div className="grid gap-px bg-ink-200">
+            <div className="grid gap-4">
               <StatTile icon={Database} label="Rows in total" value={totalRows} sub={size(totalBytes)} />
               <StatTile
                 icon={Activity}

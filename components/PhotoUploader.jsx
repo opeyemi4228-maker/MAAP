@@ -157,9 +157,9 @@ export default function PhotoUploader({ name, photoUrl }) {
     >
       {/* The photograph itself, at the size it will actually be seen. */}
       <div className="relative shrink-0 self-start">
-        <Avatar name={name} src={shown} size="xl" />
+        <Avatar name={name} src={shown} size="xl" ring={false} className="rounded-3xl" />
         {busy === "uploading" && (
-          <span className="absolute inset-0 grid place-items-center bg-ink-950/70">
+          <span className="absolute inset-0 grid place-items-center rounded-3xl bg-ink-950/70">
             <Loader2 size={26} className="animate-spin text-white" aria-hidden="true" />
           </span>
         )}
@@ -171,10 +171,10 @@ export default function PhotoUploader({ name, photoUrl }) {
               and the keyboard reaches the file input inside it directly. */}
           <label
             className={cn(
-              "inline-flex cursor-pointer items-center gap-2 border-2 border-ink-950 px-4 py-2.5 text-[0.6875rem] font-bold tracking-[0.08em] uppercase transition-colors",
+              "inline-flex cursor-pointer items-center gap-2 rounded-full px-5 py-2.5 text-[0.875rem] font-semibold transition-colors",
               busy
-                ? "pointer-events-none border-ink-300 text-ink-400"
-                : "bg-ink-950 text-white hover:border-ember-600 hover:bg-ember-600"
+                ? "pointer-events-none bg-ink-100 text-ink-400"
+                : "bg-brand-700 text-white hover:bg-brand-800"
             )}
           >
             <input
@@ -190,15 +190,15 @@ export default function PhotoUploader({ name, photoUrl }) {
               }}
               className="sr-only"
             />
-            <Camera size={14} strokeWidth={2.5} aria-hidden="true" />
-            {current ? "Change photograph" : "Add a photograph"}
+            <Camera size={16} strokeWidth={2.25} aria-hidden="true" />
+            {current ? "Change photo" : "Upload a photo"}
           </label>
 
           {current && !busy && (
             <button
               type="button"
               onClick={remove}
-              className="inline-flex items-center gap-2 border-2 border-ink-200 px-4 py-2.5 text-[0.6875rem] font-bold tracking-[0.08em] text-ink-500 uppercase transition-colors hover:border-red-600 hover:text-red-700"
+              className="inline-flex items-center gap-2 rounded-full border border-ink-200 px-4 py-2.5 text-[0.875rem] font-semibold text-ink-500 transition-colors hover:border-red-600 hover:text-red-700"
             >
               <Trash2 size={13} strokeWidth={2.5} aria-hidden="true" />
               Remove
@@ -218,9 +218,9 @@ export default function PhotoUploader({ name, photoUrl }) {
             member wants to know. */}
         {busy === "uploading" && (
           <div className="mt-4">
-            <div className="h-1.5 w-full bg-ink-200">
+            <div className="h-1.5 w-full overflow-hidden rounded-full bg-ink-200">
               <div
-                className="h-full bg-brand-600 transition-[width] duration-200"
+                className="h-full rounded-full bg-brand-600 transition-[width] duration-200"
                 style={{ width: `${Math.max(progress, 4)}%` }}
               />
             </div>
@@ -234,14 +234,14 @@ export default function PhotoUploader({ name, photoUrl }) {
         {/* `role="status"` rather than an alert: this is confirmation, and a
             screen reader should hear it without being interrupted mid-word. */}
         {done && (
-          <p role="status" className="mt-4 border-l-4 border-brand-600 bg-brand-50 px-4 py-3 text-[0.8125rem] text-brand-900">
+          <p role="status" className="mt-4 rounded-xl bg-brand-50 px-4 py-3 text-[0.8125rem] text-brand-900">
             {done}
           </p>
         )}
         {error && (
           <p
             role="alert"
-            className="mt-4 flex items-start gap-2.5 border-l-4 border-red-600 bg-red-50 px-4 py-3 text-[0.8125rem] leading-relaxed text-red-900"
+            className="mt-4 flex items-start gap-2.5 rounded-xl bg-red-50 px-4 py-3 text-[0.8125rem] leading-relaxed text-red-900"
           >
             <CircleAlert size={15} className="mt-0.5 shrink-0" aria-hidden="true" />
             {error}
@@ -249,10 +249,8 @@ export default function PhotoUploader({ name, photoUrl }) {
         )}
 
         <p className="mt-4 text-[0.75rem] leading-relaxed text-content-subtle">
-          JPEG, PNG or WebP, up to 8MB — or drag one onto this card. It is
-          cropped to a square around you and stripped of its location data
-          before it is stored, and it is visible only to you and to the officers
-          of your own territory.
+          JPEG, PNG or WebP, up to 8MB. Location data is removed, and only you
+          and your coordinators can see it.
         </p>
       </div>
 
@@ -262,7 +260,7 @@ export default function PhotoUploader({ name, photoUrl }) {
       {dragging && (
         <span
           aria-hidden="true"
-          className="pointer-events-none absolute -inset-3 grid place-items-center border-2 border-dashed border-brand-600 bg-brand-50/90"
+          className="pointer-events-none absolute -inset-3 grid place-items-center rounded-3xl border-2 border-dashed border-brand-600 bg-brand-50/90"
         >
           <span className="font-display text-[0.875rem] font-bold tracking-tight text-brand-800">
             Drop your photograph

@@ -53,7 +53,7 @@ export default async function AppointmentsPage() {
         lead={`The seats you fill, and the members who have asked to serve in them. You appoint the office directly below yours — nobody reaches further down than that.`}
       />
 
-      <div className="grid gap-px bg-ink-200 sm:grid-cols-3">
+      <div className="grid gap-4 sm:grid-cols-3">
         <StatTile icon={UserCheck} label="Seats you appoint to" value={seats.length} />
         <StatTile
           icon={Users}
@@ -97,7 +97,14 @@ export default async function AppointmentsPage() {
             { label: "Applications", align: "right" },
             { label: "", align: "right" },
           ]}
-          empty={seats.length === 0 ? <Empty>You do not appoint to any seat.</Empty> : null}
+          empty={
+            seats.length === 0 ? (
+              <Empty title="Nothing to appoint to">
+                No seat beneath yours is yours to fill. Appointments are made by
+                the authority directly above the seat.
+              </Empty>
+            ) : null
+          }
         >
           {seats.map((seat) => (
             <SeatRow key={seat.id} seat={seat} />
